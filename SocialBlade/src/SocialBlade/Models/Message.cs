@@ -13,11 +13,7 @@ namespace SocialBlade.Models
         public virtual string Content { get; set; }
         public virtual DateTime DateSent { get; set; }
         public virtual DateTime DateSeen { get; set; }
-        [ForeignKey("Group")]
-        public virtual Guid GroupId { get; set; }
         public virtual Group Group { get; set; }
-        [ForeignKey("ApplicationUser")]
-        public virtual string ApplicationUserId { get; set; }
         public virtual ApplicationUser Author { get; set; }
 
     }

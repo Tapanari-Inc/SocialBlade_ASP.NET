@@ -8,11 +8,7 @@ namespace SocialBlade.Models
 {
     public class User_Group:EntityBase
     {
-        [ForeignKey("User")]
-        public virtual string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        [ForeignKey("Group")]
-        public virtual Guid GroupId { get; set; }
         public virtual Group Group { get; set; }
     }
 }
