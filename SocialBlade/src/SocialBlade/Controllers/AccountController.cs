@@ -20,20 +20,17 @@ namespace SocialBlade.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -65,23 +62,12 @@ namespace SocialBlade.Controllers
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning(2, "User account locked out.");
-                    return View("Lockout");
-                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -380,10 +366,6 @@ namespace SocialBlade.Controllers
             if (model.SelectedProvider == "Email")
             {
                 await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
-            }
-            else if (model.SelectedProvider == "Phone")
-            {
-                await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
             }
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });

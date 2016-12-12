@@ -1,11 +1,55 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Sign Up for Free";
 }
+@section stylesheets
+{
+    <link href="css/register.css" type="text/css" rel="stylesheet" media="screen,projection" />
+}
+<div class="row">
+    <h4 class="center-align">@ViewData["Title"]</h4>
+</div>
+<div class="row">
+    <form class="col s12 m4 offset-m4"  asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"  method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name">Last Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="confirmpassword" type="password" class="validate">
+                <label for="confirmpassword">Confirm password</label>
+            </div>
+        </div>
+        <div class="col s10 offset-s1 center-align">
+            <button class="btn waves-effect waves-light center-align" type="submit" name="action">
+                Register
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
 
-<h2>@ViewData["Title"].</h2>
-
-<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+@*<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
     <h4>Create a new account.</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -35,7 +79,7 @@
             <button type="submit" class="btn btn-default">Register</button>
         </div>
     </div>
-</form>
+</form>*@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

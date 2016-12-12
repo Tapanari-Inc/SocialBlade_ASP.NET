@@ -7,9 +7,40 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<h2>@ViewData["Title"].</h2>
 <div class="row">
+    <h4 class="center-align">@ViewData["Title"]</h4>
+</div>
+<div class="row">
+    <form class="col s12 m4 offset-m4" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="Email" type="email" class="validate">
+                <label asp-for="Email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="Password" type="password" class="validate">
+                <label asp-for="Password">Password</label>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col s10 offset-s1 center-align">
+            <button class="btn waves-effect waves-light center-align" type="submit" name="action">
+                Login
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+        <br/>
+        <p>
+            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+        </p>
+        <p>
+            <a asp-action="ForgotPassword">Forgot your password?</a>
+        </p>
+    </form>
+</div>
+<div class="row" style="display:none">
     <div class="col-md-8">
         <section>
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
@@ -52,37 +83,6 @@
                     <a asp-action="ForgotPassword">Forgot your password?</a>
                 </p>
             </form>
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                var loginProviders = SignInManager.GetExternalAuthenticationSchemes().ToList();
-                if (loginProviders.Count == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in loginProviders)
-                                {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="Log in using your @provider.DisplayName account">@provider.AuthenticationScheme</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
         </section>
     </div>
 </div>
