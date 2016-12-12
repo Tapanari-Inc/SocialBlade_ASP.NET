@@ -8,9 +8,10 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161212212017_RandomName")]
+    partial class RandomName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -182,59 +183,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("SocialBlade.Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuthorId");
-
-                    b.Property<string>("Content")
-                        .IsRequired();
-
-                    b.Property<DateTime>("DateSeen");
-
-                    b.Property<DateTime>("DateSent");
-
-                    b.Property<Guid?>("GroupId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("SocialBlade.Models.Post", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuthorId")
-                        .IsRequired();
-
-                    b.Property<string>("Content")
-                        .IsRequired();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<int>("Dislikes");
-
-                    b.Property<int>("Likes");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Posts");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Post");
+                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
@@ -253,24 +202,6 @@ namespace SocialBlade.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("User_Group");
-                });
-
-            modelBuilder.Entity("SocialBlade.Models.Comment", b =>
-                {
-                    b.HasBaseType("SocialBlade.Models.Post");
-
-                    b.Property<Guid?>("ParentCommentId");
-
-                    b.Property<Guid?>("PostId")
-                        .IsRequired();
-
-                    b.HasIndex("ParentCommentId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Comment");
-
-                    b.HasDiscriminator().HasValue("Comment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -310,25 +241,6 @@ namespace SocialBlade.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SocialBlade.Models.Message", b =>
-                {
-                    b.HasOne("SocialBlade.Models.ApplicationUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("SocialBlade.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId");
-                });
-
-            modelBuilder.Entity("SocialBlade.Models.Post", b =>
-                {
-                    b.HasOne("SocialBlade.Models.ApplicationUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
                 {
                     b.HasOne("SocialBlade.Models.Group", "Group")
@@ -338,18 +250,6 @@ namespace SocialBlade.Data.Migrations
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Groups")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("SocialBlade.Models.Comment", b =>
-                {
-                    b.HasOne("SocialBlade.Models.Comment", "ParentComment")
-                        .WithMany()
-                        .HasForeignKey("ParentCommentId");
-
-                    b.HasOne("SocialBlade.Models.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
