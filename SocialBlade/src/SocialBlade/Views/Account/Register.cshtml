@@ -14,30 +14,30 @@
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="row">
             <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate">
-                <label for="first_name">First Name</label>
+                <input asp-for="FirstName" type="text" class="validate">
+                <label asp-for="FirstName">First Name</label>
             </div>
             <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate">
-                <label for="last_name">Last Name</label>
+                <input asp-for="LastName" type="text" class="validate">
+                <label asp-for="LastName">Last Name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
+                <input asp-for="Email" type="email" class="validate">
+                <label asp-for="Email">Email</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
+                <input asp-for="Password" type="password" class="validate">
+                <label asp-for="Password">Password</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="confirmpassword" type="password" class="validate">
-                <label for="confirmpassword">Confirm password</label>
+                <input asp-for="ConfirmPassword" type="password" class="validate">
+                <label asp-for="ConfirmPassword">Confirm password</label>
             </div>
         </div>
         <div class="col s10 offset-s1 center-align">
