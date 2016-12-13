@@ -10,6 +10,8 @@ namespace SocialBlade.Controllers
     {
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("List", "Post");
             return View();
         }
 

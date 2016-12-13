@@ -18,13 +18,13 @@
                 NAI-TUPATA COMPANIA
             </div>
             <div class="buttons">
-                <a href="#">
-                    <div class="lgt getStarted z-depth-3">
+                <a  asp-controller="Account" asp-action="Register">
+                    <div class="lgt getStarted z-depth-3" >
                         GET STARTED
                     </div>
                 </a>
                 <br>
-                <a asp-controller="Account" asp-action="Login" asp-route-returnurl="@Url.Action("Contact","Home")">
+                <a asp-controller="Account" asp-action="Login">
                     <div class="lgt login z-depth-3">
                         LOGIN
                     </div>
