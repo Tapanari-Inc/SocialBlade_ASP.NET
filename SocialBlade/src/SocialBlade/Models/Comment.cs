@@ -17,7 +17,7 @@ namespace SocialBlade.Models
         public virtual ApplicationUser Author { get; set; }
         [Required]
         public virtual Post Post { get; set; }
-
         public virtual Comment ParentComment { get; set; }
+        public virtual List<Comment> Replies { get; set; }
     }
 }

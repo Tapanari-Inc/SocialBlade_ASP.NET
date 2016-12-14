@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-SocialBlade-d38c1a8a-e82c-4be7-8aaa-d401cab561b1",
 
   "dependencies": {
@@ -41,10 +41,11 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc":  {
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "NuGet.CommandLine": "3.4.3"
   },
 
   "tools": {

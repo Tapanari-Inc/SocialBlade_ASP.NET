@@ -15,5 +15,7 @@ namespace SocialBlade.Models
         [Required]
         public virtual string LastName { get; set; }
         public virtual List<User_Group> Groups { get; set; }
+        public virtual List<ApplicationUser> Following { get; set; }
+        public virtual List<ApplicationUser> Followers { get; set; }
     }
 }
