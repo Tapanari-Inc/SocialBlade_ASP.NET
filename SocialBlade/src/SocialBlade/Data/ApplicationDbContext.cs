@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SocialBlade.Models;
 
 namespace SocialBlade.Data
@@ -20,12 +21,21 @@ namespace SocialBlade.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Post> Posts { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<UserRelation>()
+                .HasOne(x => x.Followee)
+                .WithMany(x => x.RelationB)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserRelation>()
+                .HasOne(x => x.Follower)
+                .WithMany(x => x.RelationA)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
