@@ -1,0 +1,74 @@
+@model SocialBlade.Models.AccountViewModels.ProfileViewModel
+<div class="menu hide-on-small-only">
+    <div class="burger-container">
+        <div class="burger">
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+        </div>
+    </div>
+    <div class="nav-items">
+        <a href="#">
+            <div class="myProfile">
+                <div class="labelMP">
+                    MY PROFILE
+                </div>
+                <div class="MP">
+                    <div class="row" style="height: 100%;">
+                        <div class="col s3 myPic">
+                            <img class="circle myProfilePic" src="@Model.ProfileImageUrl">
+                        </div>
+                        <div class="col s9">
+                            <div class="myStats">
+                                @Model.FollowersCount
+                            </div>
+                            <div class="myName">
+                                @Model.FullName
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <div class="item navs">
+            <div class="container">
+                <div class="row">
+                    <a href="#">
+                        <div class="col m10 offset-m1 link hvr-outline-out flow-text">
+                            EXPLORE
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="col m10 offset-m1 link hvr-outline-out flow-text">
+                            CREATE A POST
+                        </div>
+                    </a>
+                    <form asp-action="LogOff" asp-controller="Account" id="logOffForm">
+                        <a onclick="document.getElementById('logOffForm').submit();">
+                            <div id="logOffButton" class="col m10 offset-m1 link hvr-outline-out flow-text">
+                                LOG OFF
+                            </div>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
+    <div class="row" style="margin-bottom: 0;">
+        <div class="col s3 icon current">
+            <a href="#"><img src="~/images/home.png"></a>
+        </div>
+        <div class="col s3 icon">
+            <a href="#"><img src="~/images/compass.png"></a>
+        </div>
+        <div class="col s3 icon">
+            <a href="#"><img src="~/images/avatar.png"></a>
+        </div>
+        <div class="col s3 icon">
+            <a href="#"><img src="~/images/upload.png"></a>
+        </div>
+    </div>
+</div>
