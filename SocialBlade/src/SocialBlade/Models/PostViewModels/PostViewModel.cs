@@ -7,6 +7,6 @@ namespace SocialBlade.Models.PostViewModels
 {
     public class PostViewModel:ShortPostViewModel
     {
-        public List<Comment> Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
