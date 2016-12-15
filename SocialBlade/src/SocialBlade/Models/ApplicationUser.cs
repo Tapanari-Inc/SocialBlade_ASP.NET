@@ -14,6 +14,7 @@ namespace SocialBlade.Models
         public virtual string FirstName { get; set; }
         [Required]
         public virtual string LastName { get; set; }
+        public string ProfilePictureUrl { get; set; }
         public virtual List<User_Group> Groups { get; set; }
 
         public virtual List<User_Like> Likes { get; set; }

@@ -8,9 +8,10 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161215200514_added-likes-dislikes")]
+    partial class addedlikesdislikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -159,8 +160,6 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("ProfilePictureUrl");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -182,7 +181,7 @@ namespace SocialBlade.Data.Migrations
 
             modelBuilder.Entity("SocialBlade.Models.Comment", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuthorId")
@@ -195,37 +194,38 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<int>("Likes");
 
-                    b.Property<Guid?>("ParentCommentID");
+                    b.Property<Guid?>("ParentCommentId");
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid?>("PostId")
+                        .IsRequired();
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("ParentCommentID");
+                    b.HasIndex("ParentCommentId");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("PostId");
 
                     b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Group", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Message", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuthorId");
@@ -237,20 +237,20 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<Guid?>("GroupID");
+                    b.Property<Guid?>("GroupId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("GroupID");
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Post", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuthorId")
@@ -259,17 +259,7 @@ namespace SocialBlade.Data.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<DateTime>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<string>("ImageUrl");
-
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -278,61 +268,61 @@ namespace SocialBlade.Data.Migrations
 
             modelBuilder.Entity("SocialBlade.Models.User_Dislike", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid?>("PostId");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserDislikes");
+                    b.ToTable("User_Dislike");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("GroupID");
+                    b.Property<Guid?>("GroupId");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("GroupID");
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserGroups");
+                    b.ToTable("User_Group");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Like", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid?>("PostId");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLikes");
+                    b.ToTable("User_Like");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.UserRelation", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("FolloweeId")
@@ -341,13 +331,13 @@ namespace SocialBlade.Data.Migrations
                     b.Property<string>("FollowerId")
                         .IsRequired();
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("FolloweeId");
 
                     b.HasIndex("FollowerId");
 
-                    b.ToTable("UserRelations");
+                    b.ToTable("UserRelation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -396,11 +386,12 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasOne("SocialBlade.Models.Comment", "ParentComment")
                         .WithMany("Replies")
-                        .HasForeignKey("ParentCommentID");
+                        .HasForeignKey("ParentCommentId");
 
                     b.HasOne("SocialBlade.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Message", b =>
@@ -411,7 +402,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasOne("SocialBlade.Models.Group", "Group")
                         .WithMany("Messages")
-                        .HasForeignKey("GroupID");
+                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Post", b =>
@@ -426,7 +417,7 @@ namespace SocialBlade.Data.Migrations
                 {
                     b.HasOne("SocialBlade.Models.Post", "Post")
                         .WithMany("DislikedBy")
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostId");
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Dislikes")
@@ -437,7 +428,7 @@ namespace SocialBlade.Data.Migrations
                 {
                     b.HasOne("SocialBlade.Models.Group", "Group")
                         .WithMany("Members")
-                        .HasForeignKey("GroupID");
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Groups")
@@ -448,7 +439,7 @@ namespace SocialBlade.Data.Migrations
                 {
                     b.HasOne("SocialBlade.Models.Post", "Post")
                         .WithMany("LikedBy")
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostId");
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Likes")
