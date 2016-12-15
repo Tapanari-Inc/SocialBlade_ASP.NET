@@ -8,9 +8,10 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161215215558_post-date-changed")]
+    partial class postdatechanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -265,13 +266,40 @@ namespace SocialBlade.Data.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("ImageUrl");
-
                     b.HasKey("ID");
 
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("SocialBlade.Models.PostViewModels.ShortPostViewModel", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorName");
+
+                    b.Property<string>("AuthorPictureUrl");
+
+                    b.Property<int>("CommentsCount");
+
+                    b.Property<string>("Content")
+                        .IsRequired();
+
+                    b.Property<string>("CreateTime");
+
+                    b.Property<int>("Dislikes");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<int>("Likes");
+
+                    b.Property<bool?>("Reaction");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ShortPostViewModel");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Dislike", b =>

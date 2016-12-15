@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SocialBlade.Models;
+using SocialBlade.Models.PostViewModels;
 
 namespace SocialBlade.Data
 {
@@ -36,6 +37,20 @@ namespace SocialBlade.Data
                 .WithMany(x => x.RelationA)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Comment>()
+                .HasOne<Post>(x => x.Post)
+                .WithMany()
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Post>()
+                .Property(x => x.DateCreated)
+                .HasDefaultValueSql("getdate()");
+
+            builder.Entity<Post>()
+                .Property(x => x.DateModified)
+                .HasDefaultValueSql("getdate()");
         }
     }
 }
