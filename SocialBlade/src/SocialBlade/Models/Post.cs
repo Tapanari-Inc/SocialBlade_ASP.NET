@@ -12,8 +12,8 @@ namespace SocialBlade.Models
         public virtual int Likes => LikedBy.Count;
         [NotMapped]
         public virtual int Dislikes => DislikedBy.Count;
-        public virtual List<ApplicationUser> LikedBy { get; set; }
-        public virtual List<ApplicationUser> DislikedBy { get; set; }
+        public virtual List<User_Like> LikedBy { get; set; }
+        public virtual List<User_Dislike> DislikedBy { get; set; }
         [Required]
         public virtual ApplicationUser Author { get; set; }
     }

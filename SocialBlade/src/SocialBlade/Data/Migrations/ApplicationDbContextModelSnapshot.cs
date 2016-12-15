@@ -159,10 +159,6 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<Guid?>("PostId");
-
-                    b.Property<Guid?>("PostId1");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -178,10 +174,6 @@ namespace SocialBlade.Data.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("PostId1");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -273,6 +265,24 @@ namespace SocialBlade.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("SocialBlade.Models.User_Dislike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("PostId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Dislike");
+                });
+
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
                 {
                     b.Property<Guid>("Id")
@@ -289,6 +299,24 @@ namespace SocialBlade.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("User_Group");
+                });
+
+            modelBuilder.Entity("SocialBlade.Models.User_Like", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("PostId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Like");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.UserRelation", b =>
@@ -348,17 +376,6 @@ namespace SocialBlade.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SocialBlade.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("SocialBlade.Models.Post")
-                        .WithMany("DislikedBy")
-                        .HasForeignKey("PostId");
-
-                    b.HasOne("SocialBlade.Models.Post")
-                        .WithMany("LikedBy")
-                        .HasForeignKey("PostId1");
-                });
-
             modelBuilder.Entity("SocialBlade.Models.Comment", b =>
                 {
                     b.HasOne("SocialBlade.Models.ApplicationUser", "Author")
@@ -395,6 +412,17 @@ namespace SocialBlade.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SocialBlade.Models.User_Dislike", b =>
+                {
+                    b.HasOne("SocialBlade.Models.Post", "Post")
+                        .WithMany("DislikedBy")
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("SocialBlade.Models.ApplicationUser", "User")
+                        .WithMany("Dislikes")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
                 {
                     b.HasOne("SocialBlade.Models.Group", "Group")
@@ -403,6 +431,17 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Groups")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SocialBlade.Models.User_Like", b =>
+                {
+                    b.HasOne("SocialBlade.Models.Post", "Post")
+                        .WithMany("LikedBy")
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("SocialBlade.Models.ApplicationUser", "User")
+                        .WithMany("Likes")
                         .HasForeignKey("UserId");
                 });
 

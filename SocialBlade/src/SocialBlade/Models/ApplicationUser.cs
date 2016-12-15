@@ -16,6 +16,9 @@ namespace SocialBlade.Models
         public virtual string LastName { get; set; }
         public virtual List<User_Group> Groups { get; set; }
 
+        public virtual List<User_Like> Likes { get; set; }
+        public virtual List<User_Dislike> Dislikes { get; set; }
+
         public virtual List<UserRelation> RelationA { get; set; }
         public virtual List<UserRelation> RelationB { get; set; }
     }
