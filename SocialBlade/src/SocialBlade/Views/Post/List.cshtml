@@ -1,4 +1,4 @@
-@model IEnumerable<SocialBlade.Models.PostViewModels.PostViewModel>
+@model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
 
 @{
     ViewData["Title"] = "Posts";
@@ -11,77 +11,7 @@
 {
     <link href="~/css/styleHome.css" type="text/css" rel="stylesheet" media="screen,projection" />
 }
-<div class="menu hide-on-small-only">
-    <div class="burger-container">
-        <div class="burger">
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-        </div>
-    </div>
-    <div class="nav-items">
-        <a href="#">
-            <div class="myProfile">
-                <div class="labelMP">
-                    MY PROFILE
-                </div>
-                <div class="MP">
-                    <div class="row" style="height: 100%;">
-                        <div class="col s3 myPic">
-                            <img class="circle myProfilePic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
-                        </div>
-                        <div class="col s9">
-                            <div class="myStats">
-                                14M followers
-                            </div>
-                            <div class="myName">
-                                CHRIS PAM
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <div class="item navs">
-            <div class="container">
-                <div class="row">
-                    <a href="#">
-                        <div class="col m10 offset-m1 link hvr-outline-out flow-text">
-                            EXPLORE
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="col m10 offset-m1 link hvr-outline-out flow-text">
-                            CREATE A POST
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="col m10 offset-m1 link hvr-outline-out flow-text">
-                            LOG OFF
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
-    <div class="row" style="margin-bottom: 0;">
-        <div class="col s3 icon current">
-            <a href="#"><img src="~/images/home.png"></a>
-        </div>
-        <div class="col s3 icon">
-            <a href="#"><img src="~/images/compass.png"></a>
-        </div>
-        <div class="col s3 icon">
-            <a href="#"><img src="~/images/avatar.png"></a>
-        </div>
-        <div class="col s3 icon">
-            <a href="#"><img src="~/images/upload.png"></a>
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("MenuComponent");
 <div class="content-container">
     <div class="row">
         <div class="col s12 m6 offset-m3 content">
