@@ -8,8 +8,8 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161215182408_added-likes-dislikes")]
-    partial class addedlikesdislikes
+    [Migration("20161215211409_random-db-fix")]
+    partial class randomdbfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -281,7 +281,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Dislike");
+                    b.ToTable("UserDislikes");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
@@ -299,7 +299,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Group");
+                    b.ToTable("UserGroups");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Like", b =>
@@ -317,7 +317,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Like");
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.UserRelation", b =>
@@ -337,7 +337,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("FollowerId");
 
-                    b.ToTable("UserRelation");
+                    b.ToTable("UserRelations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

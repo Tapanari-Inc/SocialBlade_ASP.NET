@@ -8,9 +8,10 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161215200514_added-likes-dislikes")]
+    partial class addedlikesdislikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -159,8 +160,6 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("ProfilePictureUrl");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -282,7 +281,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserDislikes");
+                    b.ToTable("User_Dislike");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Group", b =>
@@ -300,7 +299,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserGroups");
+                    b.ToTable("User_Group");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Like", b =>
@@ -318,7 +317,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLikes");
+                    b.ToTable("User_Like");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.UserRelation", b =>
@@ -338,7 +337,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.HasIndex("FollowerId");
 
-                    b.ToTable("UserRelations");
+                    b.ToTable("UserRelation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
