@@ -58,5 +58,10 @@ namespace SocialBlade.Data
                 .Property(x => x.DateModified)
                 .HasDefaultValueSql("getdate()");
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
     }
 }

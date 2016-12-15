@@ -20,7 +20,7 @@ namespace SocialBlade.Models.PostViewModels
             Likes = post.Likes;
             CommentsCount = 19999999;
             AuthorName = post.Author.FirstName + " " + post.Author.LastName;
-            AuthorPictureUrl = "https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252";
+            AuthorPictureUrl = post.Author.ProfilePictureUrl;
             CreateTime = post.DateCreated.ToString();
             ImageUrl = post.ImageUrl;
         }
