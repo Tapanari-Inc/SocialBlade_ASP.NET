@@ -9,18 +9,26 @@ using SocialBlade.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialBlade.Controllers
 {
     [Authorize]
     public class PostController : Controller
     {
+        const string POST_IMAGES_PATH = "user_content\\post_images";
         private ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;
-        public PostController( ApplicationDbContext context, UserManager<ApplicationUser> userManager )
+        private IHostingEnvironment _hostingEnvironment;
+        public PostController(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
         [Authorize]
@@ -50,7 +58,8 @@ namespace SocialBlade.Controllers
                 }
                 return new ShortPostViewModel(x)
                 {
-                    Reaction = r
+                    Reaction = r,
+                    ImageUrl = GetPostImagePath(x.ImageUrl)
                 };
             }));
 
@@ -94,12 +103,12 @@ namespace SocialBlade.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View("Edit", new ShortPostViewModel());
+            return View("Edit", new EditPostViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save( ShortPostViewModel postViewModel )
+        public async Task<IActionResult> Save(EditPostViewModel postViewModel)
         {
             if(ModelState.IsValid)
             {
@@ -113,7 +122,7 @@ namespace SocialBlade.Controllers
                 {
                     post = _context.Posts.FirstOrDefault(x => x.ID == postViewModel.ID);
                 }
-                post.ImageUrl = postViewModel.ImageUrl;
+                post.ImageUrl = await UploadImageAsync(postViewModel.Image);
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
                 if(isNew)
@@ -162,6 +171,27 @@ namespace SocialBlade.Controllers
             _context.SaveChanges();
 
             return "200";
+        }
+
+        private async Task<string> UploadImageAsync(IFormFile file)
+        {
+            Directory.CreateDirectory(GetAbsolutePath(POST_IMAGES_PATH));
+            string imageFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            string imagePath = Path.Combine(POST_IMAGES_PATH, imageFileName);
+            string uploadPath = GetAbsolutePath(imagePath);
+            using (Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
+                await file.CopyToAsync(uploadStream);
+            return imageFileName;
+        }
+
+        private string GetPostImagePath(string imageFileName)
+        {
+            return "/" + POST_IMAGES_PATH + "/"+imageFileName;
+        }
+
+        private string GetAbsolutePath(string relativePath)
+        {
+            return Path.Combine(_hostingEnvironment.WebRootPath, relativePath);
         }
     }
 }

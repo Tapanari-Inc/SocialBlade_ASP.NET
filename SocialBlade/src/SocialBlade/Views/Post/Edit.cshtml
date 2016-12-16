@@ -1,4 +1,4 @@
-@model SocialBlade.Models.PostViewModels.ShortPostViewModel
+@model SocialBlade.Models.PostViewModels.EditPostViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,12 +6,12 @@
 
 <h2>EditPost</h2>
 
-<form asp-action="Save" method="post">
+<form asp-action="Save" method="post" enctype = "multipart/form-data">
     <div class="form-horizontal">
         <h4>ShortPostViewModel</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ID" />
         <div class="form-group">
             <label asp-for="Content" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
+            <label asp-for="Image" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger" />
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -33,6 +33,8 @@
         </div>
     </div>
 </form>
+
+@* Hellow DotNET *@
 
 <div>
     <a asp-action="Index">Back to List</a>
