@@ -24,7 +24,7 @@
                 <div class="post z-depth-5 col s12 m10 offset-m1">
                     <div class="post-header">
                         <div class="row">
-                            @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post"})
+                            @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post" })
                             <div class="col s4 time-container">
                                 <abbr title="@item.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
                                     <span class="flow-text right time">@item.CreateTime.FormatDate()</span>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="post-content">
                         <p class="caption">@item.Content</p>
-                        @if(!string.IsNullOrEmpty(item.ImageUrl))
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
                         {
                             <img class="uploadedPic" src="@item.ImageUrl">
                         }
@@ -45,9 +45,10 @@
                             <div class="col s2">
                                 <div class="likeW">
                                     <i class="fa fa-thumbs-up fa-2x like
-                                       @if(item.Reaction.HasValue&&item.Reaction.Value) {
-                                            @:clicked
-                                        }
+                                        @if(item.Reaction == true)
+                                         {
+                                             @:clicked
+                                         }
                                         " aria-hidden="true"></i>
                                 </div>
                                 <div class="amountLike">
@@ -59,7 +60,8 @@
                             <div class="col s2">
                                 <div class="dislikeW">
                                     <i class="fa fa-thumbs-down fa-2x dislike
-                                       @if(item.Reaction.HasValue&&!item.Reaction.Value) {
+                                       @if(item.Reaction == false)
+                                        {
                                             @:clicked
                                         }
                                        " aria-hidden="true"></i>

@@ -1,7 +1,11 @@
 ﻿//Likes
 $('.like').click(function () {
+    console.log(this);
     let me = $(this);
     if (me.hasClass('clicked')) {//stop liking
+        console.log(me);
+        console.log(me.attr('class'));
+        console.log('im there');
         updateReaction(getPostId(me),
             0,
             function (res) {
@@ -11,6 +15,7 @@ $('.like').click(function () {
             });
 
     } else {//start liking and stop disliking
+        console.log('im here');
         updateReaction(getPostId(me),
             1,
             function (res) {
@@ -61,6 +66,7 @@ $('.dislike').click(function () {
 });
 
 function updateReaction(postId, reaction, onSuccess) {
+    console.log(reaction);
     $.ajax(
     {
         type: "POST",

@@ -37,8 +37,8 @@ namespace SocialBlade.Controllers
             var posts = new List<ShortPostViewModel>();
             var dbPosts = _context.Posts
                 .Include(x => x.Author)
-                .Include(x => x.LikedBy)
-                .Include(x => x.DislikedBy)
+                .Include(x => x.LikedBy).ThenInclude(x=>x.User)
+                .Include(x => x.DislikedBy).ThenInclude(x => x.User)
                 .OrderByDescending(x => x.DateCreated).ToList();
             ApplicationUser user = _context.Users.First(x => x.UserName == User.Identity.Name);
             posts.AddRange(dbPosts.Select(x =>
@@ -139,7 +139,7 @@ namespace SocialBlade.Controllers
         //Post: Post/Reacted
         [HttpPost]
         [Authorize]
-        public string Reacted( Guid postId, int reaction )
+        public string Reacted(Guid postId, int reaction)
         {
             //TODO: Check Follower-Followee rule and validate
             ApplicationUser user = _context
@@ -149,16 +149,14 @@ namespace SocialBlade.Controllers
                 .First(x => x.UserName == User.Identity.Name);
             Post post = _context
                 .Posts
-                .Include(x => x.DislikedBy)
-                .Include(x => x.LikedBy)
+                .Include(x => x.DislikedBy).ThenInclude(x => x.User)
+                .Include(x => x.LikedBy).ThenInclude(x=>x.User)
                 .First(x => x.ID == postId);
             if(reaction == 0)
             {
                 if(post.LikedBy.RemoveAll(x => x.User.Id == user.Id) == 0)
                     post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
-
             }
-
             else if(reaction == 1)
             {
                 post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
