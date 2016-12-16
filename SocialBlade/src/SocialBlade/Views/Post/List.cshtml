@@ -30,7 +30,7 @@
                             </div>
                             <div class="col s4 time-container">
                                 <abbr title="@item.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
-                                    <span class="flow-text right time">@HelperClass.SerializeDate(item.CreateTime)</span>
+                                    <span class="flow-text right time">@item.CreateTime.FormatDate()</span>
                                 </abbr>
                             </div>
                         </div>
