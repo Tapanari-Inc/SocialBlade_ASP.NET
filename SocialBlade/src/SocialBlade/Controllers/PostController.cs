@@ -17,19 +17,43 @@ namespace SocialBlade.Controllers
     {
         private ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;
-        public PostController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public PostController( ApplicationDbContext context, UserManager<ApplicationUser> userManager )
         {
             _context = context;
             _userManager = userManager;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult List()
         {
             var posts = new List<ShortPostViewModel>();
             var dbPosts = _context.Posts
                 .Include(x => x.Author)
-                .OrderByDescending(x=>x.DateCreated).ToList();
-            posts.AddRange(dbPosts.Select(x => new ShortPostViewModel(x)));
+                .Include(x => x.LikedBy)
+                .Include(x => x.DislikedBy)
+                .OrderByDescending(x => x.DateCreated).ToList();
+            ApplicationUser user = _context.Users.First(x => x.UserName == User.Identity.Name);
+            posts.AddRange(dbPosts.Select(x =>
+            {
+                bool? r;
+                if(x.LikedBy.Any(y => y.User.Id == user.Id))
+                {
+                    r = true;
+                }
+                else if(x.DislikedBy.Any(y => y.User.Id == user.Id))
+                {
+                    r = false;
+                }
+                else
+                {
+                    r = null;
+                }
+                return new ShortPostViewModel(x)
+                {
+                    Reaction = r
+                };
+            }));
+
             #region spam-data
             posts.AddRange
             (new List<ShortPostViewModel> {
@@ -75,13 +99,13 @@ namespace SocialBlade.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save(ShortPostViewModel postViewModel)
+        public async Task<IActionResult> Save( ShortPostViewModel postViewModel )
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 Post post;
                 bool isNew = postViewModel.ID == Guid.Empty;
-                if (isNew)
+                if(isNew)
                 {
                     post = new Models.Post();
                 }
@@ -92,14 +116,52 @@ namespace SocialBlade.Controllers
                 post.ImageUrl = postViewModel.ImageUrl;
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
-                if (isNew)
+                if(isNew)
                 {
                     _context.Posts.Add(post);
                 }
                 await _context.SaveChangesAsync();
                 return RedirectToAction("List");
             }
-            return View("Edit",postViewModel);
+            return View("Edit", postViewModel);
+        }
+
+        //Post: Post/Reacted
+        [HttpPost]
+        [Authorize]
+        public string Reacted( Guid postId, int reaction )
+        {
+            //TODO: Check Follower-Followee rule and validate
+            ApplicationUser user = _context
+                .Users
+                .Include(x => x.Likes)
+                .Include(x => x.Dislikes)
+                .First(x => x.UserName == User.Identity.Name);
+            Post post = _context
+                .Posts
+                .Include(x => x.DislikedBy)
+                .Include(x => x.LikedBy)
+                .First(x => x.ID == postId);
+            if(reaction == 0)
+            {
+                if(post.LikedBy.RemoveAll(x => x.User.Id == user.Id) == 0)
+                    post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
+
+            }
+
+            else if(reaction == 1)
+            {
+                post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
+                post.LikedBy.Add(new User_Like { Post = post, User = user });
+            }
+            else//reaction == -1
+            {
+                post.LikedBy.RemoveAll(x => x.User.Id == user.Id);
+                post.DislikedBy.Add(new User_Dislike() { Post = post, User = user });
+            }
+            _context.SaveChanges();
+
+            return "200";
         }
     }
 }

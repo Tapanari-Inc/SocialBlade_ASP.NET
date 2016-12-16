@@ -7,6 +7,7 @@
 @section scripts
 {
     <script src="~/js/initHome.js"></script>
+    <script src="~/js/reactionLogic.js"></script>
 }
 @section stylesheets
 {
@@ -37,29 +38,39 @@
                     </div>
                     <div class="post-content">
                         <p class="caption">@item.Content</p>
-                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        @if(!string.IsNullOrEmpty(item.ImageUrl))
                         {
                             <img class="uploadedPic" src="@item.ImageUrl">
                         }
                     </div>
                     <div class="post-footer">
                         <div class="row" style="height: 100%;">
-                            <input type="hidden" value="@item.ID"/>
+                            <input type="hidden" class="id" value="@item.ID" />
                             <div class="col s2">
                                 <div class="likeW">
-                                    <i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-up fa-2x like
+                                       @if(item.Reaction.HasValue&&item.Reaction.Value) {
+                                            @:clicked
+                                        }
+                                        " aria-hidden="true"></i>
                                 </div>
                                 <div class="amountLike">
-                                    <p><b>@item.Likes</b>
+                                    <p>
+                                        <b>@item.Likes</b>
                                     </p>
                                 </div>
                             </div>
                             <div class="col s2">
                                 <div class="dislikeW">
-                                    <i class="fa fa-thumbs-down fa-2x dislike" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-down fa-2x dislike
+                                       @if(item.Reaction.HasValue&&!item.Reaction.Value) {
+                                            @:clicked
+                                        }
+                                       " aria-hidden="true"></i>
                                 </div>
                                 <div class="amountDislike">
-                                    <p><b>@item.Dislikes</b>
+                                    <p>
+                                        <b>@item.Dislikes</b>
                                     </p>
                                 </div>
                             </div>
@@ -68,7 +79,8 @@
                                     <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
                                 </div>
                                 <div class="amountComments">
-                                    <p><b>@item.CommentsCount</b>
+                                    <p>
+                                        <b>@item.CommentsCount</b>
                                     </p>
                                 </div>
                             </div>
