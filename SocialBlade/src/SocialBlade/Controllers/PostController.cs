@@ -101,6 +101,7 @@ namespace SocialBlade.Controllers
                 {
                     post = _context.Posts.FirstOrDefault(x => x.ID == postViewModel.ID);
                 }
+                if(postViewModel.Image != null)
                 post.ImageUrl = await UploadImageAsync(postViewModel.Image);
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
