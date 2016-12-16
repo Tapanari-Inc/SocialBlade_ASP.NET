@@ -45,8 +45,7 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "NuGet.CommandLine": "3.4.3",
-    "Microsoft.AspNet.SignalR.Core": "2.2.1"
+    "NuGet.CommandLine": "3.4.3"
   },
 
   "tools": {
