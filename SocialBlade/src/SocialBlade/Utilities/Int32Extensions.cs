@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace SocialBlade.Utilities
 {
-    public static class HelperClass
+    public static class Int32Extensions
     {
-        public static string ConvertNumbers(int number )
+        public static string Format(this int number)
         {
             if (number<1000)//10^3
             {
