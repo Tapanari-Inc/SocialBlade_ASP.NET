@@ -9,6 +9,6 @@ namespace SocialBlade.Models
     public class EntityBase
     {
         [Key]
-        public virtual Guid Id { get; set; }
+        public virtual Guid ID { get; set; }
     }
 }

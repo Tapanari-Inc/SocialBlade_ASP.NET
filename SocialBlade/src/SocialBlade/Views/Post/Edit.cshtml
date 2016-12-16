@@ -1,0 +1,43 @@
+@model SocialBlade.Models.PostViewModels.ShortPostViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>EditPost</h2>
+
+<form asp-action="Save" method="post">
+    <div class="form-horizontal">
+        <h4>ShortPostViewModel</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="Content" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
