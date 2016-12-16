@@ -53,7 +53,7 @@ namespace SocialBlade.Controllers
                     CommentsCount = 19999999,
                     AuthorName = "Pesho",
                     AuthorPictureUrl = "https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252",
-                    CreateTime = "V na maika ti kura chasa"
+                    CreateTime = DateTime.Now
                 },
                 new ShortPostViewModel
                 {
@@ -63,7 +63,7 @@ namespace SocialBlade.Controllers
                     CommentsCount = 10,
                     AuthorName = "Pesho",
                     AuthorPictureUrl = "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/pig-young-closeup.jpg.adapt.945.1.jpg",
-                    CreateTime = "V na bashta ti kura chasa"
+                    CreateTime = DateTime.Now
                 },
                 new ShortPostViewModel
                 {
@@ -73,7 +73,7 @@ namespace SocialBlade.Controllers
                     CommentsCount = 5,
                     AuthorName = "Pesho",
                     AuthorPictureUrl = "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/pig-young-closeup.jpg.adapt.945.1.jpg",
-                    CreateTime = "Tova hilqdoletie"
+                    CreateTime = DateTime.Now
                 }});
             #endregion
             return View(posts);

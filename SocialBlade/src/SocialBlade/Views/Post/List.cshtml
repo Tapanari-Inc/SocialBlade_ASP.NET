@@ -1,3 +1,4 @@
+@using SocialBlade.Utilities
 @model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
 
 @{
@@ -28,7 +29,9 @@
                                 <p class="flow-text left">@item.AuthorName</p>
                             </div>
                             <div class="col s4 time-container">
-                                <p class="flow-text right time">@item.CreateTime</p>
+                                <abbr title="@item.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
+                                    <span class="flow-text right time">@HelperClass.SerializeDate(item.CreateTime)</span>
+                                </abbr>
                             </div>
                         </div>
                     </div>
@@ -41,12 +44,14 @@
                     </div>
                     <div class="post-footer">
                         <div class="row" style="height: 100%;">
+                            <input type="hidden" value="@item.ID"/>
                             <div class="col s2">
                                 <div class="likeW">
                                     <i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>
                                 </div>
                                 <div class="amountLike">
-                                    <p><b>@item.Likes</b></p>
+                                    <p><b>@item.Likes</b>
+                                    </p>
                                 </div>
                             </div>
                             <div class="col s2">
@@ -54,7 +59,8 @@
                                     <i class="fa fa-thumbs-down fa-2x dislike" aria-hidden="true"></i>
                                 </div>
                                 <div class="amountDislike">
-                                    <p><b>@item.Dislikes</b></p>
+                                    <p><b>@item.Dislikes</b>
+                                    </p>
                                 </div>
                             </div>
                             <div class="col s4 offset-s4">
@@ -62,7 +68,8 @@
                                     <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
                                 </div>
                                 <div class="amountComments">
-                                    <p><b>@item.CommentsCount</b></p>
+                                    <p><b>@item.CommentsCount</b>
+                                    </p>
                                 </div>
                             </div>
                         </div>

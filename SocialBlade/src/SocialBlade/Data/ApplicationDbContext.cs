@@ -38,6 +38,7 @@ namespace SocialBlade.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
+
             builder.Entity<UserRelation>()
                 .HasOne(x => x.Follower)
                 .WithMany(x => x.RelationA)
