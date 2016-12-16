@@ -15,13 +15,14 @@ namespace SocialBlade.Models.PostViewModels
         }
         public ShortPostViewModel(Post post)
         {
+            ID = post.ID;
             Content = post.Content;
             Dislikes = post.Dislikes;
             Likes = post.Likes;
             CommentsCount = 19999999;
             AuthorName = post.Author.FirstName + " " + post.Author.LastName;
             AuthorPictureUrl = post.Author.ProfilePictureUrl;
-            CreateTime = post.DateCreated.ToString();
+            CreateTime = post.DateCreated;
             ImageUrl = post.ImageUrl;
         }
         public Guid ID { get; set; }
@@ -32,7 +33,7 @@ namespace SocialBlade.Models.PostViewModels
         public int CommentsCount { get; set; }
         public string AuthorPictureUrl { get; set; }
         public string AuthorName { get; set; }
-        public string  CreateTime { get; set; }
+        public DateTime  CreateTime { get; set; }
         public string ImageUrl { get; set; }
         public bool? Reaction { get; set; }
     }
