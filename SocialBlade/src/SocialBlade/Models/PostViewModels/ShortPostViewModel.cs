@@ -9,6 +9,7 @@ namespace SocialBlade.Models.PostViewModels
 {
     public class ShortPostViewModel
     {
+
         public ShortPostViewModel()
         {
 
@@ -25,6 +26,7 @@ namespace SocialBlade.Models.PostViewModels
             CreateTime = post.DateCreated;
             ImageUrl = post.ImageUrl;
         }
+
         public Guid ID { get; set; }
         [Required]
         public string Content { get; set; }

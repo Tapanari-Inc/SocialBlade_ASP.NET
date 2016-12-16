@@ -4,6 +4,7 @@
 /// <reference path="js/initindex.js" />
 /// <reference path="js/jquery.fullpage.js" />
 /// <reference path="js/materialize.js" />
+/// <reference path="js/reactionslogic.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
