@@ -1,4 +1,4 @@
-@model SocialBlade.Models.AccountViewModels.ProfileViewModel
+﻿@using SocialBlade.ViewComponents;
 <div class="menu hide-on-small-only">
     <div class="burger-container">
         <div class="burger">
@@ -9,28 +9,7 @@
         </div>
     </div>
     <div class="nav-items">
-        <a href="#">
-            <div class="myProfile">
-                <div class="labelMP">
-                    MY PROFILE
-                </div>
-                <div class="MP">
-                    <div class="row" style="height: 100%;">
-                        <div class="col s3 myPic">
-                            <img class="circle myProfilePic" src="@Model.ProfileImageUrl">
-                        </div>
-                        <div class="col s9">
-                            <div class="myStats">
-                                @Model.FollowersCount
-                            </div>
-                            <div class="myName">
-                                @Model.FullName
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
+        @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Menu" })
         <div class="item navs">
             <div class="container">
                 <div class="row">
@@ -56,6 +35,7 @@
         </div>
     </div>
 </div>
+
 <div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
     <div class="row" style="margin-bottom: 0;">
         <div class="col s3 icon current">
