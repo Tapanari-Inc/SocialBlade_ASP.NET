@@ -9,7 +9,6 @@
 }
 @section scripts{
     <script src="~/js/initCreate.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 @{await Component.InvokeAsync<MenuComponent>();}
 
@@ -53,7 +52,7 @@
             </div>
         </div>
         <div class="create-content">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <textarea asp-for="Content" rows="20" cols="40" placeholder="What's on your mind?"></textarea>
             <span asp-validation-for="Content" class="text-danger" />
@@ -81,3 +80,5 @@
 <div class="center">
     <a asp-action="List">Back to List</a>
 </div>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
