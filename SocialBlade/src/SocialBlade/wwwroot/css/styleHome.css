@@ -101,7 +101,7 @@ body{
 }
 .myName{
   width: 100%;
-  font-size: 1.3rem;
+  font-size: 0.5rem;
   height: 4vh;
   position: relative;
   color: white;
@@ -111,7 +111,7 @@ body{
 }
 .myStats{
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 0.4rem;
   position: relative;
   height: 4vh;
   border-bottom: 1px solid #e1e1e1;
@@ -380,4 +380,7 @@ body{
 }
 .chide{
   display: none;
+}
+.margin-bottom{
+    margin: 15px;
 }

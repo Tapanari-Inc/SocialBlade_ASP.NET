@@ -1,13 +1,20 @@
+@using SocialBlade.ViewComponents
 @model SocialBlade.Models.PostViewModels.EditPostViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
+@section stylesheets {
+    <link href="~/css/styleCreate.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/js/initCreate.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@{await Component.InvokeAsync<MenuComponent>();}
 
-<h2>EditPost</h2>
-
-<form asp-action="Save" method="post" enctype = "multipart/form-data">
-    <div class="form-horizontal">
+<form asp-action="Save" method="post" enctype="multipart/form-data">
+    @*<div class="form-horizontal">
         <h4>ShortPostViewModel</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,15 +38,46 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+    </div>*@
+
+    @* pochva ot tuka*@
+    <div class="create-wrapper">
+        <div class="create-header">
+            <div class="row" style="margin-bottom: 0px;">
+                <div class="col s2 image-container center">
+                    <img class="responsive-img circle profilePic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=00d7973d2d95af3679ae724815d55de1&oe=58E3FF52">
+                </div>
+                <div class="col s6 username-container">
+                    <p class="flow-text left">Christian Pamidoff</p>
+                </div>
+            </div>
+        </div>
+        <div class="create-content">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <textarea asp-for="Content" rows="20" cols="40" placeholder="What's on your mind?"></textarea>
+            <span asp-validation-for="Content" class="text-danger" />
+        </div>
+        <div class="create-footer">
+            <span asp-validation-for="Image" class="addImg" >Upload Image</span>
+            <div class="file-field input-field fileIn" style="display: none;">
+                <div class="btn">
+                    <span>Upload Image</span>
+                    <input asp-for="Image">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit-wrapper">
+        <button type="submit" name="button" class="btn-flat waves-effect waves-gray">Post</button>
     </div>
 </form>
 
 @* Hellow DotNET *@
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="center">
+    <a asp-action="List">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
