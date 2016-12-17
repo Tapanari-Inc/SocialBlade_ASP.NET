@@ -1,8 +1,9 @@
 @model SocialBlade.Models.AccountViewModels.ProfileViewModel
-
-<div class="col s2 image-container center">
-    <img class="responsive-img circle profilePic" src="@Model.ProfilePictureUrl">
-</div>
-<div class="col s6 username-container">
-    <span class="flow-text left">@Model.FullName</span>
-</div>
+<a asp-action="Details" asp-controller="Account" asp-route-id="@Model.ID">
+    <div class="col s2 image-container center">
+        <img class="responsive-img circle profilePic" src="@Model.ProfilePictureUrl">
+    </div>
+    <div class="col s6 username-container">
+        <span class="flow-text left">@Model.FullName</span>
+    </div>
+</a>

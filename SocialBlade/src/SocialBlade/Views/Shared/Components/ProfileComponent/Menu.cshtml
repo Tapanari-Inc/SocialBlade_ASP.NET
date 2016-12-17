@@ -1,5 +1,5 @@
 @model SocialBlade.Models.AccountViewModels.ProfileViewModel
-<a href="#">
+<a asp-action="Details" asp-controller="Account" asp-route-id="@Model.ID">
     <div class="myProfile">
         <div class="labelMP">
             MY PROFILE
@@ -11,7 +11,7 @@
                 </div>
                 <div class="col s9">
                     <div class="myStats">
-                        @Model?.FollowersCount
+                        @Model?.FollowersCountDisplay
                     </div>
                     <div class="myName">
                         @Model?.FullName
