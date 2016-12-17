@@ -10,6 +10,12 @@ namespace SocialBlade.Models.PostViewModels
 {
     public class EditPostViewModel
     {
+        public EditPostViewModel(Post post)
+        {
+            Content = post.Content;
+            ID = post.ID;
+        }
+        public EditPostViewModel() { }
         public Guid ID { get; set; }
         [Required]
         public string Content { get; set; }

@@ -55,7 +55,9 @@
             </div>
             <div class="col s4 offset-s4">
                 <div class="commentW">
-                    <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
+                    <a asp-action="Details" asp-controller="Post" asp-route-id="@Model.ID">
+                        <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
+                    </a>
                 </div>
                 <div class="amountComments">
                     <p>

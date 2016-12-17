@@ -71,6 +71,20 @@ namespace SocialBlade.Controllers
             return View("Edit", new EditPostViewModel());
         }
 
+        [HttpGet("Edit/{id}")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var post = _context.Posts
+                .Include(x => x.Author)
+                .SingleOrDefault(x => x.ID == id && x.Author.Id == _userManager.GetUserId(User));
+            if(post == null)
+            {
+                return View("Error");
+            }
+            EditPostViewModel model = new EditPostViewModel(post);
+            return View("Edit", model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Save(EditPostViewModel postViewModel)
@@ -158,6 +172,11 @@ namespace SocialBlade.Controllers
         private string GetAbsolutePath(string relativePath)
         {
             return Path.Combine(_hostingEnvironment.WebRootPath, relativePath);
+        }
+
+        public IActionResult Details(Guid postId)
+        {
+            return View();
         }
     }
 }
