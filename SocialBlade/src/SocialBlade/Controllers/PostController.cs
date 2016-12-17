@@ -120,12 +120,12 @@ namespace SocialBlade.Controllers
         public string Reacted(Guid postId, int reaction)
         {
             //TODO: Check Follower-Followee rule and validate
-            ApplicationUser user = _context
+            var user = _context
                 .Users
                 .Include(x => x.Likes)
                 .Include(x => x.Dislikes)
                 .First(x => x.UserName == User.Identity.Name);
-            Post post = _context
+            var post = _context
                 .Posts
                 .Include(x => x.DislikedBy).ThenInclude(x => x.User)
                 .Include(x => x.LikedBy).ThenInclude(x=>x.User)
@@ -137,13 +137,15 @@ namespace SocialBlade.Controllers
             }
             else if(reaction == 1)
             {
+                if(post.LikedBy.Any(x => x.User.Id == user.Id)) return "403";
                 post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
                 post.LikedBy.Add(new User_Like { Post = post, User = user });
             }
             else//reaction == -1
             {
+                if (post.DislikedBy.Any(x => x.User.Id == user.Id)) return "403";
                 post.LikedBy.RemoveAll(x => x.User.Id == user.Id);
-                post.DislikedBy.Add(new User_Dislike() { Post = post, User = user });
+                post.DislikedBy.Add(new User_Dislike { Post = post, User = user });
             }
             _context.SaveChanges();
 
@@ -175,6 +177,14 @@ namespace SocialBlade.Controllers
 
         public IActionResult Details(Guid postId)
         {
+            var post = _context.Posts
+                .Include(x=>x.Author)
+                .Include(x=>x.DateCreated)
+                .Include(x=>x.ImageUrl)
+                .Include(x=>x.LikedBy)
+                .Include(x=>x.DislikedBy)
+                .First(x => x.ID == postId);
+            
             return View();
         }
 

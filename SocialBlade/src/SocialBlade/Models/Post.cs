@@ -12,7 +12,7 @@ namespace SocialBlade.Models
         [NotMapped]
         public virtual int Likes => LikedBy?.Count ?? 0;
         [NotMapped]
-        public virtual int Dislikes => DislikedBy?.Count??0;
+        public virtual int Dislikes => DislikedBy?.Count ?? 0;
         public virtual List<User_Like> LikedBy { get; set; }
         public virtual List<User_Dislike> DislikedBy { get; set; }
         [Required]

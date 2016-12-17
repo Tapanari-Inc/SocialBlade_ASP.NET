@@ -5,6 +5,9 @@ $('.like').click(function () {
         updateReaction(getPostId(me),
             0,
             function (res) {
+                if (res === "403") {
+                    return;
+                }
                 let correspondingLikesCount = getAmount("like", me);
                 incrementCount(correspondingLikesCount, -1);
                 me.removeClass('clicked');
@@ -15,6 +18,9 @@ $('.like').click(function () {
         updateReaction(getPostId(me),
             1,
             function (res) {
+                if (res==="403") {
+                    return;
+                }
                 let correspondingDislike = getCorresponding("dislike", me);
 
                 if (correspondingDislike.hasClass('clicked')) {
@@ -38,6 +44,9 @@ $('.dislike').click(function () {
         updateReaction(getPostId(me),
             0,
             function (res) {
+                if (res === "403") {
+                    return;
+                }
                 let correspondingDislikesCount = getAmount("dislike", me);
                 incrementCount(correspondingDislikesCount, -1);
                 me.removeClass('clicked');
@@ -46,6 +55,9 @@ $('.dislike').click(function () {
         updateReaction(getPostId(me),
             -1,
             function (res) {
+                if (res === "403") {
+                    return;
+                }
                 let correspondingLike = getCorresponding("like", me);
 
                 if (correspondingLike.hasClass('clicked')) {

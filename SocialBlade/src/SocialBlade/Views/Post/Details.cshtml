@@ -1,4 +1,7 @@
-﻿@{
+﻿@using System.Threading.Tasks
+@using SocialBlade.ViewComponents
+@*model SocialBlade.Models.PostViewModels.PostViewModel*@
+@{
     ViewData["Title"] = "viewPost";
 }
 @section stylesheets
@@ -24,12 +27,7 @@
 
                 <div class="post-header">
                     <div class="row">
-                        <div class="col s2 image-container center">
-                            <img class="responsive-img circle profilePic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
-                        </div>
-                        <div class="col s6 username-container">
-                            <p class="flow-text left">Chris Geia</p>
-                        </div>
+                        @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
                         <div class="col s4 time-container">
                             <p class="flow-text right time">5 days ago</p>
                         </div>
