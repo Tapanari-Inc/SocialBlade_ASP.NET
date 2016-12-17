@@ -1,5 +1,3 @@
-@using SocialBlade.Utilities
-@using SocialBlade.ViewComponents;
 @model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
 
 @{
@@ -21,70 +19,7 @@
             <!--Spam posts from here-->
             @foreach (var item in Model)
             {
-                <div class="post z-depth-5">
-                    <div class="post-header">
-                        <div class="row">
-                            @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = item.AuthorId })
-                            <div class="col s4 time-container">
-                                <abbr title="@item.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
-                                    <span class="flow-text right time">@item.CreateTime.FormatDate()</span>
-                                </abbr>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <p class="caption">@item.Content</p>
-                        @if (!string.IsNullOrEmpty(item.ImageUrl))
-                        {
-                            <img class="uploadedPic" src="@item.ImageUrl">
-                        }
-                    </div>
-                    <div class="post-footer">
-                        <div class="row" style="height: 100%;">
-                            <input type="hidden" class="id" value="@item.ID" />
-                            <div class="col s2">
-                                <div class="likeW">
-                                    <i class="fa fa-thumbs-up fa-2x like
-                                        @if(item.Reaction == true)
-                                         {
-                                             @:clicked
-                                         }
-                                        " aria-hidden="true"></i>
-                                </div>
-                                <div class="amountLike">
-                                    <p>
-                                        <b>@item.Likes</b>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col s2">
-                                <div class="dislikeW">
-                                    <i class="fa fa-thumbs-down fa-2x dislike
-                                       @if(item.Reaction == false)
-                                        {
-                                            @:clicked
-                                        }
-                                       " aria-hidden="true"></i>
-                                </div>
-                                <div class="amountDislike">
-                                    <p>
-                                        <b>@item.Dislikes</b>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col s4 offset-s4">
-                                <div class="commentW">
-                                    <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
-                                </div>
-                                <div class="amountComments">
-                                    <p>
-                                        <b>@item.CommentsCount</b>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                await Html.RenderPartialAsync("_Post", item);
             }
             <!--TO HERE-->
         </div>
