@@ -5,15 +5,17 @@ body{
 
 /*Post Things*/
 .post,
-.post-small{
-  background: #fafafa;
+.post-small {
+    background: #fafafa;
   border: 1px solid #dbdbdb;
   padding: 0;
   width: 420px;
   display: inline-block;
-  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   margin-bottom: 1vh;
 }
+
 .following{
   background: green;
   color: black;
