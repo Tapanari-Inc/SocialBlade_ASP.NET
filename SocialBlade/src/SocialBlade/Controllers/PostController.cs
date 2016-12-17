@@ -179,6 +179,7 @@ namespace SocialBlade.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Explore()
         {
             return List();
