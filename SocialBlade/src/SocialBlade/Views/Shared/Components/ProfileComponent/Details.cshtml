@@ -1,14 +1,14 @@
 @model SocialBlade.Models.AccountViewModels.ProfileViewModel
 @inject UserManager<ApplicationUser> UserManager
-<div class="profile-info z-depth-4">
+<div class="profile-info">
     <p class="statsTitle">Profile Information</p>
-    <div class="profileStats">
-        <div class="row">
-            <input type="hidden" asp-for="@Model.ID"/>
-            <div class="col s3 statImg-c">
+    <div class="profileStats z-depth-4">
+        <div class="row" style="margin: 0;">
+            <input type="hidden" asp-for="@Model.ID" />
+            <div class="statImg-c">
                 <img class="circle statPic" src="@Model.ProfilePictureUrl">
             </div>
-            <div class="col s9" style="height: 20vh;">
+            <div class="other-info">
                 <div class="userName">
                     @Model.FullName
                 </div>
@@ -20,23 +20,24 @@
                 </div>
             </div>
         </div>
-        <div class="actions">
-            @if (Model.ID == UserManager.GetUserId(User))
+    </div>
+    <div class="actions">
+        @if (Model.ID == UserManager.GetUserId(User))
             {
-                <a asp-action="Edit" asp-controller="Account" class="btn btn-flat waves-effect waves-green edit">Edit Profile</a>
-                <form id='profileLogOffForm' asp-action="LogOff" asp-controller="Account">
-                    <a onclick="document.getElementById('profileLogOffForm').submit()"
-                        class="btn btn-flat waves-effect waves-red edit">Log Off</a>
-                </form>
-            }
-            else
-            {
-                <a class="follow-btn btn btn-flat waves-effect waves-green edit 
+            <a asp-action="Edit" asp-controller="Account" class="btn btn-flat waves-effect waves-green edit">Edit Profile</a>
+            <form id='profileLogOffForm' asp-action="LogOff" asp-controller="Account">
+                <a onclick="document.getElementById('profileLogOffForm').submit()"
+                   class="btn btn-flat waves-effect waves-red edit">Log Off</a>
+            </form>
+        }
+        else
+        {
+            <a class="follow-btn btn btn-flat waves-effect waves-green edit
                    @if (Model.IsFollowed)
                    {
                        @:following
                    }">Follow</a>
-            }
-        </div>
+        }
     </div>
+
 </div>
