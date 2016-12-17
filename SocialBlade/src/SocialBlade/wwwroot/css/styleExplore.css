@@ -230,3 +230,10 @@ body{
 .post-small{
   width: 100%;
 }
+.content-ex {
+    position: relative;
+    top: 10vh;
+    margin: 0 auto;
+    margin-bottom: 5vh;
+    width: 1500px;
+}

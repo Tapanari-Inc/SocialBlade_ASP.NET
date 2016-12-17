@@ -30,11 +30,11 @@ $('.time').mouseleave(function () {
 
 
 $(document).ready(function () {
-    $('.content').masonry({
+    $('.content-ex').masonry({
         itemSelector: '.post',
         columnWidth: 420,
         gutter: 10,
-        fitWidth: true,
+        fitWidth: true
     });
 });
 
