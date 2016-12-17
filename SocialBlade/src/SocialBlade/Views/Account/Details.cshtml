@@ -10,6 +10,7 @@
     <script src="~/js/followLogic.js"></script>
 }
 @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Details", userId = Model });
+@{await Html.RenderPartialAsync("_Menu");}
 <div class="content-container">
     <div class="row">
         <div class="content">
