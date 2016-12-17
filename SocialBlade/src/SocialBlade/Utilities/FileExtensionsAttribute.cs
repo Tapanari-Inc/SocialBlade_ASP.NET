@@ -14,7 +14,7 @@ namespace SocialBlade.Utilities
 
         public FileExtensionsAttribute(string fileExtensions, string errorMessage)
         {
-            AllowedExtensions = fileExtensions.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            AllowedExtensions = fileExtensions.ToLower().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             ErrorMessage = errorMessage;
         }
 
@@ -26,7 +26,7 @@ namespace SocialBlade.Utilities
             {
                 var fileName = file.FileName;
 
-                return AllowedExtensions.Any(y => fileName.EndsWith(y));
+                return AllowedExtensions.Any(y => fileName.ToLower().EndsWith(y));
             }
 
             return true;

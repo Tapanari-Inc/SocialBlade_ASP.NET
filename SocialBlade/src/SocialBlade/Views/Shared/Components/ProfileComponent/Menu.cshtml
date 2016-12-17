@@ -5,16 +5,16 @@
             MY PROFILE
         </div>
         <div class="MP">
-            <div class="row" style="height: 100%;">
+            <div class="row no-pad" style="height: 100%;">
                 <div class="col s3 myPic">
-                    <img class="circle myProfilePic" src="@Model.ProfilePictureUrl">
+                    <img class="circle myProfilePic" src="@Model?.ProfilePictureUrl">
                 </div>
                 <div class="col s9">
                     <div class="myStats">
-                        @Model.FollowersCount
+                        @Model?.FollowersCount
                     </div>
                     <div class="myName">
-                        @Model.FullName
+                        @Model?.FullName
                     </div>
                 </div>
             </div>

@@ -27,8 +27,7 @@
             <span asp-validation-for="Content" class="text-danger" />
         </div>
         <div class="create-footer">
-            <span asp-validation-for="Image" class="addImg" >Upload Image</span>
-            <div class="file-field input-field fileIn" style="display: none;">
+            <div class="file-field input-field fileIn">
                 <div class="btn">
                     <span>Upload Image</span>
                     <input asp-for="Image">
@@ -40,14 +39,16 @@
         </div>
     </div>
     <div class="submit-wrapper">
-        <button type="submit" name="button" class="btn-flat waves-effect waves-gray">Post</button>
+        <button type="submit" name="button" class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh;">Post</button>
+        <a asp-action="List" class="btn-flat waves-effect waves-gray delete">
+            Cancel
+        </a>
     </div>
 </form>
 
 @* Hellow DotNET *@
 
-<div class="center">
-    <a asp-action="List">Back to List</a>
+<div class="submit-wrapper">
 </div>
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
