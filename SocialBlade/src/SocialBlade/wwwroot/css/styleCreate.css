@@ -114,8 +114,11 @@ input[type=text]{
   font-weight: 500;
 }
 .btn-flat:hover{
-  border: 1px solid white;
   color: #000;
   background: #ccc;
   font-weight: 500;
+}
+.backbutton{
+    margin-left: 75%;
+    width: 150px;
 }
