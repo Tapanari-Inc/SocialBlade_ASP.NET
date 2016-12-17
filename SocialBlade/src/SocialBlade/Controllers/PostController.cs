@@ -159,5 +159,10 @@ namespace SocialBlade.Controllers
         {
             return Path.Combine(_hostingEnvironment.WebRootPath, relativePath);
         }
+
+        public IActionResult Details(Guid postId)
+        {
+            return View();
+        }
     }
 }
