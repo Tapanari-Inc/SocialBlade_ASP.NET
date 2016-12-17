@@ -71,8 +71,8 @@ namespace SocialBlade.Controllers
             return View("Edit", new EditPostViewModel());
         }
 
-        [HttpGet("Edit/{id}")]
-        public async Task<IActionResult> Edit(Guid id)
+        [HttpGet]
+        public IActionResult Edit(Guid id)
         {
             var post = _context.Posts
                 .Include(x => x.Author)
@@ -117,7 +117,6 @@ namespace SocialBlade.Controllers
 
         //Post: Post/Reacted
         [HttpPost]
-        [Authorize]
         public string Reacted(Guid postId, int reaction)
         {
             //TODO: Check Follower-Followee rule and validate
