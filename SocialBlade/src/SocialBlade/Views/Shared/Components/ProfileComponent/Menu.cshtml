@@ -5,17 +5,15 @@
             MY PROFILE
         </div>
         <div class="MP">
-            <div class="row no-pad" style="height: 100%;">
-                <div class="col s3 myPic">
-                    <img class="circle myProfilePic" src="@Model?.ProfilePictureUrl">
+            <div class="myPic">
+                <img class="circle myProfilePic" src="@Model?.ProfilePictureUrl">
+            </div>
+            <div class="stats-wrapper right">
+                <div class="myStats">
+                    @Model?.FollowersCountDisplay
                 </div>
-                <div class="col s9">
-                    <div class="myStats">
-                        @Model?.FollowersCountDisplay
-                    </div>
-                    <div class="myName">
-                        @Model?.FullName
-                    </div>
+                <div class="myName">
+                    @Model?.FullName
                 </div>
             </div>
         </div>
