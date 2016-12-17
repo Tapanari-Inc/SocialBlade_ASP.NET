@@ -7,9 +7,11 @@
         <div class="row">
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
             <div class="col s4 time-container">
-                <abbr title="@Model.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
-                    <span class="flow-text right time">@Model.CreateTime.FormatDate()</span>
-                </abbr>
+                <div class="btn btn-flat waves-effect time">
+                    <span class="fol">Follow</span>
+                    <span class="already" style="display: none;">Following</span>
+                    <span class="unfollow" style="display: none;">Unfollow</span>
+                </div>
             </div>
         </div>
     </div>
@@ -26,7 +28,7 @@
             <div class="col s2">
                 <div class="likeW">
                     <i class="fa fa-thumbs-up fa-2x like
-                                        @if(Model.Reaction == true)
+                                        @if (Model.Reaction == true)
                                         {
                                             @:clicked
                                         }
@@ -41,7 +43,7 @@
             <div class="col s2">
                 <div class="dislikeW">
                     <i class="fa fa-thumbs-down fa-2x dislike
-                                       @if(Model.Reaction == false)
+                                       @if (Model.Reaction == false)
                                        {
                                            @:clicked
                                        }

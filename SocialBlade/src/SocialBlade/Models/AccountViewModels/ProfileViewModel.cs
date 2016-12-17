@@ -10,13 +10,18 @@ namespace SocialBlade.Models.AccountViewModels
 
         public ProfileViewModel(ApplicationUser user)
         {
+            ID = user.Id;
             FullName = user.FirstName + " " + user.LastName;
             ProfilePictureUrl = !string.IsNullOrEmpty(user.ProfilePictureUrl) ? user.ProfilePictureUrl :
                     @"http://orig13.deviantart.net/10e3/f/2013/114/8/4/facebook_default_profile_picture___clone_trooper_by_captaintom-d62v2dr.jpg";
         }
 
+        public string ID { get; set; }
         public string FullName { get; set; }
         public string ProfilePictureUrl { get; set; }
-        public string FollowersCount { get; set; }
+        public string PostsCountDisplay { get; set; }
+        public string FollowersCountDisplay { get; set; }
+        public string FollowingCountDisplay { get; set; }
+        public bool IsFollowed { get; set; }
     }
 }
