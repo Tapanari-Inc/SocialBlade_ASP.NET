@@ -54,6 +54,8 @@ body{
 .content{
   position: relative;
   top: 10vh;
+  margin: 0 auto;
+  max-width: 600px;
   margin-bottom: 5vh;
 }
 .nav-items{
@@ -101,7 +103,7 @@ body{
 }
 .myName{
   width: 100%;
-  font-size: 0.5rem;
+  font-size: 1.3rem;
   height: 4vh;
   position: relative;
   color: white;
@@ -111,7 +113,7 @@ body{
 }
 .myStats{
   width: 100%;
-  font-size: 0.4rem;
+  font-size: 1.2rem;
   position: relative;
   height: 4vh;
   border-bottom: 1px solid #e1e1e1;
@@ -149,10 +151,32 @@ body{
   position: relative;
   margin: 0 auto;
   margin-bottom: 2vh;
-  border-radius: 10px;
   border: 1px solid #dbdbdb;
   padding: 0;
 }
+
+/*Bef Head*/
+.before-header{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2vh;
+  padding-bottom: 2vh;
+  border-bottom: 1px solid #dbdbdb;
+}
+.edit{
+  margin-right: 1vh;
+}
+.edit:hover{
+  background: #3a8c38;
+  color: #eee;
+}
+.delete:hover{
+  background: #af3c3c;
+  color: #eee;
+}
+
 /*Post header*/
 .post-header{
   position: relative;
@@ -200,7 +224,6 @@ body{
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
 }
 .amountLike,
 .amountDislike,
@@ -312,7 +335,8 @@ body{
 .cpw{
   margin-right: 1vw;
 }
-.comment-wrapper{
+.comment-wrapper,
+.commenting-wrapper{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -321,6 +345,18 @@ body{
   padding-left: 20px;
   padding-right: 20px;
   width: 100%;
+}
+.commenting-wrapper{
+  background: #ffffff;
+  border: 1px solid #969696;
+}
+.sub-wrapper{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5px;
 }
 .commenter{
   font-size: 1.1rem;
@@ -344,6 +380,22 @@ body{
   justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: 1vh;
+}
+.reply-init{
+  margin-bottom: 5vh;
+}
+.reply-cont{
+  display: inline-block;
+}
+.others{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submit-icon{
+  position: relative;
+  margin-left: 3vh;
 }
 .replyPic{
   width: 4vh;
@@ -380,7 +432,4 @@ body{
 }
 .chide{
   display: none;
-}
-.margin-bottom{
-    margin: 15px;
 }
