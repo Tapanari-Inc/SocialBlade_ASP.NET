@@ -262,9 +262,9 @@ namespace SocialBlade.Controllers
                     .Where(x => x.Author.Id == currentUser.Id)
                     .ToList();
 
-                var postsViewModel = userPosts.Select(x => { return new });
+                //var postsViewModel = userPosts.Select(x => { return new });
 
-                return View(userPosts);
+                //return View(userPosts);
                 return View(model:user.Id);
             }
             else
