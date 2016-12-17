@@ -1,11 +1,7 @@
 ﻿//Likes
 $('.like').click(function () {
-    console.log(this);
     let me = $(this);
     if (me.hasClass('clicked')) {//stop liking
-        console.log(me);
-        console.log(me.attr('class'));
-        console.log('im there');
         updateReaction(getPostId(me),
             0,
             function (res) {
@@ -66,7 +62,6 @@ $('.dislike').click(function () {
 });
 
 function updateReaction(postId, reaction, onSuccess) {
-    console.log(reaction);
     $.ajax(
     {
         type: "POST",
@@ -85,7 +80,7 @@ function getPostId(refferenceNode) {
     return refferenceNode.closest('.row').find('.id').val();
 }
 
-function getCorresponding(reaction, refferenceNode) {//implement with me
+function getCorresponding(reaction, refferenceNode) {
     let r;
     if (reaction === "like") {
         r = '.like';
