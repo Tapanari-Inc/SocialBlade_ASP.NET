@@ -11,6 +11,12 @@ body{
   background: #fafafa;
   margin-bottom: 0;
 }
+.edit:hover {
+    background: #00ff00 !important;
+}
+.delete:hover {
+    background: #ff0000 !important;
+}
 .create-header{
   position: relative;
   top: 0;
