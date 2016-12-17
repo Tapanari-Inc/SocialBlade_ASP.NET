@@ -24,7 +24,7 @@
                 <div class="post z-depth-5 col s12 m10 offset-m1">
                     <div class="post-header">
                         <div class="row">
-                            @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post" })
+                            @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = item.AuthorId })
                             <div class="col s4 time-container">
                                 <abbr title="@item.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
                                     <span class="flow-text right time">@item.CreateTime.FormatDate()</span>

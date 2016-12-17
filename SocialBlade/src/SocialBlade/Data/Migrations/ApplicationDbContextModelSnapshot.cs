@@ -281,9 +281,10 @@ namespace SocialBlade.Data.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid>("PostID");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -317,9 +318,10 @@ namespace SocialBlade.Data.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid>("PostID");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -426,7 +428,8 @@ namespace SocialBlade.Data.Migrations
                 {
                     b.HasOne("SocialBlade.Models.Post", "Post")
                         .WithMany("DislikedBy")
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Dislikes")
@@ -448,7 +451,8 @@ namespace SocialBlade.Data.Migrations
                 {
                     b.HasOne("SocialBlade.Models.Post", "Post")
                         .WithMany("LikedBy")
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SocialBlade.Models.ApplicationUser", "User")
                         .WithMany("Likes")

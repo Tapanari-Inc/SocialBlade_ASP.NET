@@ -28,20 +28,28 @@ namespace SocialBlade.ViewComponents
             _signInManager = signInManager;
             Db = dbContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync(string viewName)
+        public async Task<IViewComponentResult> InvokeAsync(string viewName, string userId = null)
         {
-            var model = new ProfileViewModel();
-            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-
-            if (user != null)
+            ApplicationUser user;
+            if (string.IsNullOrEmpty(userId))
             {
+                user = (await _userManager.GetUserAsync(HttpContext.User));
+            }
+            else
+            {
+                user = Db.Users.Single(x => x.Id == userId);
+            }
+            ProfileViewModel model = null;
+            if (user == null)
+            {
+                await _signInManager.SignOutAsync();
+            }
+            else
+            {
+                model = new ProfileViewModel(user);
                 int followers = Db.UserRelations.Count(x => x.Followee.Id == user.Id) - 1;
-                model.FullName = user.FirstName + " " + user.LastName;
-                model.ProfileImageUrl = !string.IsNullOrEmpty(user.ProfilePictureUrl) ? user.ProfilePictureUrl :
-                    @"http://orig13.deviantart.net/10e3/f/2013/114/8/4/facebook_default_profile_picture___clone_trooper_by_captaintom-d62v2dr.jpg";
                 model.FollowersCount = string.Format($"{followers.Format()} followers");
             }
-
             return View(viewName,model);
         }
     }

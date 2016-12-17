@@ -160,8 +160,8 @@ namespace SocialBlade.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
-                    PostID = table.Column<Guid>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    PostID = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,7 +171,7 @@ namespace SocialBlade.Data.Migrations
                         column: x => x.PostID,
                         principalTable: "Posts",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserDislikes_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -185,8 +185,8 @@ namespace SocialBlade.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false),
-                    PostID = table.Column<Guid>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    PostID = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,7 +196,7 @@ namespace SocialBlade.Data.Migrations
                         column: x => x.PostID,
                         principalTable: "Posts",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserLikes_AspNetUsers_UserId",
                         column: x => x.UserId,

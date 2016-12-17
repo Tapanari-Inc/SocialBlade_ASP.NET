@@ -40,15 +40,15 @@ namespace SocialBlade.Controllers
                 .Include(x => x.LikedBy).ThenInclude(x=>x.User)
                 .Include(x => x.DislikedBy).ThenInclude(x => x.User)
                 .OrderByDescending(x => x.DateCreated).ToList();
-            ApplicationUser user = _context.Users.First(x => x.UserName == User.Identity.Name);
+            ApplicationUser user = _context.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             posts.AddRange(dbPosts.Select(x =>
             {
                 bool? r;
-                if(x.LikedBy.Any(y => y.User.Id == user.Id))
+                if(x.LikedBy.Any(y => y.User?.Id == user.Id))
                 {
                     r = true;
                 }
-                else if(x.DislikedBy.Any(y => y.User.Id == user.Id))
+                else if(x.DislikedBy.Any(y => y.User?.Id == user.Id))
                 {
                     r = false;
                 }
@@ -62,41 +62,6 @@ namespace SocialBlade.Controllers
                     ImageUrl = GetPostImagePath(x.ImageUrl)
                 };
             }));
-
-            #region spam-data
-            posts.AddRange
-            (new List<ShortPostViewModel> {
-                new ShortPostViewModel
-                {
-                    Content = "nekuf typ content",
-                    Dislikes = 69,
-                    Likes = 68,
-                    CommentsCount = 19999999,
-                    AuthorName = "Pesho",
-                    AuthorPictureUrl = "https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252",
-                    CreateTime = DateTime.Now
-                },
-                new ShortPostViewModel
-                {
-                    Content = "nekuf typ content 2",
-                    Dislikes = 69,
-                    Likes = 68,
-                    CommentsCount = 10,
-                    AuthorName = "Pesho",
-                    AuthorPictureUrl = "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/pig-young-closeup.jpg.adapt.945.1.jpg",
-                    CreateTime = DateTime.Now
-                },
-                new ShortPostViewModel
-                {
-                    Content = "nekuf typ content 3",
-                    Dislikes = 69,
-                    Likes = 68,
-                    CommentsCount = 5,
-                    AuthorName = "Pesho",
-                    AuthorPictureUrl = "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/pig-young-closeup.jpg.adapt.945.1.jpg",
-                    CreateTime = DateTime.Now
-                }});
-            #endregion
             return View(posts);
         }
 
@@ -185,7 +150,9 @@ namespace SocialBlade.Controllers
 
         private string GetPostImagePath(string imageFileName)
         {
+            if(!string.IsNullOrEmpty(imageFileName))
             return "/" + POST_IMAGES_PATH + "/"+imageFileName;
+            return string.Empty;
         }
 
         private string GetAbsolutePath(string relativePath)

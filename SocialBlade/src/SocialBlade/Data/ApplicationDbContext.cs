@@ -51,6 +51,18 @@ namespace SocialBlade.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<User_Like>()
+                .HasOne<ApplicationUser>(x => x.User)
+                .WithMany(x=>x.Likes)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<User_Dislike>()
+                .HasOne<ApplicationUser>(x => x.User)
+                .WithMany(x => x.Dislikes)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Post>()
                 .Property(x => x.DateCreated)
                 .HasDefaultValueSql("getdate()");
