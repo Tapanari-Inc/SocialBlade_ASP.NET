@@ -76,5 +76,6 @@ namespace SocialBlade.Data
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.EnableSensitiveDataLogging();
         }
+        public DbSet<CommentViewModel> CommentViewModel { get; set; }
     }
 }

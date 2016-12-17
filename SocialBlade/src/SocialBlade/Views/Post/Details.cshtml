@@ -1,16 +1,19 @@
 ﻿@using System.Threading.Tasks
+@using SocialBlade.Models.PostViewModels
+@using SocialBlade.Utilities
 @using SocialBlade.ViewComponents
-@*model SocialBlade.Models.PostViewModels.PostViewModel*@
+@model SocialBlade.Models.PostViewModels.DetailsViewModel
 @{
     ViewData["Title"] = "viewPost";
 }
 @section stylesheets
 {
-    <link rel="stylesheet" href="/css/styleHome.css"/>
+    <link rel="stylesheet" href="/css/styleHome.css" />
 }
 @section scripts
 {
     <script src="/js/initHome.js"></script>
+    <script src="/js/reactionLogic.js"></script>
 }
 @{await Html.RenderPartialAsync("_Menu");}
 
@@ -20,117 +23,59 @@
             <!-- TODO: Put post here -->
             <div class="post z-depth-5" style="padding-left: 20px; padding-right: 20px;">
                 <!--TODO: Hide this div if it's not the user-->
-                <div class="before-header">
-                    <a href="#" class="btn-flat edit">Edit</a>
-                    <a href="#" class="btn-flat delete">Delete</a>
-                </div>
-
-                <div class="post-header">
-                    <div class="row">
-                        @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
-                        <div class="col s4 time-container">
-                            <p class="flow-text right time">5 days ago</p>
-                        </div>
+                @if(Model.IsThisUserAuthor)
+                {
+                    <div class="before-header">
+                        <a href="#" class="btn-flat edit">Edit</a>
+                        <a href="#" class="btn-flat delete">Delete</a>
                     </div>
-                </div>
-                <div class="post-content">
-                    <p class="caption">MALKO NAVUN S GADJETATA :D</p>
-                    <img class="uploadedPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14523049_1075090252539065_7474972561312578906_n.jpg?oh=a88535049d0c302243becfe1ab99c1da&oe=58FA10ED">
-                </div>
-                <div class="post-footer">
-                    <div class="row" style="height: 100%;">
-                        <div class="col s2">
-                            <div class="likeW">
-                                <i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>
-                            </div>
-                            <div class="amountLike">
-                                <p><b>100,000</b></p>
-                            </div>
-                        </div>
-                        <div class="col s2">
-                            <div class="dislikeW">
-                                <i class="fa fa-thumbs-down fa-2x dislike" aria-hidden="true"></i>
-                            </div>
-                            <div class="amountDislike">
-                                <p><b>100,000</b></p>
-                            </div>
-                        </div>
-                        <div class="col s4 offset-s4">
-                            <div class="commentW">
-                                <i class="fa fa-commenting-o fa-2x comment" aria-hidden="true"></i>
-                            </div>
-                            <div class="amountComments">
-                                <p><b>2</b></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
+                @{
+                    await Html.RenderPartialAsync("_Post", Model.Post);
+                }
                 <div class="post-comments">
-                    <div class="commentActual-wrapper">
-                        <div class="commentActual">
-                            <div class="cpw">
-                                <img class="commentPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
-                            </div>
-                            <div class="commenting-wrapper">
-                                <span class="commenter">Chris Pam</span>
-                                <hr>
-                                <div class="others">
-                                    <input type="text">
-                                    <div class="submit-icon">
-                                        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "PostComment" })
                     <!-- TODO: SPAM ALL COMMENTS HERE-->
                     <div class="commentActual-wrapper">
-                        <div class="commentActual row">
-                            <div class="cpw">
-                                <img class="commentPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
-                            </div>
-                            <div class="comment-wrapper z-depth-1">
-                                <span class="commenter">Chris Pam</span>
-                                <hr>
-                                <p>I have no words!!! :D</p>
-                                <span class="showComment inline shc-1">Show replies</span>
-                                <span class="hideComment inline shc-1 chide">Hide replies</span>
-                            </div>
-                        </div>
-                        <div class="reply reply-init">
-                            <div class="rpw">
-                                <img class="replyPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
-                            </div>
-                            <div class="reply-wrapper">
-                                <span class="replier">Chris Pam</span>
-                                <hr>
-                                <div class="others">
-                                    <input type="text">
-                                    <div class="submit-icon">
-                                        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--All replies go here-->
-                        <div id="ar-1" class="allReplies hide">
-                            <div class="reply">
+                        @foreach(var comment in Model.Comments)
+                        {
+                            await Html.RenderPartialAsync("_Comment", comment);
+                        }
+
+
+                        @*<div class="reply reply-init">
                                 <div class="rpw">
                                     <img class="replyPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
                                 </div>
                                 <div class="reply-wrapper">
                                     <span class="replier">Chris Pam</span>
                                     <hr>
-                                    <p>CONTENT</p>
+                                    <div class="others">
+                                        <input type="text">
+                                        <div class="submit-icon">
+                                            <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
+
+                        <!--All replies go here-->
+                        @*<div class="allReplies hide">
+                                <div class="reply">
+                                    <div class="rpw">
+                                        <img class="replyPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
+                                    </div>
+                                    <div class="reply-wrapper">
+                                        <span class="replier">Chris Pam</span>
+                                        <hr>
+                                        <p>CONTENT</p>
+                                    </div>
+                                </div>
+                            </div>*@
                         <!--Until here-->
                     </div>
-                    <!-- XXX: Until HERE-->
                 </div>
             </div>
         </div>
     </div>
 </div>
-

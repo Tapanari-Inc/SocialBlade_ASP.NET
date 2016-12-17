@@ -21,7 +21,7 @@ namespace SocialBlade.Models.PostViewModels
             Content = post.Content;
             Likes = post.Likes;
             Dislikes = post.Dislikes;
-            CommentsCount = 0;
+            CommentsCount = post.Comments.Count;
             AuthorId = post.Author.Id;
             CreateTime = post.DateCreated;
             ImageUrl = post.ImageUrl;

@@ -1,0 +1,16 @@
+@model SocialBlade.Models.PostViewModels.CommentViewModel
+
+<div class="commentActual row">
+    <div class="cpw">
+        <img class="commentPic" src="@Model.AuthorProfilePictureUrl">
+    </div>
+    <div class="comment-wrapper z-depth-1">
+        <span class="commenter">@Model.AuthorFullName</span>
+        <hr>
+        <p>@Model.Content</p>
+        <span class="showComment inline shc-1">Show replies</span>
+        <span class="hideComment inline shc-1 chide">Hide replies</span>
+    </div>
+   
+    
+</div>

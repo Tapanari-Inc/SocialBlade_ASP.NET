@@ -11,8 +11,10 @@ namespace SocialBlade.Models.PostViewModels
         public string Content { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
-        public Guid AuthorId { get; set; }
+        public string AuthorProfilePictureUrl{ get; set; }
+        public string AuthorFullName { get; set; }
         public Guid ParentCommentId { get; set; }
+        public int RepliesCount { get; set; }
         public List<Comment> Replies { get; set; }
     }
 }

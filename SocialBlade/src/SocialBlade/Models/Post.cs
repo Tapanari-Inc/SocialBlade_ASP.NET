@@ -22,6 +22,7 @@ namespace SocialBlade.Models
         public virtual DateTime DateCreated { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public virtual DateTime DateModified { get; set; }
-        public string ImageUrl { get; set; }
+        public virtual string ImageUrl { get; set; }
+        public virtual List<Comment> Comments { get; set; }
     }
 }

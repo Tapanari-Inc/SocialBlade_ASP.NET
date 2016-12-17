@@ -1,0 +1,21 @@
+@model ProfileViewModel
+
+<div>
+    <div class="commentActual-wrapper">
+        <div class="commentActual">
+            <div class="cpw">
+                <img class="commentPic" src="@Model.ProfilePictureUrl">
+            </div>
+            <div class="commenting-wrapper">
+                <span class="commenter">@Model.FullName</span>
+                <hr>
+                <div class="others">
+                    <input type="text">
+                    <div class="submit-icon">
+                        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

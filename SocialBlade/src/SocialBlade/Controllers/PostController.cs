@@ -12,23 +12,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using SocialBlade.Utilities;
 
 namespace SocialBlade.Controllers
 {
     [Authorize]
     public class PostController : Controller
     {
-        const string POST_IMAGES_PATH = "user_content\\post_images";
+
+        const string POST_IMAGES_PATH = "user_content/post_images";
         private ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;
         private IHostingEnvironment _hostingEnvironment;
-        public PostController(ApplicationDbContext context,
+        public PostController( ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment )
         {
             _context = context;
             _userManager = userManager;
             _hostingEnvironment = hostingEnvironment;
+        }
+
+        //Method: Route
+        public ActionResult Index()
+        {
+            return RedirectToAction("List");
         }
         [HttpGet]
         [Authorize]
@@ -37,29 +45,18 @@ namespace SocialBlade.Controllers
             var posts = new List<ShortPostViewModel>();
             var dbPosts = _context.Posts
                 .Include(x => x.Author)
-                .Include(x => x.LikedBy).ThenInclude(x=>x.User)
+                .Include(x => x.Comments)
+                .Include(x => x.LikedBy).ThenInclude(x => x.User)
                 .Include(x => x.DislikedBy).ThenInclude(x => x.User)
                 .OrderByDescending(x => x.DateCreated).ToList();
             ApplicationUser user = _context.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             posts.AddRange(dbPosts.Select(x =>
             {
-                bool? r;
-                if(x.LikedBy.Any(y => y.User?.Id == user.Id))
-                {
-                    r = true;
-                }
-                else if(x.DislikedBy.Any(y => y.User?.Id == user.Id))
-                {
-                    r = false;
-                }
-                else
-                {
-                    r = null;
-                }
+
                 return new ShortPostViewModel(x)
                 {
-                    Reaction = r,
-                    ImageUrl = GetPostImagePath(x.ImageUrl)
+                    Reaction = HelperClass.GetReaction(x, user),
+                    ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl)
                 };
             }));
             return View(posts);
@@ -72,7 +69,7 @@ namespace SocialBlade.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(Guid id)
+        public IActionResult Edit( Guid id )
         {
             var post = _context.Posts
                 .Include(x => x.Author)
@@ -87,7 +84,7 @@ namespace SocialBlade.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save(EditPostViewModel postViewModel)
+        public async Task<IActionResult> Save( EditPostViewModel postViewModel )
         {
             if(ModelState.IsValid)
             {
@@ -102,7 +99,7 @@ namespace SocialBlade.Controllers
                     post = _context.Posts.FirstOrDefault(x => x.ID == postViewModel.ID);
                 }
                 if(postViewModel.Image != null)
-                post.ImageUrl = await UploadImageAsync(postViewModel.Image);
+                    post.ImageUrl = await UploadImageAsync(postViewModel.Image);
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
                 if(isNew)
@@ -117,7 +114,7 @@ namespace SocialBlade.Controllers
 
         //Post: Post/Reacted
         [HttpPost]
-        public string Reacted(Guid postId, int reaction)
+        public string Reacted( Guid postId, int reaction )
         {
             //TODO: Check Follower-Followee rule and validate
             var user = _context
@@ -128,7 +125,7 @@ namespace SocialBlade.Controllers
             var post = _context
                 .Posts
                 .Include(x => x.DislikedBy).ThenInclude(x => x.User)
-                .Include(x => x.LikedBy).ThenInclude(x=>x.User)
+                .Include(x => x.LikedBy).ThenInclude(x => x.User)
                 .First(x => x.ID == postId);
             if(reaction == 0)
             {
@@ -143,7 +140,7 @@ namespace SocialBlade.Controllers
             }
             else//reaction == -1
             {
-                if (post.DislikedBy.Any(x => x.User.Id == user.Id)) return "403";
+                if(post.DislikedBy.Any(x => x.User.Id == user.Id)) return "403";
                 post.LikedBy.RemoveAll(x => x.User.Id == user.Id);
                 post.DislikedBy.Add(new User_Dislike { Post = post, User = user });
             }
@@ -152,44 +149,47 @@ namespace SocialBlade.Controllers
             return "200";
         }
 
-        private async Task<string> UploadImageAsync(IFormFile file)
+        private async Task<string> UploadImageAsync( IFormFile file )
         {
-            Directory.CreateDirectory(GetAbsolutePath(POST_IMAGES_PATH));
+            Directory.CreateDirectory(HelperClass.GetAbsolutePath(POST_IMAGES_PATH, _hostingEnvironment));
             string imageFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             string imagePath = Path.Combine(POST_IMAGES_PATH, imageFileName);
-            string uploadPath = GetAbsolutePath(imagePath);
-            using (Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
+            string uploadPath = HelperClass.GetAbsolutePath(imagePath, _hostingEnvironment);
+            using(Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
                 await file.CopyToAsync(uploadStream);
             return imageFileName;
         }
 
-        private string GetPostImagePath(string imageFileName)
-        {
-            if(!string.IsNullOrEmpty(imageFileName))
-            return "/" + POST_IMAGES_PATH + "/"+imageFileName;
-            return string.Empty;
-        }
 
-        private string GetAbsolutePath(string relativePath)
-        {
-            return Path.Combine(_hostingEnvironment.WebRootPath, relativePath);
-        }
-
-        public IActionResult Details(Guid postId)
+        [Authorize]
+        public IActionResult Details( Guid id )
         {
             var post = _context.Posts
-                .Include(x=>x.Author)
-                .Include(x=>x.DateCreated)
-                .Include(x=>x.ImageUrl)
-                .Include(x=>x.LikedBy)
-                .Include(x=>x.DislikedBy)
-                .First(x => x.ID == postId);
-            
-            return View();
+                .Include(x => x.Author)
+                .Include(x => x.LikedBy)
+                .Include(x => x.DislikedBy)
+                .Include(x => x.Comments)
+                .First(x => x.ID == id);
+
+            var currentUser = _context.Users
+                .First(x => x.UserName == User.Identity.Name);
+
+            var comments = _context.Comments
+                .Where(x => x.ParentComment.ID == post.ID)
+                .ToList();
+
+            var detailsViewModel = new DetailsViewModel(post, comments,currentUser)
+            {
+                //TODO: Or Admin
+                IsThisUserAuthor = currentUser.Id == post.Author.Id,
+                CurrentUser = currentUser
+            };
+
+            return View(detailsViewModel);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Explore()
+        public IActionResult Explore()
         {
             return List();
         }
