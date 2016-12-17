@@ -1,7 +1,8 @@
 ﻿@model SocialBlade.Models.PostViewModels.ShortPostViewModel
 @using SocialBlade.ViewComponents
 @using SocialBlade.Utilities
-<div class="post z-depth-5 col s12 m10 offset-m1">
+
+<div class="post z-depth-5">
     <div class="post-header">
         <div class="row">
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
