@@ -1,5 +1,4 @@
-@using SocialBlade.ViewComponents
-@model SocialBlade.Models.PostViewModels.EditPostViewModel
+@model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,43 +11,20 @@
 }
 @{await Html.RenderPartialAsync("_Menu");}
 
-<form asp-action="Save" method="post" enctype="multipart/form-data">
-
-    <div class="create-wrapper">
-        <div class="create-header">
-            <div class="row" style="margin-bottom: 0px;">
-                @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post" })
-            </div>
-        </div>
-        <div class="create-content">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <textarea asp-for="Content" rows="20" cols="40" placeholder="What's on your mind?"></textarea>
-            <span asp-validation-for="Content" class="text-danger" />
-        </div>
-        <div class="create-footer">
-            <div class="file-field input-field fileIn">
-                <div class="btn">
-                    <span>Upload Image</span>
-                    <input asp-for="Image">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                </div>
-            </div>
-        </div>
+@* Styling for Explore page *@
+<div class="content-container hide-on-small-only">
+    <div class="content">
+        @foreach (var item in Model)
+            {
+                await Html.RenderPartialAsync("_Post", item);
+            }
     </div>
-    <div class="submit-wrapper">
-        <button type="submit" name="button" class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh;">Post</button>
-        <a asp-action="List" class="btn-flat waves-effect waves-gray delete">
-            Cancel
-        </a>
-    </div>
-</form>
-
-@* Hellow DotNET *@
-
-<div class="submit-wrapper">
+</div>
+<div class="content-small hide-on-med-and-up">
+    @foreach (var item in Model)
+            {
+                await Html.RenderPartialAsync("_Post", item);
+            }
 </div>
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
