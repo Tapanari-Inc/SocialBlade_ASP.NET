@@ -8,19 +8,20 @@
 }
 @section scripts{
     <script src="/js/initExplore.js"></script>
+    <script src="/js/reactionLogic.js"></script>
 }
 
 @{await Html.RenderPartialAsync("_Menu");}
 
 @* Styling for Explore page *@
 <div class="content-container hide-on-small-only">
-        <div class="content-ex">
-            @foreach (var item in Model)
-                {
-                    await Html.RenderPartialAsync("_PostExplore", item);
-                }
-        </div>
+    <div class="content-ex">
+        @foreach (var item in Model)
+        {
+            await Html.RenderPartialAsync("_PostExplore", item);
+        }
     </div>
+</div>
 <div class="content-small hide-on-med-and-up">
     @foreach (var item in Model)
             {
