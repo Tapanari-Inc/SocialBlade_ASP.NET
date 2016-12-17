@@ -99,6 +99,8 @@ namespace SocialBlade
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+            loggerFactory.AddDebug(LogLevel.Debug);
         }
     }
 }

@@ -13,6 +13,7 @@ using SocialBlade.Data;
 using SocialBlade.Models;
 using SocialBlade.Models.AccountViewModels;
 using SocialBlade.Services;
+using SocialBlade.Models.Common;
 
 namespace SocialBlade.Controllers
 {
@@ -241,6 +242,48 @@ namespace SocialBlade.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            id = string.IsNullOrEmpty(id) ? _userManager.GetUserId(User) : id;
+            var user = Db.Users.SingleOrDefault(x=>x.Id == id);
+            if(user != null)
+            {
+                return View(model:user.Id);
+            }
+            else
+            {
+                return View("Error", new ErrorViewModel { ErrorCode = 404, ErrorText = "User not found!" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<string> ToggleFollow(string userId)
+        {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+            ApplicationUser followedUser = await Db.Users.SingleOrDefaultAsync(x => x.Id == userId);
+            var relation = Db.UserRelations
+                .Include(x => x.Follower)
+                .Include(x => x.Followee)
+                .SingleOrDefault(x => x.Follower.Id == currentUser.Id &&
+                x.Followee.Id == followedUser.Id);
+            if (followedUser == null)
+                return "500";
+            if(relation!=null)
+            {
+                Db.UserRelations.Remove(relation);
+            }
+            else
+            {
+                relation = Db.UserRelations.Add(new UserRelation
+                {
+                    Follower = currentUser,
+                    Followee = followedUser
+                }).Entity;
+            }
+            await Db.SaveChangesAsync();
+            return "200";
+        }
         #region Helpers
 
         private void AddErrors( IdentityResult result )

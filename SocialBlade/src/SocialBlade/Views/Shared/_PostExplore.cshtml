@@ -24,30 +24,35 @@
     </div>
     <div class="post-footer">
         <div class="row" style="height: 100%;">
+            <input type="hidden" class="id" value="@Model.ID" />
             <div class="col s2">
                 <div class="likeW">
                     <i class="fa fa-thumbs-up fa-2x like
-                                        @if(Model.Reaction == true)
+                                        @if (Model.Reaction == true)
                                         {
                                             @:clicked
                                         }
                                         " aria-hidden="true"></i>
                 </div>
                 <div class="amountLike">
-                    <p><b>@Model.Likes</b></p>
+                    <p>
+                        <b>@Model.Likes</b>
+                    </p>
                 </div>
             </div>
             <div class="col s2">
                 <div class="dislikeW">
                     <i class="fa fa-thumbs-down fa-2x dislike
-                                       @if(Model.Reaction == false)
+                                       @if (Model.Reaction == false)
                                        {
                                            @:clicked
                                        }
                                        " aria-hidden="true"></i>
                 </div>
                 <div class="amountDislike">
-                    <p><b>@Model.Dislikes</b></p>
+                    <p>
+                        <b>@Model.Dislikes</b>
+                    </p>
                 </div>
             </div>
             <div class="col s4 offset-s4">
