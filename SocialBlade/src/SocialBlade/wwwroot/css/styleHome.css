@@ -66,6 +66,7 @@ body{
   font-size: 1.2rem;
   color: #ccc;
   float:right;
+  margin-right: 2vh;
 }
 .time-container{
   width: 100%;
