@@ -14,6 +14,7 @@ using SocialBlade.Models;
 using SocialBlade.Models.AccountViewModels;
 using SocialBlade.Services;
 using SocialBlade.Models.Common;
+using SocialBlade.Models.PostViewModels;
 
 namespace SocialBlade.Controllers
 {
@@ -249,6 +250,21 @@ namespace SocialBlade.Controllers
             var user = Db.Users.SingleOrDefault(x=>x.Id == id);
             if(user != null)
             {
+                var currentUser = Db.Users
+                    .First(x => x.UserName == User.Identity.Name);
+
+                var posts = new List<ShortPostViewModel>();
+                var userPosts = Db.Posts
+                    .Include(x => x.Author)
+                    .Include(x => x.LikedBy).ThenInclude(x => x.User)
+                    .Include(x => x.DislikedBy).ThenInclude(x => x.User)
+                    .Include(x => x.ImageUrl)
+                    .Where(x => x.Author.Id == currentUser.Id)
+                    .ToList();
+
+                //var postsViewModel = userPosts.Select(x => { return new });
+
+                //return View(userPosts);
                 return View(model:user.Id);
             }
             else

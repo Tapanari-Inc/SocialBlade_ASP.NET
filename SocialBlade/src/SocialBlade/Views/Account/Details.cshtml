@@ -10,8 +10,11 @@
     <script src="/js/initExplore.js"></script>
     <script src="~/js/followLogic.js"></script>
 }
-@await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Details", userId = Model });
+@{
+    ViewData["Title"] = "My Profile";
+}
 @{await Html.RenderPartialAsync("_Menu");}
+@await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Details", userId = Model });
 <div class="content-container">
     <div class="row">
         <div class="content">

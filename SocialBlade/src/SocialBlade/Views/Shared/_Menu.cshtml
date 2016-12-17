@@ -1,4 +1,8 @@
 ﻿@using SocialBlade.ViewComponents;
+@{
+    var pageName = ViewContext.RouteData.Values["action"].ToString();
+}
+
 <div class="menu hide-on-small-only">
     <div class="burger-container">
         <div class="burger">
@@ -38,16 +42,16 @@
 
 <div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
     <div class="row" style="margin-bottom: 0;">
-        <div class="col s3 icon current">
-            <a href="#"><img src="~/images/home.png"></a>
+        <div class="col s3 icon @(pageName == "List" ? "current" : "")">
+            <a asp-action="List" asp-controller="Post"><img src="~/images/home.png"></a>
         </div>
-        <div class="col s3 icon">
-            <a href="#"><img src="~/images/compass.png"></a>
+        <div class="col s3 icon @(pageName == "Explore" ? "current" : "")">
+            <a asp-action="Explore" asp-controller="Post"><img src="~/images/compass.png"></a>
         </div>
-        <div class="col s3 icon">
-            <a href="#"><img src="~/images/avatar.png"></a>
+        <div class="col s3 icon @(pageName == "Details" ? "current" : "")">
+            <a asp-action="Details" asp-controller="Account"><img src="~/images/avatar.png"></a>
         </div>
-        <div class="col s3 icon">
+        <div class="col s3 icon @(pageName == "Create" ? "current" : "")">
             <a asp-action="Create" asp-controller="Post"><img src="~/images/upload.png"></a>
         </div>
     </div>

@@ -7,11 +7,11 @@
 
         <div class="col s12 m8 offset-m2 l6 offset-l3">
             <div class="MP">
-                <div class="row valign-wrapper">
+                <div class="row valign-wrapper" style="margin-bottom: 0">
                     <div class="col s4 myPic">
-                        <img src="@Model?.ProfilePictureUrl" alt="" class="circle myProfilePic">
+                        <img src="@Model?.ProfilePictureUrl" alt="" class="circle responsive-img myProfilePic">
                     </div>
-                    <div class="col s8 m10">
+                    <div class="col s8 m10 center-align">
                         <div class="myStats">
                             @Model?.FollowersCountDisplay
                         </div>
@@ -22,20 +22,5 @@
                 </div>
             </div>
         </div>
-        @*<div class="MP">
-            <div class="row no-pad" style="height: 100%;">
-                <div class="col s3 myPic">
-                    <img class="circle myProfilePic" src="@Model?.ProfilePictureUrl">
-                </div>
-                <div class="col s9">
-                    <div class="myStats">
-                        @Model?.FollowersCount
-                    </div>
-                    <div class="myName">
-                        @Model?.FullName
-                    </div>
-                </div>
-            </div>
-        </div>*@
     </div>
 </a>
