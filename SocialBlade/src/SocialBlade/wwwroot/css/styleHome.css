@@ -60,7 +60,7 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 2vw;
+    font-size: 2vmax;
 }
 
 .profilePic {
@@ -159,7 +159,7 @@ body {
     padding: 0;
     padding-left: 10%;
     font-weight: 400;
-    font-size: 1.5vw;
+    font-size: 1.2vmax;
 }
 
 /*Comments*/
