@@ -32,3 +32,5 @@ $('.addImg').click(function(){
   $(this).hide();
   $('.fileIn').show();
 });
+
+

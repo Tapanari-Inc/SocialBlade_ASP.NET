@@ -1,6 +1,7 @@
 /*Home page styling*/
 body {
     background: #222;
+    overflow-y: scroll !important;
 }
 
 .create-wrapper {
