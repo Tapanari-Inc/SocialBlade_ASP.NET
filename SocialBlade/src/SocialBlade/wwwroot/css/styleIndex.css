@@ -157,7 +157,7 @@ body{
   border-radius: 50%;
   position: relative;
   transform-origin: center;
-  transform: translate(-1%, -1%);
+  transform: translate(-1%, -8%);
   z-index: 100;
 }
 .smallPic{

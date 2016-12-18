@@ -3,6 +3,8 @@
     var pageName = ViewContext.RouteData.Values["action"].ToString();
 }
 
+<div class="overlay" style="display: none;"></div>
+
 <ul class="lightrope hide-on-small-only">
     <li></li>
     <li></li>
@@ -68,14 +70,14 @@
         <div class="item navs">
             <div class="container">
                 <div class="row">
+                    <a asp-action="List" asp-controller="Post">
+                        <div class="col m10 offset-m1 link hvr-outline-out">
+                            HOME
+                        </div>
+                    </a>
                     <a asp-action="Explore" asp-controller="Post">
                         <div class="col m10 offset-m1 link hvr-outline-out">
                             EXPLORE
-                        </div>
-                    </a>
-                    <a asp-action="Create" asp-controller="Post">
-                        <div class="col m10 offset-m1 link hvr-outline-out">
-                            CREATE A POST
                         </div>
                     </a>
                     <form asp-action="LogOff" asp-controller="Account" id="logOffForm">
@@ -93,29 +95,26 @@
 
 <div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
     <div class="row" style="margin-bottom: 0;">
-        <div class="col s3 icon @(pageName == "List" ? "current" : "")">
+        <div class="col s4 icon @(pageName == "List" ? "current" : "")">
             <a asp-action="List" asp-controller="Post"><img src="~/images/home.png"></a>
         </div>
-        <div class="col s3 icon @(pageName == "Explore" ? "current" : "")">
+        <div class="col s4 icon @(pageName == "Explore" ? "current" : "")">
             <a asp-action="Explore" asp-controller="Post"><img src="~/images/compass.png"></a>
         </div>
-        <div class="col s3 icon @(pageName == "Details" ? "current" : "")">
+        <div class="col s4 icon @(pageName == "Details" ? "current" : "")">
             <a asp-action="Details" asp-controller="Account"><img src="~/images/avatar.png"></a>
-        </div>
-        <div class="col s3 icon @(pageName == "Create" ? "current" : "")">
-            <a asp-action="Create" asp-controller="Post"><img src="~/images/upload.png"></a>
         </div>
     </div>
 </div>
 
-@*<div id="dab" class="fixed-action-btn toolbar valign-wrapper">
-    <a class="btn-floating btn-large blue">
-        <i class="large material-icons">mode_edit</i>
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">perm_identity</i>
     </a>
     <ul>
-        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "List" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/home.png"></a></li>
-        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Explore" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/compass.png"></a></li>
-        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Details" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/avatar.png"></a></li>
-        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Create" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/upload.png"></a></li>
+        <li><a asp-action="Create" asp-controller="Post" class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="New Post"><i class="material-icons">add</i></a></li>
+        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Edit Profile"><i class="material-icons">mode_edit</i></a></li>
+        <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="My Profile"><i class="material-icons">settings</i></a></li>
     </ul>
-</div>*@
+</div>
+

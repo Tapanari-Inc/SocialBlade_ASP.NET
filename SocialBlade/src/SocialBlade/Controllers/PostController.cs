@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SocialBlade.Utilities;
 
 namespace SocialBlade.Controllers
@@ -168,7 +169,7 @@ namespace SocialBlade.Controllers
                 IsThisUserAuthor = currentUser.Id == post.Author.Id,
                 CurrentUser = currentUser
             };
-
+            
             return View(detailsViewModel);
         }
 
