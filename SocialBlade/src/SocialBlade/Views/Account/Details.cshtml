@@ -4,6 +4,7 @@
 @section stylesheets
 {
     <link rel="stylesheet" href="/css/styleProfile.css" />
+    <link rel="stylesheet" href="/css/styleExplore.css" />
 }
 @section scripts
 {
@@ -15,12 +16,4 @@
 }
 @{await Html.RenderPartialAsync("_Menu");}
 @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Details", userId = Model });
-<div class="content-container">
-    <div class="row">
-        <div class="content">
-            <!--Spam posts from here-->
-
-            <!--TO HERE-->
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync(typeof(PostListComponent), new { id = Model, viewName = "Explore" })

@@ -1,4 +1,5 @@
-@model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
+@model string
+@using SocialBlade.ViewComponents
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,20 +14,6 @@
 
 @{await Html.RenderPartialAsync("_Menu");}
 
-@* Styling for Explore page *@
-<div class="content-container hide-on-small-only">
-    <div class="content-ex">
-        @foreach (var item in Model)
-        {
-            await Html.RenderPartialAsync("_PostExplore", item);
-        }
-    </div>
-</div>
-<div class="content-small hide-on-med-and-up">
-    @foreach (var item in Model)
-            {
-                await Html.RenderPartialAsync("_PostExploreSmall", item);
-            }
-</div>
+@await Component.InvokeAsync(typeof(PostListComponent), new { id = Model, viewName = "Explore" })
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
