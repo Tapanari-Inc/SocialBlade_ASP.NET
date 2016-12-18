@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
+<div class="content-container">
+    <div class="row">
+        <div class="content">
+            <!--Spam posts from here-->
+            @foreach (var item in Model)
+            {
+                await Html.RenderPartialAsync("_Post", item);
+            }
+            <!--TO HERE-->
+        </div>
+    </div>
+</div>
