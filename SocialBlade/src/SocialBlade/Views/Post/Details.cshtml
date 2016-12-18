@@ -23,11 +23,11 @@
             <!-- TODO: Put post here -->
             <div class="post" style="padding-left: 20px; padding-right: 20px;">
                 <!--TODO: Hide this div if it's not the user-->
-                @if(Model.IsThisUserAuthor)
+                @if (Model.IsThisUserAuthor)
                 {
                     <div class="before-header">
                         <a asp-action="Edit" asp-route-id="@Model.Post.ID" class="btn-flat edit">Edit</a>
-                        <a href="#" class="btn-flat delete">Delete</a>
+                        <a href="#modal1" class="btn-flat delete modal-trigger">Delete</a>
                     </div>
                 }
                 @{
@@ -37,11 +37,10 @@
                     @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "PostComment" })
                     <!-- TODO: SPAM ALL COMMENTS HERE-->
                     <div class="commentActual-wrapper">
-                        @foreach(var comment in Model.Comments)
+                        @foreach (var comment in Model.Comments)
                         {
                             await Html.RenderPartialAsync("_Comment", comment);
                         }
-
 
                         <div class="reply reply-init">
                             <div class="rpw">
@@ -77,5 +76,17 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div id="modal1" class="modal">
+    <div class="modal-content center">
+        <h4>Are you sure you wish to delete your post?</h4>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat delete">NO!</a>
+        @* This will delete the post! *@
+        <a href="#" class="modal-action waves-effect waves-green btn-flat edit" style="margin-right: 1vh;">Yes</a>
     </div>
 </div>
