@@ -15,4 +15,4 @@
 }
 
 @{await Html.RenderPartialAsync("_Menu");}
-@await Component.InvokeAsync(typeof(PostListComponent), Model)
+@await Component.InvokeAsync(typeof(PostListComponent), new {userId = Model})

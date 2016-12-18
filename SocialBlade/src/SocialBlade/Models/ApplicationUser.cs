@@ -21,7 +21,7 @@ namespace SocialBlade.Models
         public virtual List<User_Like> Likes { get; set; }
         public virtual List<User_Dislike> Dislikes { get; set; }
 
-        public virtual List<UserRelation> RelationA { get; set; }
-        public virtual List<UserRelation> RelationB { get; set; }
+        public virtual List<UserRelation> Following { get; set; }
+        public virtual List<UserRelation> Followers { get; set; }
     }
 }

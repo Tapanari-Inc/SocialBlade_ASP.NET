@@ -50,9 +50,9 @@ namespace SocialBlade.ViewComponents
                 int followers = Db.UserRelations.Count(x => x.Followee.Id == user.Id) - 1;
                 int following = Db.UserRelations.Count(x => x.Follower.Id == user.Id) - 1;
                 int postsCount = Db.Posts.Include(x => x.Author).Count(x => x.Author.Id == user.Id);
-                model.FollowersCountDisplay = string.Format($"{followers.Format()} followers");
-                model.FollowingCountDisplay = string.Format($"{following.Format()} following");
-                model.PostsCountDisplay = string.Format($"{postsCount.Format()} posts");
+                model.FollowersCountDisplay = followers.Format();
+                model.FollowingCountDisplay = following.Format();
+                model.PostsCountDisplay = postsCount.Format();
                 model.IsFollowed = Db.UserRelations
                     .SingleOrDefault(x => x.Followee.Id == user.Id
                     && x.Follower.Id == _userManager.GetUserId(HttpContext.User)) != null;

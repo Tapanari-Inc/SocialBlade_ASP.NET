@@ -34,14 +34,14 @@ namespace SocialBlade.Data
             base.OnModelCreating(builder);
             builder.Entity<UserRelation>()
                 .HasOne(x => x.Followee)
-                .WithMany(x => x.RelationB)
+                .WithMany(x => x.Followers)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.Entity<UserRelation>()
                 .HasOne(x => x.Follower)
-                .WithMany(x => x.RelationA)
+                .WithMany(x => x.Following)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
