@@ -3,7 +3,7 @@
     <div class="row">
         <div class="content">
             <!--Spam posts from here-->
-            @foreach (var item in Model)
+            @foreach (var item in Model.OrderByDescending(x=>x.CreateTime))
             {
                 await Html.RenderPartialAsync("_Post", item);
             }

@@ -2,14 +2,14 @@
 @* Styling for Explore page *@
 <div class="content-container hide-on-small-only">
     <div class="content-ex">
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderByDescending(x=>x.CreateTime))
         {
             await Html.RenderPartialAsync("_PostExplore", item);
         }
     </div>
 </div>
 <div class="content-small hide-on-med-and-up">
-    @foreach (var item in Model)
+    @foreach (var item in Model.OrderByDescending(x=>x.CreateTime))
             {
                 await Html.RenderPartialAsync("_PostExploreSmall", item);
             }
