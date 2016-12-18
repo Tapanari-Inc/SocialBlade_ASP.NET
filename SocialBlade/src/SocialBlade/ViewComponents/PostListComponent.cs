@@ -22,34 +22,76 @@ namespace SocialBlade.ViewComponents
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IViewComponentResult> InvokeAsync(string id, string viewName = "Default")
+        public async Task<IViewComponentResult> InvokeAsync(ListType type = ListType.Default,string userId = null)
         {
-            id = string.IsNullOrEmpty(id) ? _userManager.GetUserId(HttpContext.User) : id;
-            var user = _context.Users.SingleOrDefault(x => x.Id == id);
-            if (user != null)
+            ApplicationUser user = null;
+            if (userId == null)
             {
-                ApplicationUser currentUser = _context.Users
-                    .First(x => x.UserName == User.Identity.Name);
-
-                var posts = new List<ShortPostViewModel>();
-                var dbPosts = _context.Posts
-                    .Include(x => x.Author)
-                    .Include(x => x.Comments)
-                    .Include(x => x.LikedBy).ThenInclude(x => x.User)
-                    .Include(x => x.DislikedBy).ThenInclude(x => x.User)
-                    .Where(x => x.Author.Id == currentUser.Id).ToList();
-                posts.AddRange(dbPosts.Select(x =>
-                {
-
-                    return new ShortPostViewModel(x)
-                    {
-                        Reaction = HelperClass.GetReaction(x, currentUser),
-                        ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl)
-                    };
-                }));
-                return View(viewName, posts);
+                user = await _userManager.GetUserAsync(HttpContext.User);
             }
-            return View("Error", new ErrorViewModel { ErrorCode = 404 });
+            else
+            {
+                user = _context.Users.SingleOrDefault(x => x.Id == userId);
+                if(user==null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorCode = 404, ErrorText = "User not found!"});
+                }
+            }
+
+            List<Post> posts  = GetList(type, user);
+
+            var model = posts.Select(x =>
+            {
+                return new ShortPostViewModel(x)
+                {
+                    Reaction = HelperClass.GetReaction(x, user),
+                    ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl)
+                };
+            });
+
+            return View(GetViewName(type), model);
+        }
+
+        private List<Post> GetList(ListType type, ApplicationUser user)
+        {
+            var postsQuery = _context.Posts
+                .Include(x => x.Author)
+                .Include(x => x.Comments)
+                .Include(x => x.LikedBy).ThenInclude(x => x.User)
+                .Include(x => x.DislikedBy).ThenInclude(x => x.User);
+            IQueryable<Post> resultQuery;
+            var followingIds = user.Following.Select(y => y.Followee.Id);
+            switch (type)
+            {
+                case ListType.UserOnly:
+                    resultQuery = postsQuery.Where(x => x.Author.Id == user.Id);
+                    break;
+                case ListType.Explore:
+                    resultQuery = postsQuery.Where(x => !followingIds.Contains(x.Author.Id));
+                    break;
+                default:
+                    resultQuery = postsQuery.Where(x => followingIds.Contains(x.Author.Id));
+                    break;
+            }
+            return resultQuery.ToList();
+        }
+
+        private string GetViewName(ListType type)
+        {
+            switch(type)
+            {
+                case ListType.Explore:
+                case ListType.UserOnly:
+                    return "Explore";
+                default: return "Default";
+            }
+        }
+
+        public enum ListType
+        {
+            Default,
+            Explore,
+            UserOnly
         }
     }
 }

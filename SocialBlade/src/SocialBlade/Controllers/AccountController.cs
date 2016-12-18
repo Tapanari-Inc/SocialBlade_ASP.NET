@@ -16,6 +16,7 @@ using SocialBlade.Services;
 using SocialBlade.Models.Common;
 using SocialBlade.Models.PostViewModels;
 using SocialBlade.Utilities;
+using System.Dynamic;
 
 namespace SocialBlade.Controllers
 {
@@ -261,31 +262,34 @@ namespace SocialBlade.Controllers
         }
 
         [HttpPost]
-        public async Task<string> ToggleFollow(string userId)
+        public async Task<dynamic> ToggleFollow(string userId)
         {
-            ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+            dynamic result = new ExpandoObject();
             ApplicationUser followedUser = await Db.Users.SingleOrDefaultAsync(x => x.Id == userId);
+            if (followedUser == null)
+                return result.Status = "500";
+            ApplicationUser currentUser = await _userManager.GetUserAsync(User);
             var relation = Db.UserRelations
                 .Include(x => x.Follower)
                 .Include(x => x.Followee)
                 .SingleOrDefault(x => x.Follower.Id == currentUser.Id &&
                 x.Followee.Id == followedUser.Id);
-            if (followedUser == null)
-                return "500";
             if (relation != null)
             {
                 Db.UserRelations.Remove(relation);
             }
             else
             {
-                relation = Db.UserRelations.Add(new UserRelation
+                Db.UserRelations.Add(new UserRelation
                 {
                     Follower = currentUser,
                     Followee = followedUser
-                }).Entity;
+                });
             }
             await Db.SaveChangesAsync();
-            return "200";
+            result.FollowersCount = (Db.UserRelations.Count(x => x.Followee.Id == userId) - 1).Format();
+            result.Status = "200";
+            return result;
         }
         #region Helpers
 

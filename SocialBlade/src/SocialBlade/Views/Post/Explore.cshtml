@@ -13,6 +13,6 @@
 }
 @{await Html.RenderPartialAsync("_Menu");}
 
-@await Component.InvokeAsync(typeof(PostListComponent), new { id = Model, viewName = "Explore" })
+@await Component.InvokeAsync(typeof(PostListComponent), new { userId = Model, type=PostListComponent.ListType.Explore })
 
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
