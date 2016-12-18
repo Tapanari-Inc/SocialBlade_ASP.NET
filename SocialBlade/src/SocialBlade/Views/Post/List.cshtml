@@ -1,4 +1,5 @@
-@model IEnumerable<SocialBlade.Models.PostViewModels.ShortPostViewModel>
+@model string
+@using SocialBlade.ViewComponents
 
 @{
     ViewData["Title"] = "Posts";
@@ -14,15 +15,4 @@
 }
 
 @{await Html.RenderPartialAsync("_Menu");}
-<div class="content-container">
-    <div class="row">
-        <div class="content">
-            <!--Spam posts from here-->
-            @foreach (var item in Model)
-            {
-                await Html.RenderPartialAsync("_Post", item);
-            }
-            <!--TO HERE-->
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync(typeof(PostListComponent), Model)

@@ -24,9 +24,9 @@ namespace SocialBlade.Controllers
         private ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;
         private IHostingEnvironment _hostingEnvironment;
-        public PostController( ApplicationDbContext context,
+        public PostController(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
-            IHostingEnvironment hostingEnvironment )
+            IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _userManager = userManager;
@@ -42,24 +42,8 @@ namespace SocialBlade.Controllers
         [Authorize]
         public IActionResult List()
         {
-            var posts = new List<ShortPostViewModel>();
-            var dbPosts = _context.Posts
-                .Include(x => x.Author)
-                .Include(x => x.Comments)
-                .Include(x => x.LikedBy).ThenInclude(x => x.User)
-                .Include(x => x.DislikedBy).ThenInclude(x => x.User)
-                .OrderByDescending(x => x.DateCreated).ToList();
-            ApplicationUser user = _context.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            posts.AddRange(dbPosts.Select(x =>
-            {
+            return View(model: _userManager.GetUserId(User));
 
-                return new ShortPostViewModel(x)
-                {
-                    Reaction = HelperClass.GetReaction(x, user),
-                    ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl)
-                };
-            }));
-            return View(posts);
         }
 
         [HttpGet]
@@ -69,12 +53,12 @@ namespace SocialBlade.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit( Guid id )
+        public IActionResult Edit(Guid id)
         {
             var post = _context.Posts
                 .Include(x => x.Author)
                 .SingleOrDefault(x => x.ID == id && x.Author.Id == _userManager.GetUserId(User));
-            if(post == null)
+            if (post == null)
             {
                 return View("Error");
             }
@@ -84,13 +68,13 @@ namespace SocialBlade.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save( EditPostViewModel postViewModel )
+        public async Task<IActionResult> Save(EditPostViewModel postViewModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Post post;
                 bool isNew = postViewModel.ID == Guid.Empty;
-                if(isNew)
+                if (isNew)
                 {
                     post = new Models.Post();
                 }
@@ -98,11 +82,11 @@ namespace SocialBlade.Controllers
                 {
                     post = _context.Posts.FirstOrDefault(x => x.ID == postViewModel.ID);
                 }
-                if(postViewModel.Image != null)
+                if (postViewModel.Image != null)
                     post.ImageUrl = await UploadImageAsync(postViewModel.Image);
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
-                if(isNew)
+                if (isNew)
                 {
                     _context.Posts.Add(post);
                 }
@@ -114,7 +98,7 @@ namespace SocialBlade.Controllers
 
         //Post: Post/Reacted
         [HttpPost]
-        public string Reacted( Guid postId, int reaction )
+        public string Reacted(Guid postId, int reaction)
         {
             //TODO: Check Follower-Followee rule and validate
             var user = _context
@@ -127,20 +111,20 @@ namespace SocialBlade.Controllers
                 .Include(x => x.DislikedBy).ThenInclude(x => x.User)
                 .Include(x => x.LikedBy).ThenInclude(x => x.User)
                 .First(x => x.ID == postId);
-            if(reaction == 0)
+            if (reaction == 0)
             {
-                if(post.LikedBy.RemoveAll(x => x.User.Id == user.Id) == 0)
+                if (post.LikedBy.RemoveAll(x => x.User.Id == user.Id) == 0)
                     post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
             }
-            else if(reaction == 1)
+            else if (reaction == 1)
             {
-                if(post.LikedBy.Any(x => x.User.Id == user.Id)) return "403";
+                if (post.LikedBy.Any(x => x.User.Id == user.Id)) return "403";
                 post.DislikedBy.RemoveAll(x => x.User.Id == user.Id);
                 post.LikedBy.Add(new User_Like { Post = post, User = user });
             }
             else//reaction == -1
             {
-                if(post.DislikedBy.Any(x => x.User.Id == user.Id)) return "403";
+                if (post.DislikedBy.Any(x => x.User.Id == user.Id)) return "403";
                 post.LikedBy.RemoveAll(x => x.User.Id == user.Id);
                 post.DislikedBy.Add(new User_Dislike { Post = post, User = user });
             }
@@ -149,20 +133,20 @@ namespace SocialBlade.Controllers
             return "200";
         }
 
-        private async Task<string> UploadImageAsync( IFormFile file )
+        private async Task<string> UploadImageAsync(IFormFile file)
         {
             Directory.CreateDirectory(HelperClass.GetAbsolutePath(POST_IMAGES_PATH, _hostingEnvironment));
             string imageFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             string imagePath = Path.Combine(POST_IMAGES_PATH, imageFileName);
             string uploadPath = HelperClass.GetAbsolutePath(imagePath, _hostingEnvironment);
-            using(Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
+            using (Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
                 await file.CopyToAsync(uploadStream);
             return imageFileName;
         }
 
 
         [Authorize]
-        public IActionResult Details( Guid id )
+        public IActionResult Details(Guid id)
         {
             var post = _context.Posts
                 .Include(x => x.Author)
@@ -178,7 +162,7 @@ namespace SocialBlade.Controllers
                 .Where(x => x.ParentComment.ID == post.ID)
                 .ToList();
 
-            var detailsViewModel = new DetailsViewModel(post, comments,currentUser)
+            var detailsViewModel = new DetailsViewModel(post, comments, currentUser)
             {
                 //TODO: Or Admin
                 IsThisUserAuthor = currentUser.Id == post.Author.Id,
@@ -191,7 +175,7 @@ namespace SocialBlade.Controllers
         [HttpGet]
         public IActionResult Explore()
         {
-            return List();
+            return View();
         }
     }
 }
