@@ -135,7 +135,7 @@
 }
 .myName {
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.6vw;
     position: relative;
     color: white;
     display: flex;
@@ -146,7 +146,7 @@
 
 .myStats {
     width: 100%;
-    font-size: 1.1rem;
+    font-size: 1.3vw;
     position: relative;
     border-bottom: 1px solid #e1e1e1;
     text-align: right;
