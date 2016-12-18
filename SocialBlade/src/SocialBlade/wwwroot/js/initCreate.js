@@ -12,16 +12,6 @@ mywindow.scroll(function() {
   mypos = mywindow.scrollTop();
 });
 
-$('#modal1').openModal();
-
-$(document).ready(function () {
-    $('.modal-trigger').leanModal();
-});
-
-$(document).ready(function () {
-    $('.modal').modal();
-});
-
 $('.burger').click(function(){
   $('.burger-container').toggleClass('open');
   $('.menu').toggleClass('show');
