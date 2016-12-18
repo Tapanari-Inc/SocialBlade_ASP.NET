@@ -8,7 +8,7 @@ using SocialBlade.Data;
 namespace SocialBlade.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161217005951_initial")]
+    [Migration("20161218234333_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,6 +189,8 @@ namespace SocialBlade.Data.Migrations
                     b.Property<string>("AuthorId")
                         .IsRequired();
 
+                    b.Property<Guid?>("CommentViewModelId");
+
                     b.Property<string>("Content")
                         .IsRequired();
 
@@ -198,11 +200,14 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<Guid?>("ParentCommentID");
 
-                    b.Property<Guid?>("PostID");
+                    b.Property<Guid?>("PostID")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("CommentViewModelId");
 
                     b.HasIndex("ParentCommentID");
 
@@ -275,6 +280,30 @@ namespace SocialBlade.Data.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("SocialBlade.Models.PostViewModels.CommentViewModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorFullName");
+
+                    b.Property<string>("AuthorProfilePictureUrl");
+
+                    b.Property<string>("Content");
+
+                    b.Property<int>("Dislikes");
+
+                    b.Property<int>("Likes");
+
+                    b.Property<Guid?>("ParentCommentId");
+
+                    b.Property<int>("RepliesCount");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CommentViewModel");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.User_Dislike", b =>
@@ -397,12 +426,16 @@ namespace SocialBlade.Data.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("SocialBlade.Models.PostViewModels.CommentViewModel")
+                        .WithMany("Replies")
+                        .HasForeignKey("CommentViewModelId");
+
                     b.HasOne("SocialBlade.Models.Comment", "ParentComment")
                         .WithMany("Replies")
                         .HasForeignKey("ParentCommentID");
 
                     b.HasOne("SocialBlade.Models.Post", "Post")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("PostID");
                 });
 

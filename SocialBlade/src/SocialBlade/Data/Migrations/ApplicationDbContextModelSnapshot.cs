@@ -199,9 +199,8 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<Guid?>("ParentCommentID");
 
-                    b.Property<Guid?>("PostID");
-
-                    b.Property<Guid?>("PostID1");
+                    b.Property<Guid?>("PostID")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -212,8 +211,6 @@ namespace SocialBlade.Data.Migrations
                     b.HasIndex("ParentCommentID");
 
                     b.HasIndex("PostID");
-
-                    b.HasIndex("PostID1");
 
                     b.ToTable("Comments");
                 });
@@ -299,7 +296,7 @@ namespace SocialBlade.Data.Migrations
 
                     b.Property<int>("Likes");
 
-                    b.Property<Guid>("ParentCommentId");
+                    b.Property<Guid?>("ParentCommentId");
 
                     b.Property<int>("RepliesCount");
 
@@ -437,12 +434,8 @@ namespace SocialBlade.Data.Migrations
                         .HasForeignKey("ParentCommentID");
 
                     b.HasOne("SocialBlade.Models.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostID");
-
-                    b.HasOne("SocialBlade.Models.Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostID1");
+                        .HasForeignKey("PostID");
                 });
 
             modelBuilder.Entity("SocialBlade.Models.Message", b =>

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SocialBlade.Models;
 
 namespace SocialBlade.Utilities
@@ -20,7 +22,6 @@ namespace SocialBlade.Utilities
         {
             return Path.Combine(hostingEnvironment.WebRootPath, relativePath);
         }
-
         public static bool? GetReaction( Post post, ApplicationUser user )
         {
             if(post.LikedBy.Any(y => y.User?.Id == user.Id))

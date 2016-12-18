@@ -43,6 +43,24 @@ namespace SocialBlade.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommentViewModel",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    AuthorFullName = table.Column<string>(nullable: true),
+                    AuthorProfilePictureUrl = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    Dislikes = table.Column<int>(nullable: false),
+                    Likes = table.Column<int>(nullable: false),
+                    ParentCommentId = table.Column<Guid>(nullable: true),
+                    RepliesCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentViewModel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRelations",
                 columns: table => new
                 {
@@ -121,41 +139,6 @@ namespace SocialBlade.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    AuthorId = table.Column<string>(nullable: false),
-                    Content = table.Column<string>(nullable: false),
-                    Dislikes = table.Column<int>(nullable: false),
-                    Likes = table.Column<int>(nullable: false),
-                    ParentCommentID = table.Column<Guid>(nullable: true),
-                    PostID = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_Comments_ParentCommentID",
-                        column: x => x.ParentCommentID,
-                        principalTable: "Comments",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Comments_Posts_PostID",
-                        column: x => x.PostID,
-                        principalTable: "Posts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserDislikes",
                 columns: table => new
                 {
@@ -205,6 +188,48 @@ namespace SocialBlade.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    AuthorId = table.Column<string>(nullable: false),
+                    CommentViewModelId = table.Column<Guid>(nullable: true),
+                    Content = table.Column<string>(nullable: false),
+                    Dislikes = table.Column<int>(nullable: false),
+                    Likes = table.Column<int>(nullable: false),
+                    ParentCommentID = table.Column<Guid>(nullable: true),
+                    PostID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_CommentViewModel_CommentViewModelId",
+                        column: x => x.CommentViewModelId,
+                        principalTable: "CommentViewModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Comments_Comments_ParentCommentID",
+                        column: x => x.ParentCommentID,
+                        principalTable: "Comments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Comments_Posts_PostID",
+                        column: x => x.PostID,
+                        principalTable: "Posts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.AddColumn<string>(
                 name: "FirstName",
                 table: "AspNetUsers",
@@ -226,6 +251,11 @@ namespace SocialBlade.Data.Migrations
                 name: "IX_Comments_AuthorId",
                 table: "Comments",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_CommentViewModelId",
+                table: "Comments",
+                column: "CommentViewModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ParentCommentID",
@@ -324,6 +354,9 @@ namespace SocialBlade.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserRelations");
+
+            migrationBuilder.DropTable(
+                name: "CommentViewModel");
 
             migrationBuilder.DropTable(
                 name: "Groups");

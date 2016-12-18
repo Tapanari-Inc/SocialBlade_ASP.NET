@@ -47,8 +47,8 @@ namespace SocialBlade.Data
 
             builder.Entity<Comment>()
                 .HasOne<Post>(x => x.Post)
-                .WithMany()
-                .IsRequired(false)
+                .WithMany(x=>x.Comments)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<User_Like>()
