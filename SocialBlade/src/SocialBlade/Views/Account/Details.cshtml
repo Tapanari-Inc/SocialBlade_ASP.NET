@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model SocialBlade.Models.AccountViewModels.ProfileViewModel
 @using SocialBlade.ViewComponents
 
 @section stylesheets
@@ -14,6 +14,7 @@
 @{
     ViewData["Title"] = "My Profile";
 }
+
 @{await Html.RenderPartialAsync("_Menu");}
 @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Details", userId = Model });
 @await Component.InvokeAsync(typeof(PostListComponent), new { id = Model, viewName = "Explore" })

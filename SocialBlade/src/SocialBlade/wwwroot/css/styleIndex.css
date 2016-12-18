@@ -14,7 +14,7 @@ body{
   top: 0;
   width: 102vw;
   left: -1vw;
-  background: url("http://all4desktop.com/data_images/original/4238051-background.jpg");
+  background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
   background-size: cover;
 }
 .more{
@@ -22,7 +22,7 @@ body{
   width: 100vw;
   height: 6vh;
   bottom: -1vh;
-  background: #56bc8a;
+  background: white;
   text-align: center;
   padding-top: 10px;
 }
@@ -47,7 +47,7 @@ body{
 }
 .login{
   border: 3px solid #ccc;
-  background: rgba(47, 47, 47, 0.61);
+  background: green;
   transition: 0.3s ease-in-out;
   overflow: hidden;
 }
@@ -55,7 +55,7 @@ body{
   border: 3px solid #222;
   border-radius: 0px;
   transform: scale(1.1);
-  background: #222;
+  background: darkgreen;
 }
 .getStarted{
   border: 3px solid rgb(208, 41, 76);
@@ -77,7 +77,7 @@ body{
   z-index: 102;
   color: white;
   text-align: center;
-  font-size: 5vh;
+  font-size: 7vh;
   font-family: 'Roboto', sans-serif;
   top: 15vh;
   margin-bottom: 0;
@@ -91,21 +91,21 @@ body{
   height: 105vh;
   position: relative;
   background: #56bc8a;
-  background: url("http://www.intrawallpaper.com/static/images/rainbow_texture679.jpg");
+  background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
   background-size: cover;
 }
 .teamLabel{
   position: relative;
   margin: 0 auto;
   top: 7vh;
-  max-width: 400px;
-  padding: 20px;
+  max-width: 300px;
+  padding: 15px;
   color: white;
   text-align: center;
   font-size: 40px;
-  border: 2px solid #ccc;
-  background: #222;
-  border-radius: 25px;
+  border: 6px solid #ccc;
+  background: darkblue;
+  border-radius: 20px;
 }
 .members{
   width: 100vw;
@@ -185,7 +185,7 @@ body{
   height: 100vh;
   position: relative;
   background: #7c6023;
-  background: url("https://1.bp.blogspot.com/-9v5OBPVU21w/VlGYNdDqKmI/AAAAAAAACRw/OSOaQ8TYDzQ/s1600/BG%2BShirke%2BConstruction%2BTechnology%2BLtd%2BRecruitment%2B2016.jpg");
+  background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
   background-size: cover;
 }
 .dutp{
@@ -220,8 +220,8 @@ body{
   background: #ccc;
   box-shadow: inset 0px 0px 20px 2px #222;
   transform-origin: 50% 0;
-  text-align: center;
-  font-size: 1.2rem;
+  text-align: left;
+  font-size: 20px;
   padding: 20px;
 }
 .hidden p{

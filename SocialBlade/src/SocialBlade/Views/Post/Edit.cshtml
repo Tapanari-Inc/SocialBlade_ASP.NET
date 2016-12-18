@@ -23,7 +23,7 @@
         <div class="create-content">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
-            <textarea asp-for="Content" rows="20" cols="40" placeholder="What's on your mind?"></textarea>
+            <textarea asp-for="Content" rows="20" cols="40" placeholder="What's on your mind?" id="tarea"></textarea>
             <span asp-validation-for="Content" class="text-danger" />
         </div>
         <div class="create-footer">

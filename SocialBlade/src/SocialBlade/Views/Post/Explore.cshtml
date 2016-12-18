@@ -11,7 +11,6 @@
     <script src="/js/initExplore.js"></script>
     <script src="/js/reactionLogic.js"></script>
 }
-
 @{await Html.RenderPartialAsync("_Menu");}
 
 @await Component.InvokeAsync(typeof(PostListComponent), new { id = Model, viewName = "Explore" })

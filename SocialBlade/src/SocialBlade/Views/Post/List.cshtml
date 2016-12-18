@@ -13,5 +13,6 @@
 {
     <link href="/css/styleHome.css" type="text/css" rel="stylesheet" media="screen,projection" />
 }
+
 @{await Html.RenderPartialAsync("_Menu");}
 @await Component.InvokeAsync(typeof(PostListComponent), Model)
