@@ -3,42 +3,57 @@
     var pageName = ViewContext.RouteData.Values["action"].ToString();
 }
 
-<div class="menu hide-on-small-only">
-    <div class="burger-container">
-        <div class="burger">
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-        </div>
-    </div>
-    <div class="nav-items">
-        @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Menu" })
-        <div class="item navs">
-            <div class="container">
-                <div class="row">
-                    <a asp-action="Explore" asp-controller="Post">
-                        <div class="col m10 offset-m1 link hvr-outline-out">
-                            EXPLORE
-                        </div>
-                    </a>
-                    <a asp-action="Create" asp-controller="Post">
-                        <div class="col m10 offset-m1 link hvr-outline-out">
-                            CREATE A POST
-                        </div>
-                    </a>
-                    <form asp-action="LogOff" asp-controller="Account" id="logOffForm">
-                        <a onclick="document.getElementById('logOffForm').submit();">
-                            <div id="logOffButton" class="col m10 offset-m1 link hvr-outline-out">
-                                LOG OFF
-                            </div>
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<ul class="lightrope hide-on-small-only">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
 
 <div class="menuSmall hide-on-med-and-up z-depth-3 nav-down">
     <div class="row" style="margin-bottom: 0;">
@@ -55,4 +70,16 @@
             <a asp-action="Create" asp-controller="Post"><img src="~/images/upload.png"></a>
         </div>
     </div>
+</div>
+
+<div id="dab" class="fixed-action-btn toolbar valign-wrapper">
+    <a class="btn-floating btn-large blue">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "List" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/home.png"></a></li>
+        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Explore" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/compass.png"></a></li>
+        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Details" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/avatar.png"></a></li>
+        <li class="waves-effect waves-light"><a href="#!" class="@(pageName == "Create" ? "currentL" : "") hvr-sweep-to-bottom"><img src="~/images/upload.png"></a></li>
+    </ul>
 </div>
