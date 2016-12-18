@@ -1,262 +1,300 @@
 /*Home page styling*/
-body{
-  background: #222;
+body {
+    background: #222;
 }
 
 /*Post Things*/
-.post{
-  background: #fafafa;
-  position: relative;
-  margin: 0 auto;
-  margin-bottom: 2vh;
-  border: 1px solid #dbdbdb;
-  padding: 0;
+.post {
+    background: #fafafa;
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 2vh;
+    border: 1px solid #dbdbdb;
+    padding: 0;
 }
 
 /*Bef Head*/
-.before-header{
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 2vh;
-  padding-bottom: 2vh;
-  border-bottom: 1px solid #dbdbdb;
+.before-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2vh;
+    padding-bottom: 2vh;
+    border-bottom: 1px solid #dbdbdb;
 }
-.edit{
-  margin-right: 1vh;
+
+.edit {
+    margin-right: 1vh;
 }
-.edit:hover{
-  background: #3a8c38;
-  color: #eee;
-}
-.delete:hover{
-  background: #af3c3c;
-  color: #eee;
+
+    .edit:hover {
+        background: #3a8c38;
+        color: #eee;
+    }
+
+.delete:hover {
+    background: #af3c3c;
+    color: #eee;
 }
 
 /*Post header*/
-.post-header{
-  position: relative;
-  top: 0;
-  height: 10vh;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom: 1px solid #dbdbdb;
-  margin-bottom: 2vh;
+.post-header {
+    position: relative;
+    top: 0;
+    height: 10vh;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 2vh;
 }
-.image-container{
-  height: 10vh;
-  position: relative;
+
+.image-container {
+    height: 10vh;
+    position: relative;
 }
-.username-container{
-  height: 10vh;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+
+.username-container {
+    height: 10vh;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2vw;
 }
-.profilePic{
-  width: 7vh;
-  height: 7vh;
-  top: 1.5vh;
-  position: relative;
+
+.profilePic {
+    width: 7vh;
+    height: 7vh;
+    top: 1.5vh;
+    position: relative;
 }
-.time{
-  font-size: 1.2rem;
-  color: #ccc;
-  float:right;
-  margin-right: 2vh;
+
+.time {
+    font-size: 1.2rem;
+    color: #ccc;
+    float: right;
+    margin-right: 2vh;
 }
-.time-container{
-  width: 100%;
-  height: 10vh;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+
+.time-container {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 /*Post Footer*/
-.post-footer{
-  position: relative;
-  top: 0;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-top: 1px solid #dbdbdb;
+.post-footer {
+    position: relative;
+    top: 0;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top: 1px solid #dbdbdb;
 }
+
 .amountLike,
 .amountDislike,
-.amountComments{
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: -3vh;
+.amountComments {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -3vh;
 }
+
 .likeW,
 .dislikeW,
-.commentW{
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1vh;
+.commentW {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
 }
+
 .likeW, .amountLike,
-.dislikeW, .amountDislike{
-  margin-left: 100%;
+.dislikeW, .amountDislike {
+    margin-left: 100%;
 }
+
 .amountComments,
-.commentW{
-  margin-left: -25%;
+.commentW {
+    margin-left: -25%;
 }
+
 .like,
 .dislike,
-.comment{
-  transition: 0.1s ease-in-out;
-  cursor: pointer;
+.comment {
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
 }
-.clicked{
-  color: #46f943;
-  transform: scale(1.2);
+
+.clicked {
+    color: #46f943;
+    transform: scale(1.2);
 }
-.dislike.clicked{
-  color: red;
+
+.dislike.clicked {
+    color: red;
 }
 /*Post Content*/
-.post-content{
-  padding: 10px;
-  padding-top: 0px;
-  align-items: center;
+.post-content {
+    padding: 10px;
+    padding-top: 0px;
+    align-items: center;
 }
-.uploadedPic{
-  position: relative;
-  height: auto;
-  width: 80%;
-  left: 10%;
+
+.uploadedPic {
+    position: relative;
+    height: auto;
+    width: 80%;
+    left: 10%;
 }
-.caption{
-  padding: 0;
-  padding-left: 10%;
-  font-weight: 400;
-  font-size: 1.1rem;
+
+.caption {
+    padding: 0;
+    padding-left: 10%;
+    font-weight: 400;
+    font-size: 1.5vw;
 }
 
 /*Comments*/
-.commentActual{
-  width: 100%;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+.commentActual {
+    width: 100%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
-.commentPic{
-  width: 5vh;
-  height: 5vh;
-  right: 0;
-  float: right;
+
+.commentPic {
+    width: 5vh;
+    height: 5vh;
+    right: 0;
+    float: right;
 }
-.cpw{
-  margin-right: 1vw;
+
+.cpw {
+    margin-right: 1vw;
 }
+
 .comment-wrapper,
-.commenting-wrapper{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  background: #e1e1e1;
-  position: relative;
-  padding-left: 20px;
-  padding-right: 20px;
-  width: 100%;
+.commenting-wrapper {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background: #e1e1e1;
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
 }
-.commenting-wrapper{
-  background: #ffffff;
-  border: 1px solid #969696;
+
+.commenting-wrapper {
+    background: #ffffff;
+    border: 1px solid #969696;
 }
-.sub-wrapper{
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 5px;
+
+.sub-wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 5px;
 }
-.commenter{
-  font-size: 1.1rem;
-  position: relative;
-  top: 1vh;
-  font-weight: 600;
+
+.commenter {
+    font-size: 1.1rem;
+    position: relative;
+    top: 1vh;
+    font-weight: 600;
 }
-.rpw{
-  top: 0;
-  left: 0;
-  width: 4vh;
-  height: 4vh;
-  background: blue;
-  margin-right: 1vw;
-  position: relative;
+
+.rpw {
+    top: 0;
+    left: 0;
+    width: 4vh;
+    height: 4vh;
+    background: blue;
+    margin-right: 1vw;
+    position: relative;
 }
-.reply{
-  margin-left: calc(5vh + 1vw);
-  height: 100px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 1vh;
+
+.reply {
+    margin-left: calc(5vh + 1vw);
+    height: 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 1vh;
 }
-.reply-init{
-  margin-bottom: 5vh;
+
+.reply-init {
+    margin-bottom: 5vh;
 }
-.reply-cont{
-  display: inline-block;
+
+.reply-cont {
+    display: inline-block;
 }
-.others{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.others {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.submit-icon{
-  position: relative;
-  margin-left: 3vh;
+
+.submit-icon {
+    position: relative;
+    margin-left: 3vh;
 }
-.replyPic{
-  width: 4vh;
-  height: 4vh;
+
+.replyPic {
+    width: 4vh;
+    height: 4vh;
 }
-.reply-wrapper{
-  position: relative;
-  width: 100%;
-  padding: 0;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 1vh;
-  background: #eee;
-  border: 1px solid #dfdfdf;
+
+.reply-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 1vh;
+    background: #eee;
+    border: 1px solid #dfdfdf;
 }
-.replier{
-  font-weight: 500;
-  font-size: 1.05rem;
+
+.replier {
+    font-weight: 500;
+    font-size: 1.05rem;
 }
-.inline{
-  cursor: pointer;
-  float: right;
-  font-size: 0.9rem;
+
+.inline {
+    cursor: pointer;
+    float: right;
+    font-size: 0.9rem;
 }
-.inline:hover{
-  text-decoration: underline;
+
+    .inline:hover {
+        text-decoration: underline;
+    }
+
+.hide {
+    transform: scaleY(0);
 }
-.hide{
-  transform: scaleY(0);
+
+.allReplies {
+    transform: scaleY(1);
+    transition: 2s ease-in-out;
 }
-.allReplies{
-  transform: scaleY(1);
-  transition: 2s ease-in-out;
-}
-.chide{
-  display: none;
+
+.chide {
+    display: none;
 }
