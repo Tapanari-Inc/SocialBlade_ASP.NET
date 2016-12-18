@@ -9,6 +9,7 @@
 }
 @section scripts{
     <script src="~/js/initCreate.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 @{await Html.RenderPartialAsync("_Menu");}
 
@@ -47,4 +48,3 @@
 </form>
 
 @* Hellow DotNET *@
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
