@@ -72,9 +72,6 @@ function getPostComments(postId,onSuccess) {
         }
     });
 }
-function getComments(postId) {//AJAX
-
-}
 
 function getSubmitCommentDiv(refferenceNode) {
     return refferenceNode.closest(".commentActual");
