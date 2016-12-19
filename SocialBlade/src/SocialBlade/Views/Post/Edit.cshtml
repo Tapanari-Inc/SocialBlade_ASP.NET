@@ -37,6 +37,11 @@
                     <input class="file-path validate" type="text">
                 </div>
             </div>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" width="90" height="90" class="uploaded-image" />
+                <input type="hidden" asp-for="ImageUrl">//Asene stilizirai go tui plz bate
+            }
         </div>
     </div>
     <div class="submit-wrapper">
