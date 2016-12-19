@@ -22,6 +22,8 @@ namespace SocialBlade.Models.PostViewModels
 
         [DataType(DataType.Upload)]
         [Utilities.FileExtensions("jpeg,png,jpg,gif", "This file type is not allowed!")]
-        public IFormFile Image { get; set; }
+        public IFormFile Image { get; set ; }
+
+        public string ImageUrl { get; set; }
     }
 }

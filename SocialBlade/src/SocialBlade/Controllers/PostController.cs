@@ -62,7 +62,10 @@ namespace SocialBlade.Controllers
             {
                 return View("Error");
             }
-            EditPostViewModel model = new EditPostViewModel(post);
+            EditPostViewModel model = new EditPostViewModel(post)
+            {
+                ImageUrl = !string.IsNullOrEmpty(post.ImageUrl) ? Path.Combine("/", POST_IMAGES_PATH, post.ImageUrl) : null
+            };
             return View("Edit", model);
         }
 
@@ -82,8 +85,10 @@ namespace SocialBlade.Controllers
                 {
                     post = _context.Posts.FirstOrDefault(x => x.ID == postViewModel.ID);
                 }
-                if(postViewModel.Image != null)
+                if (postViewModel.Image != null)
                     post.ImageUrl = await UploadImageAsync(postViewModel.Image);
+                else if(postViewModel.ImageUrl==null)
+                    post.ImageUrl = "";
                 post.Content = postViewModel.Content;
                 post.Author = await _userManager.GetUserAsync(HttpContext.User);
                 if(isNew)

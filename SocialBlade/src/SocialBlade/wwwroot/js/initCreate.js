@@ -22,5 +22,9 @@ $('.addImg').click(function(){
   $(this).hide();
   $('.fileIn').show();
 });
-
-
+console.log('gosho');
+$(".uploaded-image").click(function () {
+    console.log('gosho');
+    $('#ImageUrl').val("");
+    $('.uploaded-image').remove();
+});
