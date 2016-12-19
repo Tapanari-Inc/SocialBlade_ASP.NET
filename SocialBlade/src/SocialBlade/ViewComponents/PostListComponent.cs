@@ -37,7 +37,7 @@ namespace SocialBlade.ViewComponents
                     .SingleOrDefault(x => x.Id == userId);
                 if(user==null)
                 {
-                    return View("Error", new ErrorViewModel { ErrorCode = 404, ErrorText = "User not found!"});
+                    return View("Default", new List<ShortPostViewModel>());
                 }
             }
 

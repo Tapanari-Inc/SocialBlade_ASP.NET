@@ -14,6 +14,7 @@
 {
     <script src="/js/initHome.js"></script>
     <script src="/js/reactionLogic.js"></script>
+    <script src="/js/commentLogic.js"></script>
 }
 @{await Html.RenderPartialAsync("_Menu");}
 
@@ -22,7 +23,7 @@
         <div class="content">
             <!-- TODO: Put post here -->
             <div class="post" style="padding-left: 20px; padding-right: 20px;">
-                <!--TODO: Hide this div if it's not the user-->
+                <input type="hidden" value="@Model.Post.ID" />
                 @if (Model.IsThisUserAuthor)
                 {
                     <div class="before-header">
@@ -42,7 +43,7 @@
                             await Html.RenderPartialAsync("_Comment", comment);
                         }
 
-                        <div class="reply reply-init">
+                        <!--div-- class="reply reply-init">
                             <div class="rpw">
                                 <img class="replyPic" src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14572841_1075302559184501_6972025272233313372_n.jpg?oh=4cca76a094121c379867a0a1d704d201&oe=58BC7252">
                             </div>
@@ -56,7 +57,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
                         <!--All replies go here-->
                         <div class="allReplies hide">
