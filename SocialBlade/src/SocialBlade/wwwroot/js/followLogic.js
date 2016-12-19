@@ -6,7 +6,7 @@
             url: "/Account/ToggleFollow",
             data: { 'userId': $('#ID').val() },
             success: function (data) {
-                if(data.Status == '200')
+                if(data.Status === '200')
                 {
                     toggleFollowButton();
                     updateFollowersCount(data.FollowersCount);
