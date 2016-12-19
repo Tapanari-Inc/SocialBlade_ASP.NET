@@ -29,7 +29,10 @@ namespace SocialBlade.ViewComponents
             }
             else
             {
-                user = _context.Users.SingleOrDefault(x => x.Id == userId);
+                user = _context.Users
+                    .Include(x=>x.Following)
+                    .ThenInclude(x=>x.Followee)
+                    .SingleOrDefault(x => x.Id == userId);
                 if(user==null)
                 {
                     return View("Default", new List<ShortPostViewModel>());
