@@ -319,5 +319,35 @@ namespace SocialBlade.Controllers
         }
 
         #endregion
+
+        //GET: Edit
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            var currentUser = Db.Users
+                .First(x => x.UserName == User.Identity.Name);
+
+            var editProfileViewModel=new EditProfileViewModel(currentUser);
+
+            return View(editProfileViewModel);
+        }
+
+        //POST: Edit
+        [HttpPost]
+        public ActionResult Edit(EditProfileViewModel profile )
+        {
+            var currentUser = Db.Users
+                .First(x => x.UserName == User.Identity.Name);
+
+            currentUser.FirstName = profile.FirstName;
+            currentUser.LastName = profile.LastName;
+            currentUser.PhoneNumber = profile.PhoneNumber;
+            currentUser.Email = profile.Email;
+            currentUser.ProfilePictureUrl = profile.ProfilePictureUrl;
+
+            Db.SaveChanges();
+
+            return RedirectToAction("Details");
+        }
     }
 }
