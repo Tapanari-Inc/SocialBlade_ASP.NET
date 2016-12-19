@@ -1,7 +1,39 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+@section stylesheets {
+    <link href="~/css/styleCreate.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/js/initCreate.js"></script>
+}
+<div class="create-wrapper">
+    <div class="create-header">
+        <div class="row center" style="margin-bottom: 0px;">
+            <h3>За проекта:</h3>
+        </div>
+    </div>
+    <div class="create-content">
+        <table>
+            <thead>
+                <tr>
+                    <th data-field="id">Какво представлява проектът SocialBlade?</th>
+                </tr>
+            </thead>
 
-<p>Use this area to provide additional information.</p>
+            <tbody>
+                <tr>
+                    <td>SocialBlade представлява социална мрежа, която дава възможността на всеки потребител да намира приятели, да споделя интересни преживявания и да коментира под публикациите на своите приятели. Уникалността на проекта се крие в това, че всеки е свободен да изрази мнение и да покаже заинтересованост към някоя от актуалните теми, която неговите приятели споделят.  </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="create-header center">
+    </div>
+</div>
+<div class="submit-wrapper">
+    <button class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh;"><a style="text-decoration: none; color: white;" asp-area="" asp-controller="Home" asp-action="Index">Върни се обратно</a></button>
+</div>
+
+
