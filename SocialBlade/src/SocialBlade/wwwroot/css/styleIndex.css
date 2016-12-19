@@ -33,9 +33,17 @@ body {
     }
 
 .buttons {
-    position: relative;
-    margin: 0 auto;
+    margin-top: 150px;
     top: 50%;
+}
+
+.socialtitle {
+    text-align: center;
+    color: #FFF;
+    font-size: 7vh;
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .lgt {
@@ -182,8 +190,7 @@ table {
     z-index: 100;
 }
 
-.
-.smallPic {
+. .smallPic {
     height: 8vh;
     width: 8vh;
     border-radius: 50%;
