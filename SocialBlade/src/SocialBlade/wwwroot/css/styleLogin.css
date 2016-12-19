@@ -1,5 +1,6 @@
 ﻿body {
-    background: url(http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg);
+    background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
+    background-size: cover;
     color: #CCC;
 }
 

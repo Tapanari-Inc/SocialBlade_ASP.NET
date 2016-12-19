@@ -27,6 +27,8 @@ function afterSubmitProcedure(submitCommentDiv) {
     submitCommentDiv.find(".write-comment").val("");
     let comments = $(".post").find(".commentActual");
     setPostCommentsCount(comments.size());
+
+    $("#toBottom").click();
 }
 
 
@@ -35,7 +37,6 @@ function startProcedureForCommenting(commentDiv) {
         getSubmitCommentContent(commentDiv),
         function (data) {
             getPostComments(getPostId(), function (comments) {
-                console.log(comments);
                 $(".commentActual-wrapper").empty();
                 $(".commentActual-wrapper").append(comments);
             } );
@@ -103,3 +104,16 @@ function setPostCommentsCount(count) {
     let postCommentsCount = $(".post").find(".amountComments").find("b");
     postCommentsCount.text(count);
 }
+
+$('a[href*="#"]:not([href="#"])').click(function () {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
