@@ -1,15 +1,34 @@
+
 $('.time').click(function () {
-    if ($(this).hasClass('following')) {
-        $(this).find('.unfollow').hide();
-        $(this).find('.fol').show();
-        $(this).attr('style', '');
-        $(this).removeClass('following');
-    } else {
-        $(this).addClass('following');
-        $(this).find('.fol').hide();
-        $(this).find('.already').show();
-    }
+    let me = $(this);
+    let id = me.closest('.post-header').find('#ID').val();
+    console.log(id);
+    $.ajax(
+        {
+            type: "POST",
+            url: "/Account/ToggleFollow",
+            data: { 'userId': id },
+            success: function (data) {
+                if (data.Status === '200') {
+                    toggleFollowButton(me);
+                }
+            }
+        });
 });
+
+
+function toggleFollowButton(btn) {
+    if (btn.hasClass('following')) {
+        btn.find('.unfollow').hide();
+        btn.find('.fol').show();
+        btn.attr('style', '');
+        btn.removeClass('following');
+    } else {
+        btn.addClass('following');
+        btn.find('.fol').hide();
+        btn.find('.already').show();
+    }
+};
 
 $('.time').mouseenter(function () {
     if ($(this).hasClass('following')) {

@@ -37,5 +37,6 @@ namespace SocialBlade.Models.PostViewModels
         public DateTime  CreateTime { get; set; }
         public string ImageUrl { get; set; }
         public bool? Reaction { get; set; }
+        public bool IsFollowed { get; set; }
     }
 }

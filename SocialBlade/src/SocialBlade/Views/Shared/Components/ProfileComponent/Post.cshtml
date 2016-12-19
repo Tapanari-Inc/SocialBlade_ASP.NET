@@ -1,5 +1,6 @@
 @model SocialBlade.Models.AccountViewModels.ProfileViewModel
 <a asp-action="Details" asp-controller="Account" asp-route-id="@Model.ID">
+    <input type="hidden" asp-for="@Model.ID" />
     <div class="col s2 image-container center">
         <img class="responsive-img circle profilePic" src="@Model.ProfilePictureUrl">
     </div>

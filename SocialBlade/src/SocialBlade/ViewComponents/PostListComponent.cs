@@ -25,28 +25,27 @@ namespace SocialBlade.ViewComponents
             ApplicationUser user = null;
             if (userId == null)
             {
-                user = await _userManager.GetUserAsync(HttpContext.User);
+                userId = _userManager.GetUserId(HttpContext.User);
             }
-            else
+            user = _context.Users
+                .Include(x=>x.Following)
+                .ThenInclude(x=>x.Followee)
+                .SingleOrDefault(x => x.Id == userId);
+            if(user==null)
             {
-                user = _context.Users
-                    .Include(x=>x.Following)
-                    .ThenInclude(x=>x.Followee)
-                    .SingleOrDefault(x => x.Id == userId);
-                if(user==null)
-                {
-                    return View("Default", new List<ShortPostViewModel>());
-                }
+                return View("Default", new List<ShortPostViewModel>());
             }
 
-            List<Post> posts  = GetList(type, user);
+            List<Post> posts = GetList(type, user);
 
+            var followingIds = user.Following.Select(y => y.Followee.Id);
             var model = posts.Select(x =>
             {
                 return new ShortPostViewModel(x)
                 {
                     Reaction = HelperClass.GetReaction(x, user),
-                    ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl)
+                    ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl),
+                    IsFollowed = followingIds.Contains(x.Author.Id)
                 };
             });
 
