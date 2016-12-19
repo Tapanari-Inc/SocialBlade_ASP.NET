@@ -4,7 +4,7 @@
 }
 @section stylesheets
 {
-    <link href="css/register.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="/css/register.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/styleLogin.css" />
 }
 <div class="row">
@@ -41,12 +41,16 @@
                 <label asp-for="ConfirmPassword">Confirm password</label>
             </div>
         </div>
-        <div class="col s10 offset-s1 center-align">
+        <div class="col s10 offset-s1 center-align" style="margin-bottom: 15px">
             <button class="btn waves-effect waves-light center-align" type="submit" name="action">
                 Register
                 <i class="material-icons right">send</i>
             </button>
         </div>
+        <br>
+        <p>
+            <a asp-action="Login">Already have an account?</a>
+        </p>
     </form>
 </div>
 
