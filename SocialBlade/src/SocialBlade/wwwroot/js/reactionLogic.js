@@ -14,7 +14,6 @@ $('.like').click(function () {
             });
 
     } else {//start liking and stop disliking
-        console.log('im here');
         updateReaction(getPostId(me),
             1,
             function (res) {

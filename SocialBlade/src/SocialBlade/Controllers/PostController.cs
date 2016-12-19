@@ -40,7 +40,6 @@ namespace SocialBlade.Controllers
             return RedirectToAction("List");
         }
         [HttpGet]
-        [Authorize]
         public IActionResult List()
         {
             return View(model: _userManager.GetUserId(User));
@@ -145,8 +144,7 @@ namespace SocialBlade.Controllers
             return imageFileName;
         }
 
-
-        [Authorize]
+        
         public IActionResult Details( Guid id )
         {
             var post = _context.Posts
@@ -179,6 +177,25 @@ namespace SocialBlade.Controllers
             return View();
         }
 
+        public IActionResult Delete( Guid id )
+        {
+            var currentUser = _context.Users
+                .First(x => x.UserName == User.Identity.Name);
+
+            var post = _context.Posts
+                .Include(x=>x.Author)
+                .First(x => x.ID == id);
+
+            if(post.Author.Id == currentUser.Id)
+            {
+                _context.Posts.Remove(post);
+                _context.SaveChanges();
+                return RedirectToAction("List");
+            }
+
+            return RedirectToAction("Details", new {id = id});
+        }
+
         //POST: PostComment
         public IActionResult PostComment( Guid postId, string content )
         {
@@ -201,5 +218,7 @@ namespace SocialBlade.Controllers
             var commentViewModel = new CommentViewModel(comment);
             return PartialView("_Comment", commentViewModel);
         }
+
+       
     }
 }

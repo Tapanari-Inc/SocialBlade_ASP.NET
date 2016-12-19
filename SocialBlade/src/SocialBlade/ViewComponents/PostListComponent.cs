@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using SocialBlade.Models;
 using SocialBlade.Models.PostViewModels;
 using SocialBlade.Utilities;
-using SocialBlade.Models.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace SocialBlade.ViewComponents

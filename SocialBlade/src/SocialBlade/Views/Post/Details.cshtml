@@ -24,7 +24,7 @@
             <!-- TODO: Put post here -->
             <div class="post" style="padding-left: 20px; padding-right: 20px;">
                 <input type="hidden" value="@Model.Post.ID" />
-                @if (Model.IsThisUserAuthor)
+                @if(Model.IsThisUserAuthor)
                 {
                     <div class="before-header">
                         <a asp-action="Edit" asp-route-id="@Model.Post.ID" class="btn-flat edit">Edit</a>
@@ -38,7 +38,7 @@
                     @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "PostComment" })
                     <!-- TODO: SPAM ALL COMMENTS HERE-->
                     <div class="commentActual-wrapper">
-                        @foreach (var comment in Model.Comments)
+                        @foreach(var comment in Model.Comments)
                         {
                             await Html.RenderPartialAsync("_Comment", comment);
                         }
@@ -58,7 +58,6 @@
                                 </div>
                             </div>
                         </div-->
-
                         <!--All replies go here-->
                         <div class="allReplies hide">
                             <div class="reply">
@@ -80,14 +79,19 @@
     </div>
 </div>
 
+@if(Model.IsThisUserAuthor)
+{
+    <div id="modal1" class="modal">
+        <div class="modal-content center">
+            <h4>Are you sure you wish to delete your post?</h4>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat delete">NO!</a>
+            @* This will delete the post! *@
+            <form asp-action="Delete" asp-controller="Post" asp-route-id="@Model.Post.ID" id="deleteForm">
+                <a onclick="document.getElementById('deleteForm').submit();" class="modal-action waves-effect waves-green btn-flat edit" style="margin-right: 1vh;">Yes</a>
+            </form>
 
-<div id="modal1" class="modal">
-    <div class="modal-content center">
-        <h4>Are you sure you wish to delete your post?</h4>
+        </div>
     </div>
-    <div class="modal-footer">
-        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat delete">NO!</a>
-        @* This will delete the post! *@
-        <a href="#" class="modal-action waves-effect waves-green btn-flat edit" style="margin-right: 1vh;">Yes</a>
-    </div>
-</div>
+}
