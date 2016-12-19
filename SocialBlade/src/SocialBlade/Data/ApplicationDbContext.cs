@@ -70,6 +70,9 @@ namespace SocialBlade.Data
             builder.Entity<Post>()
                 .Property(x => x.DateModified)
                 .HasDefaultValueSql("getdate()");
+            builder.Entity<Comment>()
+                .Property(x => x.DateCreated)
+                .HasDefaultValueSql("getdate()");
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

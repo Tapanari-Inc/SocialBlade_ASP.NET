@@ -1,3 +1,14 @@
+/*By Bobby - a designer should fix it xD*/
+
+.hidden {
+    display: none;
+}
+.danger {
+    color: #a52a2a;
+}
+
+/*END*/
+
 /*Home page styling*/
 body {
     background: #222;

@@ -1,0 +1,6 @@
+@model IEnumerable<SocialBlade.Models.PostViewModels.CommentViewModel>
+
+@foreach(var comment in Model)
+{
+    await Html.RenderPartialAsync("CommentPartials/_SingleComment", comment);
+}

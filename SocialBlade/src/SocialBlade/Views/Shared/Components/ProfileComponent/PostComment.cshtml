@@ -9,10 +9,11 @@
             <div class="commenting-wrapper">
                 <span class="commenter">@Model.FullName</span>
                 <hr>
+                <span class="hidden danger validationMessage">Comment must not be empty!</span>
                 <div class="others">
                     <input type="text" class="write-comment">
                     <div class="submit-icon">
-                        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                        <i class="fa fa-paper-plane fa-2x btnPostComment" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>

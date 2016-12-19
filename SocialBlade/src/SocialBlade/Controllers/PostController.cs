@@ -144,9 +144,14 @@ namespace SocialBlade.Controllers
             return imageFileName;
         }
 
-        
+
         public IActionResult Details( Guid id )
         {
+            if(id == Guid.Empty || !_context.Posts.Any(x => x.ID == id))
+            {
+                return RedirectToAction("List");
+            }
+
             var post = _context.Posts
                 .Include(x => x.Author)
                 .Include(x => x.LikedBy)
@@ -158,7 +163,9 @@ namespace SocialBlade.Controllers
                 .First(x => x.UserName == User.Identity.Name);
 
             var comments = _context.Comments
-                .Where(x => x.ParentComment.ID == post.ID)
+                .Where(x => x.Post.ID == post.ID && x.ParentComment == null)
+                .Include(x => x.Author)
+                .OrderBy(x => x.DateCreated)
                 .ToList();
 
             var detailsViewModel = new DetailsViewModel(post, comments, currentUser)
@@ -179,25 +186,32 @@ namespace SocialBlade.Controllers
 
         public IActionResult Delete( Guid id )
         {
+            if(id == Guid.Empty || !_context.Posts.Any(x => x.ID == id))
+            {
+                return RedirectToAction("List");
+            }
+
             var currentUser = _context.Users
                 .First(x => x.UserName == User.Identity.Name);
 
             var post = _context.Posts
-                .Include(x=>x.Author)
+                .Include(x => x.Author)
                 .First(x => x.ID == id);
 
             if(post.Author.Id == currentUser.Id)
             {
+                _context.Comments.RemoveRange(_context.Comments.Where(x => x.Post.ID == id));
                 _context.Posts.Remove(post);
                 _context.SaveChanges();
                 return RedirectToAction("List");
             }
 
-            return RedirectToAction("Details", new {id = id});
+            return RedirectToAction("Details", new { id = id });
         }
 
         //POST: PostComment
-        public IActionResult PostComment( Guid postId, string content )
+        [HttpPost]
+        public string PostComment( Guid postId, string content )
         {
             var currentUser = _context.Users
                 .First(x => x.UserName == User.Identity.Name);
@@ -216,9 +230,35 @@ namespace SocialBlade.Controllers
             _context.Comments.Add(comment);
             _context.SaveChanges();
             var commentViewModel = new CommentViewModel(comment);
-            return PartialView("_Comment", commentViewModel);
+            return "200";
         }
 
-       
+        //GET: Post/GetPostComments
+        [HttpGet]
+        public ActionResult GetPostComments( Guid postId )
+        {
+            if(postId == Guid.Empty || !_context.Posts.Any(x => x.ID == postId))
+            {
+                return RedirectToAction("List");
+            }
+            var currentUser = _context.Users
+                .First(x => x.UserName == User.Identity.Name);
+
+            var post = _context.Posts
+                .Include(x => x.Author)
+                .First(x => x.ID == postId);
+
+            var comments = _context.Comments
+                .Include(x=>x.Author)
+                .Where(x => x.Post.ID == postId && x.ParentComment == null)
+                .ToList();
+
+            var commentsViewModel = comments.Select(x => new CommentViewModel(x));
+
+
+            return PartialView("CommentPartials/_MultipleComments",commentsViewModel);
+        }
+
+
     }
 }

@@ -29,18 +29,7 @@ namespace SocialBlade.Models.PostViewModels
                 Reaction = HelperClass.GetReaction(post, user),
                 ImageUrl = HelperClass.GetPostImagePath(post.ImageUrl)
             };
-            Comments = comments.Select(x => new CommentViewModel
-            {
-                Id = x.ID,
-                AuthorFullName = $"{x.Author.FirstName} {x.Author.LastName}",
-                AuthorProfilePictureUrl = x.Author.ProfilePictureUrl,
-                Content = x.Content,
-                Likes = x.Likes,
-                Dislikes = x.Dislikes,
-                ParentCommentId = x.ParentComment.ID,
-                RepliesCount = x.Replies.Count
-
-            }).ToList();
+            Comments = comments.Select(x => new CommentViewModel(x)).ToList();
         }
 
         public ApplicationUser CurrentUser { get; set; }

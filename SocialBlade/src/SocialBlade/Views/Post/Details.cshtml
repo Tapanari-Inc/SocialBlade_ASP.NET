@@ -40,7 +40,7 @@
                     <div class="commentActual-wrapper">
                         @foreach(var comment in Model.Comments)
                         {
-                            await Html.RenderPartialAsync("_Comment", comment);
+                            await Html.RenderPartialAsync("CommentPartials/_SingleComment", comment);
                         }
 
                         <!--div-- class="reply reply-init">

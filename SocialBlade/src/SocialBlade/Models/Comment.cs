@@ -19,5 +19,6 @@ namespace SocialBlade.Models
         public virtual Post Post { get; set; }
         public virtual Comment ParentComment { get; set; }
         public virtual List<Comment> Replies { get; set; }
+        public virtual DateTime DateCreated { get; set; }
     }
 }
