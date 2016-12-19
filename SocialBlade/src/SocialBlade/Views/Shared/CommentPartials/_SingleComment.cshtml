@@ -9,7 +9,7 @@
     <div class="comment-wrapper z-depth-1">
         <span class="commenter">@Model.AuthorFullName</span>
         <abbr title="@Model.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
-            <span class="flow-text right time">@Model.CreateTime.FormatDate()</span>
+            <span class="flow-text right time" style="margin-top: 0.5vh; color: #808080">@Model.CreateTime.FormatDate()</span>
         </abbr>
         <hr>
         <p>@Model.Content</p>

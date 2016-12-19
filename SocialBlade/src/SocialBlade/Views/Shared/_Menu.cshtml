@@ -107,7 +107,7 @@
     </div>
 </div>
 
-<div class="fixed-action-btn">
+<div class="fixed-action-btn" style="display: @(pageName.Contains("Edit") || pageName.Contains("Create") ? "none;" : "block;")">
     <a class="btn-floating btn-large red">
         <i class="large material-icons">perm_identity</i>
     </a>

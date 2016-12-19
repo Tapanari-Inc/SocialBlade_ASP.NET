@@ -309,3 +309,13 @@ body {
 .chide {
     display: none;
 }
+.btnPostComment {
+    color: black;
+    cursor: pointer;
+    transition: .6s ease-in-out;
+}
+
+.btnPostComment:hover {
+    color: #212121;
+    transform: scale(1.3) rotate(360deg);
+}
