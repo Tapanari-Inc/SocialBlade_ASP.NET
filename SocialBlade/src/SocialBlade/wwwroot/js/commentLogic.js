@@ -35,6 +35,7 @@ function startProcedureForCommenting(commentDiv) {
         getSubmitCommentContent(commentDiv),
         function (data) {
             getPostComments(getPostId(), function (comments) {
+                console.log(comments);
                 $(".commentActual-wrapper").empty();
                 $(".commentActual-wrapper").append(comments);
             } );

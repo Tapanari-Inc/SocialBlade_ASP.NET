@@ -22,6 +22,7 @@ namespace SocialBlade.Models.PostViewModels
             Dislikes = comment.Dislikes;
             ParentCommentId = comment.ParentComment?.ID;
             RepliesCount = comment.Replies?.Count??0;
+            CreateTime = comment.DateCreated;
 
         }
         public Guid Id { get; set; }
@@ -33,5 +34,6 @@ namespace SocialBlade.Models.PostViewModels
         public Guid? ParentCommentId { get; set; }
         public int RepliesCount { get; set; }
         public List<Comment> Replies { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

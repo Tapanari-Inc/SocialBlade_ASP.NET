@@ -1,3 +1,5 @@
+@using System.Threading.Tasks
+@using SocialBlade.Utilities
 @model SocialBlade.Models.PostViewModels.CommentViewModel
 
 <div class="commentActual row">
@@ -6,9 +8,14 @@
     </div>
     <div class="comment-wrapper z-depth-1">
         <span class="commenter">@Model.AuthorFullName</span>
+        <abbr title="@Model.CreateTime.ToString("dd-MMMM-yyyy HH:mm")" style="border: none;">
+            <span class="flow-text right time">@Model.CreateTime.FormatDate()</span>
+        </abbr>
         <hr>
         <p>@Model.Content</p>
-        <span class="showComment inline shc-1">Show replies</span>
-        <span class="hideComment inline shc-1 chide">Hide replies</span>
+        @*
+            <span class="showComment inline shc-1">Show replies</span>
+            <span class="hideComment inline shc-1 chide">Hide replies</span>
+        *@
     </div>
 </div>

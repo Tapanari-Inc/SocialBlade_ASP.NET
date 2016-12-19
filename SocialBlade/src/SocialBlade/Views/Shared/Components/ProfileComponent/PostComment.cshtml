@@ -1,7 +1,7 @@
 @model ProfileViewModel
 
 <div>
-    <div class="commentActual-wrapper">
+    <div class="commentActual-wrapper-post">
         <div class="commentActual">
             <div class="cpw">
                 <img class="commentPic" src="@Model.ProfilePictureUrl">
@@ -12,9 +12,9 @@
                 <span class="hidden danger validationMessage">Comment must not be empty!</span>
                 <div class="others">
                     <input type="text" class="write-comment">
-                    <div class="submit-icon">
+                    <a class="submit-icon" href="#">
                         <i class="fa fa-paper-plane fa-2x btnPostComment" aria-hidden="true"></i>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
