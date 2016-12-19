@@ -6,13 +6,6 @@
     <div class="post-header">
         <div class="row">
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
-            <div class="col s4 time-container">
-                <div class="btn btn-flat waves-effect time">
-                    <span class="fol">Follow</span>
-                    <span class="already" style="display: none;">Following</span>
-                    <span class="unfollow" style="display: none;">Unfollow</span>
-                </div>
-            </div>
         </div>
     </div>
     <div class="post-content">
