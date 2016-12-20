@@ -1,7 +1,13 @@
 ﻿body {
+}
+.img {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
     background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
     background-size: cover;
-    color: #CCC;
+    z-index: -1;
+    top: 0;
 }
 
 .custom-margin {
@@ -14,6 +20,10 @@
 
 .validate {
     padding-left: 10px;
+}
+
+input {
+    color: white;
 }
 
 @media (max-width: 767px) {

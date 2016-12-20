@@ -1,17 +1,26 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+@section stylesheets {
+    <link href="~/css/styleCreate.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/js/initCreate.js"></script>
+}
+<div class="create-wrapper" style="background-color: white;">
+    <div class="create-header">
+        <div class="row center" style="margin-bottom: 0px;">
+            <h3 style="color: black;">За проекта:</h3>
+        </div>
+    </div>
+    <div class="create-content center">
+        <img class="map" src="https://s28.postimg.org/v71wk417h/tapanari.jpg">
+    </div>
+    <div class="create-header center">
+    </div>
+</div>
+<div class="submit-wrapper">
+    <button class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh; margin-bottom: 2vh;"><a style="text-decoration: none; color: white;" asp-area="" asp-controller="Home" asp-action="Index">Върни се обратно</a></button>
+</div>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
