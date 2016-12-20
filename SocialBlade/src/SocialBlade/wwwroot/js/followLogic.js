@@ -1,4 +1,5 @@
-﻿$('.follow-btn').click(function () {
+﻿
+$('.follow-btn').click(function () {
     let me = $(this);
     $.ajax(
         {

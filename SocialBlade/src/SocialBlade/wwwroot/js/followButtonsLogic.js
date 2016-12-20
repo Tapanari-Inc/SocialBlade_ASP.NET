@@ -17,18 +17,14 @@ $('.follow-btn').click(function () {
 });
 
 
-function toggleFollowButton(btn) {
-    if (btn.hasClass('following')) {
-        btn.find('.unfollow').hide();
-        btn.find('.fol').show();
-        btn.attr('style', '');
-        btn.removeClass('following');
-    } else {
-        btn.addClass('following');
-        btn.find('.fol').hide();
-        btn.find('.already').show();
+function toggleFollowButton() {
+    if ($('.follow-btn').hasClass('following')) {
+        $('.follow-btn').removeClass('following');
     }
-};
+    else {
+        $('.follow-btn').addClass('following');
+    }
+}
 
 $('.follow-btn').mouseenter(function () {
     if ($(this).hasClass('following')) {

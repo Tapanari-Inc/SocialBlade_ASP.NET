@@ -1,5 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="js/commentlogic.js" />
 /// <reference path="js/followbuttonslogic.js" />
 /// <reference path="js/followlogic.js" />
 /// <reference path="js/initcreate.js" />
