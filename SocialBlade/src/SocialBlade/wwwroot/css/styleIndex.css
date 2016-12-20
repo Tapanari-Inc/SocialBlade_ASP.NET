@@ -5,10 +5,22 @@ body {
     overflow: hidden;
     background: #535a5b;
 }
-
+.memT {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    color: white;
+}
 .indexPic {
     width: 10vh;
     height: 10vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: center;
+    margin-top: 5vh;
 }
 /*Initial Page*/
 .landingPage {
@@ -45,9 +57,10 @@ body {
     text-align: center;
     color: #FFF;
     font-size: 7vh;
-    margin-bottom: 0;
+    margin-bottom: -5vh;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 15vh;
 }
 
 .lgt {
@@ -66,12 +79,14 @@ body {
     border: 3px solid #ccc;
     transition: 0.3s ease-in-out;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
 }
 
     .login:hover {
         border: 3px solid #222;
         border-radius: 0px;
         transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.55);
     }
 
 .getStarted {
@@ -163,7 +178,7 @@ table {
     width: 25vh;
 }
 
-. .smallPic {
+.smallPic {
     height: 8vh;
     width: 8vh;
     border-radius: 50%;
