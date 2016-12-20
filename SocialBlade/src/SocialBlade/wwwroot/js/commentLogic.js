@@ -27,8 +27,7 @@ function afterSubmitProcedure(submitCommentDiv) {
     submitCommentDiv.find(".write-comment").val("");
     let comments = $(".post").find(".commentActual");
     setPostCommentsCount(comments.size());
-
-    $("#toBottom").click();
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 
