@@ -24,7 +24,10 @@ function clearPosts(authorId) {
         let id = $(post).find(".author-id").val();
         if (id) {
             if (id === authorId) {
-                $(post).remove();
+                fadeOutAndRemove($(post),
+                    function() {
+                        refreshGrid();
+                    });
             }
         }
     };
@@ -33,8 +36,40 @@ function clearPosts(authorId) {
         let id = $(smallPost).find(".author-id").val();
         if (id) {
             if (id === authorId) {
-                $(smallPost).remove();
+                fadeOutAndRemove($(smallPost),
+                    function () {
+                        refreshGrid();
+                    });
             }
         }
     };
+    
+
+}
+
+$(".follow-btn").mouseenter(function (event) {
+    let me = $(this);
+    me.addClass("explore-following");
+});
+$(".follow-btn").mouseleave(function (event) {
+    let me = $(this);
+    if (me.hasClass("explore-following")) {
+        me.removeClass("explore-following");
+    }
+});
+
+function fadeOutAndRemove(element,callback) {
+    element.fadeOut(300, function () {
+        element.remove();
+        callback();
+    });
+}
+
+function refreshGrid() {
+    $('.content-ex').masonry({
+        itemSelector: '.post',
+        columnWidth: 420,
+        gutter: 10,
+        fitWidth: true
+    });
 }

@@ -38,7 +38,11 @@ function startProcedureForCommenting(commentDiv) {
                 $(".commentActual-wrapper").empty();
                 $(".commentActual-wrapper").append(comments);
 
-                window.scrollTo(0, document.body.scrollHeight);
+                //window.scrollTo(0, document.body.scrollHeight);
+
+                $('html, body').animate({
+                    scrollTop: $("#bottom").offset().top
+                }, 2000);
             } );
         });
 }

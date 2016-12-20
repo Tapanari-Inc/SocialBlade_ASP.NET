@@ -37,5 +37,10 @@ namespace SocialBlade.Utilities
             }
             return null;
         }
+
+        public static string GetDefaultProfilePictureUrl()
+        {
+            return "default.jpg";
+        }
     }
 }
