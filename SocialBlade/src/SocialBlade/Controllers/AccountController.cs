@@ -279,7 +279,6 @@ namespace SocialBlade.Controllers
             if(relation != null)
             {
                 Db.UserRelations.Remove(relation);
-                result.State = 0;
             }
             else
             {
@@ -288,7 +287,6 @@ namespace SocialBlade.Controllers
                     Follower = currentUser,
                     Followee = followedUser
                 });
-                result.State = 1;
             }
             await Db.SaveChangesAsync();
             result.FollowersCount = (Db.UserRelations.Count(x => x.Followee.Id == userId) - 1).Format();
