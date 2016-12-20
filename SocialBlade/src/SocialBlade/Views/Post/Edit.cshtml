@@ -39,7 +39,9 @@
             </div>
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                <img src="@Model.ImageUrl" width="90" height="90" class="uploaded-image" />
+                <div class="upload-wrapper tooltipped">
+                    <img src="@Model.ImageUrl" class="uploaded-image tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to remove image" />
+                </div>
                 <input type="hidden" asp-for="ImageUrl">//Asene stilizirai go tui plz bate
             }
         </div>

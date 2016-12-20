@@ -27,4 +27,5 @@ $(".uploaded-image").click(function () {
     console.log('gosho');
     $('#ImageUrl').val("");
     $('.uploaded-image').remove();
+    $('.upload-wrapper').remove();
 });
