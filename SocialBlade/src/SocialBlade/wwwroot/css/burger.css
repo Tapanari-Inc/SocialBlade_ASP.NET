@@ -415,7 +415,7 @@ body {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 99;
+	z-index:-1;
 	-webkit-animation: snow 10s linear infinite;
 	-moz-animation: snow 10s linear infinite;
 	-ms-animation: snow 10s linear infinite;
