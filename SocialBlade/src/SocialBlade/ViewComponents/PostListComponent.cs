@@ -45,8 +45,11 @@ namespace SocialBlade.ViewComponents
                 {
                     Reaction = HelperClass.GetReaction(x, user),
                     ImageUrl = HelperClass.GetPostImagePath(x.ImageUrl),
-                    IsFollowed = followingIds.Contains(x.Author.Id)
-                };
+                    //IsFollowed = followingIds.Contains(x.Author.Id)
+                    IsFollowed = _context.UserRelations
+                    .SingleOrDefault(u => u.Followee.Id == user.Id
+                    && u.Follower.Id == _userManager.GetUserId(HttpContext.User)) != null
+            };
             });
 
             return View(GetViewName(type), model);
