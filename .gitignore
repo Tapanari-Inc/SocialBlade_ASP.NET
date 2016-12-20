@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /SocialBlade/src/SocialBlade/wwwroot/user_content/post_images
+/SocialBlade/src/SocialBlade/Properties/PublishProfiles
