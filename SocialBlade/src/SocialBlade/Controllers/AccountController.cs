@@ -123,7 +123,10 @@ namespace SocialBlade.Controllers
 
                     Db.UserRelations.Add(new UserRelation { Follower = user, Followee = user });
                     Db.SaveChanges();
-
+                    if (returnUrl==null)
+                    {
+                        return RedirectToAction("Explore", "Post");
+                    }
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -364,12 +367,9 @@ namespace SocialBlade.Controllers
                 currentUser.LastName = profileViewModel.LastName;
                 currentUser.PhoneNumber = profileViewModel.PhoneNumber;
                 currentUser.Email = profileViewModel.Email;
-                currentUser.ProfilePictureUrl = profileViewModel.ProfilePictureUrl;
 
                 if(profileViewModel.Image != null)
                     currentUser.ProfilePictureUrl =await UploadImageAsync(profileViewModel.Image);
-                else if(currentUser.ProfilePictureUrl == null)
-                    currentUser.ProfilePictureUrl = "";
 
 
 

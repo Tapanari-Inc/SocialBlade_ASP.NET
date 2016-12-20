@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SocialBlade.Utilities;
 
 namespace SocialBlade.Models.PostViewModels
 {
@@ -16,7 +17,7 @@ namespace SocialBlade.Models.PostViewModels
         {
             Id = comment.ID;
             AuthorFullName = $"{comment.Author.FirstName} {comment.Author.LastName}";
-            AuthorProfilePictureUrl = comment.Author.ProfilePictureUrl;
+            AuthorProfilePictureUrl = HelperClass.GetPostImagePath( comment.Author.ProfilePictureUrl,HelperClass.PROFILE_IMAGES_PATH);
             AuthorId = comment.Author.Id;
             Content = comment.Content;
             Likes = comment.Likes;
