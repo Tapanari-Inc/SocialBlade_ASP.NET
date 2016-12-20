@@ -17,6 +17,7 @@ namespace SocialBlade.Models.PostViewModels
             Id = comment.ID;
             AuthorFullName = $"{comment.Author.FirstName} {comment.Author.LastName}";
             AuthorProfilePictureUrl = comment.Author.ProfilePictureUrl;
+            AuthorId = comment.Author.Id;
             Content = comment.Content;
             Likes = comment.Likes;
             Dislikes = comment.Dislikes;
@@ -29,6 +30,7 @@ namespace SocialBlade.Models.PostViewModels
         public string Content { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+        public string AuthorId { get; set; }
         public string AuthorProfilePictureUrl{ get; set; }
         public string AuthorFullName { get; set; }
         public Guid? ParentCommentId { get; set; }
