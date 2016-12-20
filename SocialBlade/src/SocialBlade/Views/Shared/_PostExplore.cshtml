@@ -10,7 +10,7 @@
     <div class="post-header">
         <div class="row">
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
-            @if (pageName != "Details")
+            @if(pageName != "Details")
             {
                 <div class="col s4 time-container">
                     <input class="author-id" type="hidden" value="@Model.AuthorId" />
@@ -30,8 +30,14 @@
         </div>
     </div>
     <div class="post-content">
-        <p class="caption">@Model.Content</p>
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        <p class="caption">
+            @foreach(string line in Model.Content.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                @line
+                <br />
+            }
+        </p>
+        @if(!string.IsNullOrEmpty(Model.ImageUrl))
         {
             <img class="uploadedPic" src="@Model.ImageUrl">
         }

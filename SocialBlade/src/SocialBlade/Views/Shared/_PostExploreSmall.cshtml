@@ -15,7 +15,13 @@
         </div>
     </div>
     <div class="post-content">
-        <p class="caption">@Model.Content</p>
+        <p class="caption">
+            @foreach(string line in Model.Content.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                @line
+                <br />
+            }
+        </p>
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
             <img class="uploadedPic" src="@Model.ImageUrl">

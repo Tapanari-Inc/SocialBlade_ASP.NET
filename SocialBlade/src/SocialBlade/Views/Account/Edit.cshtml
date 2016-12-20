@@ -23,33 +23,33 @@
         <div class="create-content">
             <div asp-validation-summary="All" class="text-danger"></div>
             <i class="material-icons prefix">account_circle</i>
-            <input id="icon_prefix" type="text" value="@Model.FirstName" asp-for="FirstName" class="validate">
-            <label for="icon_prefix">First Name</label>
+            <input id="first-name" type="text" value="@Model.FirstName" asp-for="FirstName" class="validate">
+            <label for="first-name">First Name</label>
             <br />
             <i class="material-icons prefix">account_circle</i>
-            <input id="icon_prefix" type="text" value="@Model.LastName" asp-for="LastName" class="validate">
-            <label for="icon_prefix">Last Name</label>
+            <input id="last-name" type="text" value="@Model.LastName" asp-for="LastName" class="validate">
+            <label for="last-name">Last Name</label>
             <br />
             <i class="material-icons prefix">phone</i>
-            <input id="icon_prefix" type="text" value="@Model.PhoneNumber" asp-for="PhoneNumber" class="validate">
-            <label for="icon_prefix">Phone Number</label>
+            <input id="phone" type="text" value="@Model.PhoneNumber" asp-for="PhoneNumber" class="validate">
+            <label for="phone">Phone Number</label>
             <br />
             <i class="material-icons prefix">email</i>
-            <input id="icon_prefix" type="text" value="@Model.Email" asp-for="Email" class="validate">
-            <label for="icon_prefix">Email Address</label>
+            <input id="email" type="text" value="@Model.Email" asp-for="Email" class="validate">
+            <label for="email">Email Address</label>
             <br />
             <i class="material-icons prefix">contacts</i>
             @*<input id="icon_prefix" type="text" value="@Model.ProfilePictureUrl" asp-for="ProfilePictureUrl" class="validate">*@
             <div class="file-field input-field fileIn">
                 <div class="btn">
                     <span>Upload Image</span>
-                    <input type="file" asp-for="Image" style="color: black;">
+                    <input type="file" asp-for="Image" accept="image/*" style="color: black;">
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" style="color: black;">
                 </div>
             </div>
-            <label for="icon_prefix">Profile Picture URL</label>
+            <label>Profile Picture URL</label>
             
             <br/><br/>
         </div>
