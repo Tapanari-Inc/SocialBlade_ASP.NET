@@ -9,17 +9,17 @@
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
             @if (Model.AuthorId != UserManager.GetUserId(User))
             {
-            <div class="col s4 time-container">
-                <div class="btn btn-flat waves-effect time follow-btn 
+                <div class="col s4 time-container">
+                    <div class="btn btn-flat waves-effect time follow-btn
                    @if (Model.IsFollowed)
                    {
                        @:following
                    }">
-                    <span class="fol">Follow</span>
-                    <span class="already" style="display: none;">Following</span>
-                    <span class="unfollow" style="display: none;">Unfollow</span>
+                        <span class="fol">Follow</span>
+                        <span class="already" style="display: none;">Following</span>
+                        <span class="unfollow" style="display: none;">Unfollow</span>
+                    </div>
                 </div>
-            </div>
             }
             else
             {
