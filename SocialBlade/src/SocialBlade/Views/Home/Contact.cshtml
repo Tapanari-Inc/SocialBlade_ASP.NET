@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Contact";
 }
 @section stylesheets {
     <link href="~/css/styleCreate.css" rel="stylesheet" />
@@ -7,71 +7,20 @@
 @section scripts{
     <script src="~/js/initCreate.js"></script>
 }
-<div class="create-wrapper">
+<div class="create-wrapper" style="background-color: white;">
     <div class="create-header">
         <div class="row center" style="margin-bottom: 0px;">
-            <h3>За проекта:</h3>
+            <h3 style="color: black;">За проекта:</h3>
         </div>
     </div>
-    <div class="create-content">
-        <table>
-            <thead>
-                <tr>
-                    <th data-field="id">Какво представлява проектът SocialBlade?</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>SocialBlade представлява социална мрежа, която дава възможността на всеки потребител да намира приятели, да споделя интересни преживявания и да коментира под публикациите на своите приятели. Уникалността на проекта се крие в това, че всеки е свободен да изрази мнение и да покаже заинтересованост към някоя от актуалните теми, която неговите приятели споделят.  </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th data-field="id">Как работи SocialBlade?</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>SocialBlade е приложение с функционалност, даваща възможност на потребителя по изключително лесен и интуитивен начин да създава постове, да коментира и да последва други потребители. Интерфейсът на приложението се адаптира към резолюцията на устройството, което го възпроизвежда, което позволява на потребителя да работи както от домашния настолен компютър така и от смартфона.  </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th data-field="id">Как е създаден проектът SocialBlade?</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>SocialBlade е приложение, което е създадено с помощта на ASP.NET и Entity Framework - за back-end-a и HTML5, CSS3, JavaScript + AJAX за front-end-a. Като front-end framework е използван Materialize.CSS. </td>
-                </tr>
-            </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                    <th data-field="id">Кой е създателят на проекта SocialBlade?</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Хората, създали проекта SocialBlade представляват група от шестима души. Имената на авторите са: Кристиян Памидов, Боби Рачков, Иван Йочев, Георги Мутафчиев, Асен Георгиев, Кристиан Кирилов. </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="create-content center">
+        <img src="../tapanari.JPG">
     </div>
     <div class="create-header center">
     </div>
 </div>
 <div class="submit-wrapper">
-    <button class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh; margin-bottom: 2vh;"><a style="text-decoration: none; color: white;" asp-area="" asp-controller="Home" asp-action="Index">Върни се обратно</a></button>
+    <button class="btn-flat waves-effect waves-gray edit" style="margin-right: 1vh;"><a style="text-decoration: none; color: white;" asp-area="" asp-controller="Home" asp-action="Index">Върни се обратно</a></button>
 </div>
 
 
