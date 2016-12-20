@@ -8,7 +8,13 @@
     transition: 0.3s ease-in-out;
     z-index: 100;
 }
-
+.caption {
+    font-size: 1.1rem !important;
+}
+.leftM {
+    left: 20px !important;
+    bottom: 20px !important;
+}
 .burger {
     cursor: pointer;
 }
@@ -79,7 +85,7 @@
 
 .content {
     position: relative;
-    top: 10vh;
+    top: 12vh;
     margin: 0 auto;
     max-width: 600px;
     margin-bottom: 5vh;

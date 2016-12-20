@@ -156,3 +156,18 @@ input[type=text] {
 .map {
     width: 100%;
 }
+.upload-wrapper {
+    width: 10vh;
+    height: 10vh;
+    padding: 0.5vh;
+    background: #dbdbdb;
+    position: relative;
+    margin-bottom: -1vh;
+    margin-top: 1vh;
+    cursor: pointer;
+}
+.uploaded-image {
+    position: relative;
+    width: 9vh;
+    height: 9vh;
+}
