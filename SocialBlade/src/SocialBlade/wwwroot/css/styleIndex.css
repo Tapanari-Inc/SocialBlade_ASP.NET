@@ -6,6 +6,10 @@ body {
     background: #535a5b;
 }
 
+.indexPic {
+    width: 10vh;
+    height: 10vh;
+}
 /*Initial Page*/
 .landingPage {
     z-index: 100;
@@ -60,7 +64,6 @@ body {
 
 .login {
     border: 3px solid #ccc;
-    background: green;
     transition: 0.3s ease-in-out;
     overflow: hidden;
 }
@@ -69,7 +72,6 @@ body {
         border: 3px solid #222;
         border-radius: 0px;
         transform: scale(1.1);
-        background: darkgreen;
     }
 
 .getStarted {
