@@ -10,7 +10,7 @@
             @if (Model.AuthorId != UserManager.GetUserId(User))
             {
             <div class="col s4 time-container">
-                <div class="btn btn-flat waves-effect time btn-following 
+                <div class="btn btn-flat waves-effect time follow-btn 
                    @if (Model.IsFollowed)
                    {
                        @:following
