@@ -4,7 +4,9 @@
 
 <div class="commentActual row">
     <div class="cpw">
-        <img class="commentPic" src="@Model.AuthorProfilePictureUrl">
+        <a asp-controller="Account" asp-action="Details" asp-route-id="@Model.AuthorId">
+            <img class="commentPic" src="@Model.AuthorProfilePictureUrl">
+        </a>
     </div>
     <div class="comment-wrapper z-depth-1">
         <span class="commenter">@Model.AuthorFullName</span>
