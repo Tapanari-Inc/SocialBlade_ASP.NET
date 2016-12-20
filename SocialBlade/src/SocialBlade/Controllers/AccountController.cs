@@ -34,7 +34,7 @@ namespace SocialBlade.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILoggerFactory loggerFactory,
-            ApplicationDbContext dbContext)
+            ApplicationDbContext dbContext )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -47,7 +47,7 @@ namespace SocialBlade.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login( string returnUrl = null )
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -58,15 +58,15 @@ namespace SocialBlade.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login( LoginViewModel model, string returnUrl = null )
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
@@ -84,7 +84,7 @@ namespace SocialBlade.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register( string returnUrl = null )
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -95,14 +95,14 @@ namespace SocialBlade.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register( RegisterViewModel model, string returnUrl = null )
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if(result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
@@ -139,14 +139,14 @@ namespace SocialBlade.Controllers
         // GET: /Account/ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        public async Task<IActionResult> ConfirmEmail( string userId, string code )
         {
-            if (userId == null || code == null)
+            if(userId == null || code == null)
             {
                 return View("Error");
             }
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            if(user == null)
             {
                 return View("Error");
             }
@@ -168,12 +168,12 @@ namespace SocialBlade.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> ForgotPassword( ForgotPasswordViewModel model )
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if(user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -205,7 +205,7 @@ namespace SocialBlade.Controllers
         // GET: /Account/ResetPassword
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ResetPassword(string code = null)
+        public IActionResult ResetPassword( string code = null )
         {
             return code == null ? View("Error") : View();
         }
@@ -215,20 +215,20 @@ namespace SocialBlade.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<IActionResult> ResetPassword( ResetPasswordViewModel model )
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View(model);
             }
             var user = await _userManager.FindByNameAsync(model.Email);
-            if (user == null)
+            if(user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-            if (result.Succeeded)
+            if(result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
@@ -247,11 +247,11 @@ namespace SocialBlade.Controllers
 
 
         [HttpGet]
-        public IActionResult Details(string id)
+        public IActionResult Details( string id )
         {
             id = string.IsNullOrEmpty(id) ? _userManager.GetUserId(User) : id;
             var user = Db.Users.SingleOrDefault(x => x.Id == id);
-            if (user != null)
+            if(user != null)
             {
                 return View(model: user.Id);
             }
@@ -262,21 +262,24 @@ namespace SocialBlade.Controllers
         }
 
         [HttpPost]
-        public async Task<dynamic> ToggleFollow(string userId)
+        public async Task<dynamic> ToggleFollow( string userId )
         {
             dynamic result = new ExpandoObject();
+            if(userId == null) return result.Status = "400";
+
             ApplicationUser followedUser = await Db.Users.SingleOrDefaultAsync(x => x.Id == userId);
-            if (followedUser == null)
-                return result.Status = "500";
+            if(followedUser == null)
+                return result.Status = "400";
             ApplicationUser currentUser = await _userManager.GetUserAsync(User);
             var relation = Db.UserRelations
                 .Include(x => x.Follower)
                 .Include(x => x.Followee)
                 .SingleOrDefault(x => x.Follower.Id == currentUser.Id &&
                 x.Followee.Id == followedUser.Id);
-            if (relation != null)
+            if(relation != null)
             {
                 Db.UserRelations.Remove(relation);
+                result.State = 0;
             }
             else
             {
@@ -285,6 +288,7 @@ namespace SocialBlade.Controllers
                     Follower = currentUser,
                     Followee = followedUser
                 });
+                result.State = 1;
             }
             await Db.SaveChangesAsync();
             result.FollowersCount = (Db.UserRelations.Count(x => x.Followee.Id == userId) - 1).Format();
@@ -293,9 +297,9 @@ namespace SocialBlade.Controllers
         }
         #region Helpers
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrors( IdentityResult result )
         {
-            foreach (var error in result.Errors)
+            foreach(var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
@@ -306,9 +310,9 @@ namespace SocialBlade.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult RedirectToLocal( string returnUrl )
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if(Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
@@ -327,14 +331,14 @@ namespace SocialBlade.Controllers
             var currentUser = Db.Users
                 .First(x => x.UserName == User.Identity.Name);
 
-            var editProfileViewModel=new EditProfileViewModel(currentUser);
+            var editProfileViewModel = new EditProfileViewModel(currentUser);
 
             return View(editProfileViewModel);
         }
 
         //POST: Edit
         [HttpPost]
-        public ActionResult Edit(EditProfileViewModel profile )
+        public ActionResult Edit( EditProfileViewModel profile )
         {
             var currentUser = Db.Users
                 .First(x => x.UserName == User.Identity.Name);

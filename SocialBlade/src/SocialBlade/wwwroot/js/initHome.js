@@ -3,10 +3,6 @@ $('.burger').click(function () {
     $('.menu').toggleClass('show');
 });
 
-$('.like-btn').click(function () {
-    $(this).toggleClass('liked');
-});
-
 //Scroll thing
 var mywindow = $(window);
 var mypos = mywindow.scrollTop();

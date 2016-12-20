@@ -2436,6 +2436,7 @@ input::-moz-focus-inner {
  */
 input {
   line-height: normal;
+  color: white;
 }
 
 /**
@@ -3302,6 +3303,7 @@ nav ul a span.badge {
 
 .center, .center-align {
   text-align: center;
+  color: white;
 }
 
 .left {
