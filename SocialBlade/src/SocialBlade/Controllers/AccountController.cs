@@ -17,16 +17,22 @@ using SocialBlade.Models.Common;
 using SocialBlade.Models.PostViewModels;
 using SocialBlade.Utilities;
 using System.Dynamic;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialBlade.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+
+        private const string PROFILE_IMAGES_PATH = "user_content/profile_images";
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private IHostingEnvironment _hostingEnvironment;
         private ApplicationDbContext Db { get; set; }
 
         public AccountController(
@@ -34,13 +40,15 @@ namespace SocialBlade.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILoggerFactory loggerFactory,
-            ApplicationDbContext dbContext )
+            ApplicationDbContext dbContext,
+            IHostingEnvironment hostingEnvironment )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
             Db = dbContext;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         //
@@ -115,7 +123,10 @@ namespace SocialBlade.Controllers
 
                     Db.UserRelations.Add(new UserRelation { Follower = user, Followee = user });
                     Db.SaveChanges();
-
+                    if (returnUrl==null)
+                    {
+                        return RedirectToAction("Explore", "Post");
+                    }
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -279,7 +290,6 @@ namespace SocialBlade.Controllers
             if(relation != null)
             {
                 Db.UserRelations.Remove(relation);
-                result.State = 0;
             }
             else
             {
@@ -288,7 +298,6 @@ namespace SocialBlade.Controllers
                     Follower = currentUser,
                     Followee = followedUser
                 });
-                result.State = 1;
             }
             await Db.SaveChangesAsync();
             result.FollowersCount = (Db.UserRelations.Count(x => x.Followee.Id == userId) - 1).Format();
@@ -331,27 +340,54 @@ namespace SocialBlade.Controllers
             var currentUser = Db.Users
                 .First(x => x.UserName == User.Identity.Name);
 
-            var editProfileViewModel = new EditProfileViewModel(currentUser);
+            var editProfileViewModel = new EditProfileViewModel(currentUser)
+            {
+                ProfilePictureUrl = HelperClass.GetPostImagePath(currentUser.ProfilePictureUrl,HelperClass.PROFILE_IMAGES_PATH)
+            };
+
 
             return View(editProfileViewModel);
         }
 
         //POST: Edit
         [HttpPost]
-        public ActionResult Edit( EditProfileViewModel profile )
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit( EditProfileViewModel profileViewModel )
         {
-            var currentUser = Db.Users
-                .First(x => x.UserName == User.Identity.Name);
+            if(ModelState.IsValid)
+            {
 
-            currentUser.FirstName = profile.FirstName;
-            currentUser.LastName = profile.LastName;
-            currentUser.PhoneNumber = profile.PhoneNumber;
-            currentUser.Email = profile.Email;
-            currentUser.ProfilePictureUrl = profile.ProfilePictureUrl;
 
-            Db.SaveChanges();
 
-            return RedirectToAction("Details");
+
+                var currentUser = Db.Users
+                    .First(x => x.UserName == User.Identity.Name);
+
+                currentUser.FirstName = profileViewModel.FirstName;
+                currentUser.LastName = profileViewModel.LastName;
+                currentUser.PhoneNumber = profileViewModel.PhoneNumber;
+                currentUser.Email = profileViewModel.Email;
+
+                if(profileViewModel.Image != null)
+                    currentUser.ProfilePictureUrl =await UploadImageAsync(profileViewModel.Image);
+
+
+
+                await Db.SaveChangesAsync();
+
+                return RedirectToAction("Details");
+            }
+            return View("Edit", profileViewModel);
+        }
+        private async Task<string> UploadImageAsync( IFormFile file )
+        {
+            Directory.CreateDirectory(HelperClass.GetAbsolutePath(PROFILE_IMAGES_PATH, _hostingEnvironment));
+            string imageFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            string imagePath = Path.Combine(PROFILE_IMAGES_PATH, imageFileName);
+            string uploadPath = HelperClass.GetAbsolutePath(imagePath, _hostingEnvironment);
+            using(Stream uploadStream = new FileStream(uploadPath, FileMode.Create))
+                await file.CopyToAsync(uploadStream);
+            return imageFileName;
         }
     }
 }

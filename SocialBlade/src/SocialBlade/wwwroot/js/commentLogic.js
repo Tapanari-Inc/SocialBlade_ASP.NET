@@ -27,8 +27,6 @@ function afterSubmitProcedure(submitCommentDiv) {
     submitCommentDiv.find(".write-comment").val("");
     let comments = $(".post").find(".commentActual");
     setPostCommentsCount(comments.size());
-
-    $("#toBottom").click();
 }
 
 
@@ -39,6 +37,12 @@ function startProcedureForCommenting(commentDiv) {
             getPostComments(getPostId(), function (comments) {
                 $(".commentActual-wrapper").empty();
                 $(".commentActual-wrapper").append(comments);
+
+                //window.scrollTo(0, document.body.scrollHeight);
+
+                $('html, body').animate({
+                    scrollTop: $("#bottom").offset().top
+                }, 2000);
             } );
         });
 }

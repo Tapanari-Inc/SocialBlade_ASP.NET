@@ -13,10 +13,12 @@ namespace SocialBlade.Utilities
 {
     public static class HelperClass
     {
-        public static string GetPostImagePath( string imageFileName, string POST_IMAGES_PATH = "user_content/post_images" )
+
+        public const string PROFILE_IMAGES_PATH = "user_content/profile_images";
+        public static string GetPostImagePath( string imageFileName, string IMAGES_PATH = "user_content/post_images" )
         {
             if(!string.IsNullOrEmpty(imageFileName))
-                return "/" + POST_IMAGES_PATH + "/" + imageFileName;
+                return "/" + IMAGES_PATH + "/" + imageFileName;
             return string.Empty;
         }
         public static string GetAbsolutePath( string relativePath, IHostingEnvironment hostingEnvironment )
@@ -34,6 +36,11 @@ namespace SocialBlade.Utilities
                 return false;
             }
             return null;
+        }
+
+        public static string GetDefaultProfilePictureUrl()
+        {
+            return "default.jpg";
         }
     }
 }

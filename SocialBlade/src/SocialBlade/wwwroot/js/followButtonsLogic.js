@@ -1,8 +1,7 @@
 ﻿
 $('.follow-btn').click(function () {
     let me = $(this);
-    let id = me.closest('.post-header').find('#ID').val();
-    console.log(id);
+    let id = me.prev().val();
     $.ajax(
         {
             type: "POST",
@@ -10,35 +9,67 @@ $('.follow-btn').click(function () {
             data: { 'userId': id },
             success: function (data) {
                 if (data.Status === '200') {
-                    toggleFollowButton(me);
+                    clearPosts(id);
                 }
             }
         });
 });
 
+function clearPosts(authorId) {
+    let body = $("body");
+    let posts = body.find(".post");
+    let smallPosts = body.find(".post-small");
+    for (let i = 0; i < posts.size() ; i++) {
+        let post = posts[i];
+        let id = $(post).find(".author-id").val();
+        if (id) {
+            if (id === authorId) {
+                fadeOutAndRemove($(post),
+                    function() {
+                        refreshGrid();
+                    });
+            }
+        }
+    };
+    for (let i = 0; i < smallPosts.size() ; i++) {
+        let smallPost = smallPosts[i];
+        let id = $(smallPost).find(".author-id").val();
+        if (id) {
+            if (id === authorId) {
+                fadeOutAndRemove($(smallPost),
+                    function () {
+                        refreshGrid();
+                    });
+            }
+        }
+    };
+    
 
-function toggleFollowButton() {
-    if ($('.follow-btn').hasClass('following')) {
-        $('.follow-btn').removeClass('following');
-    }
-    else {
-        $('.follow-btn').addClass('following');
-    }
 }
 
-$('.follow-btn').mouseenter(function () {
-    if ($(this).hasClass('following')) {
-        $(this).find('.already').hide();
-        $(this).find('.unfollow').show();
-        $(this).css("background", "red");
-        $(this).css("color", "#eee");
+$(".follow-btn").mouseenter(function (event) {
+    let me = $(this);
+    me.addClass("explore-following");
+});
+$(".follow-btn").mouseleave(function (event) {
+    let me = $(this);
+    if (me.hasClass("explore-following")) {
+        me.removeClass("explore-following");
     }
 });
 
-$('.follow-btn').mouseleave(function () {
-    if ($(this).hasClass('following')) {
-        $(this).find('.unfollow').hide();
-        $(this).find('.already').show();
-        $(this).css("background", "green");
-    }
-});
+function fadeOutAndRemove(element,callback) {
+    element.fadeOut(300, function () {
+        element.remove();
+        callback();
+    });
+}
+
+function refreshGrid() {
+    $('.content-ex').masonry({
+        itemSelector: '.post',
+        columnWidth: 420,
+        gutter: 10,
+        fitWidth: true
+    });
+}

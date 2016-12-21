@@ -2,24 +2,22 @@
 @using SocialBlade.ViewComponents
 @using SocialBlade.Utilities
 @inject UserManager<ApplicationUser> UserManager
+@{
+    var pageName = ViewContext.RouteData.Values["action"].ToString();
+}
 
 <div class="post z-depth-5">
     <div class="post-header">
         <div class="row">
             @await Component.InvokeAsync(typeof(ProfileComponent), new { viewName = "Post", userId = Model.AuthorId })
-            @if (Model.AuthorId != UserManager.GetUserId(User))
+            @if(pageName != "Details")
             {
-            <div class="col s4 time-container">
-                <div class="btn btn-flat waves-effect time follow-btn 
-                   @if (Model.IsFollowed)
-                   {
-                       @:following
-                   }">
-                    <span class="fol">Follow</span>
-                    <span class="already" style="display: none;">Following</span>
-                    <span class="unfollow" style="display: none;">Unfollow</span>
+                <div class="col s4 time-container">
+                    <input class="author-id" type="hidden" value="@Model.AuthorId" />
+                    <div class="btn btn-flat waves-effect time follow-btn">
+                        <span class="fol">Follow</span>
+                    </div>
                 </div>
-            </div>
             }
             else
             {
@@ -32,8 +30,14 @@
         </div>
     </div>
     <div class="post-content">
-        <p class="caption">@Model.Content</p>
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        <p class="caption">
+            @foreach(string line in Model.Content.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                @line
+                <br />
+            }
+        </p>
+        @if(!string.IsNullOrEmpty(Model.ImageUrl))
         {
             <img class="uploadedPic" src="@Model.ImageUrl">
         }

@@ -28,10 +28,10 @@ namespace SocialBlade.ViewComponents
             _signInManager = signInManager;
             Db = dbContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync(string viewName, string userId = null)
+        public async Task<IViewComponentResult> InvokeAsync( string viewName, string userId = null )
         {
             ApplicationUser user;
-            if (string.IsNullOrEmpty(userId))
+            if(string.IsNullOrEmpty(userId))
             {
                 user = (await _userManager.GetUserAsync(HttpContext.User));
             }
@@ -40,7 +40,7 @@ namespace SocialBlade.ViewComponents
                 user = Db.Users.Single(x => x.Id == userId);
             }
             ProfileViewModel model = null;
-            if (user == null)
+            if(user == null)
             {
                 await _signInManager.SignOutAsync();
             }
@@ -50,6 +50,7 @@ namespace SocialBlade.ViewComponents
                 int followers = Db.UserRelations.Count(x => x.Followee.Id == user.Id) - 1;
                 int following = Db.UserRelations.Count(x => x.Follower.Id == user.Id) - 1;
                 int postsCount = Db.Posts.Include(x => x.Author).Count(x => x.Author.Id == user.Id);
+                model.ProfilePictureUrl = HelperClass.GetPostImagePath(user.ProfilePictureUrl, HelperClass.PROFILE_IMAGES_PATH);
                 model.FollowersCountDisplay = followers.Format();
                 model.FollowingCountDisplay = following.Format();
                 model.PostsCountDisplay = postsCount.Format();
@@ -57,7 +58,7 @@ namespace SocialBlade.ViewComponents
                     .SingleOrDefault(x => x.Followee.Id == user.Id
                     && x.Follower.Id == _userManager.GetUserId(HttpContext.User)) != null;
             }
-            return View(viewName,model);
+            return View(viewName, model);
         }
     }
 }

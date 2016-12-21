@@ -28,7 +28,7 @@
                 {
                     <div class="before-header">
                         <a asp-action="Edit" asp-route-id="@Model.Post.ID" class="btn-flat edit">Edit</a>
-                        <a href="#modal1" class="btn-flat delete modal-trigger">Delete</a>
+                        <a data-target="modal1" class="btn-flat delete modal-trigger">Delete</a>
                     </div>
                 }
                 @{
@@ -76,14 +76,12 @@
                     </div>
                 </div>
             </div>
-            <a class="hidden" id="toBottom" href="#bottom"></a>
-            <div class="hidden" id="bottom"></div>
+            <div id="bottom"></div>
         </div>
     </div>
 </div>
 
-@if(Model.IsThisUserAuthor)
-{
+
     <div id="modal1" class="modal">
         <div class="modal-content center">
             <h4>Are you sure you wish to delete your post?</h4>
@@ -94,7 +92,5 @@
             <form asp-action="Delete" asp-controller="Post" asp-route-id="@Model.Post.ID" id="deleteForm">
                 <a onclick="document.getElementById('deleteForm').submit();" class="modal-action waves-effect waves-green btn-flat edit" style="margin-right: 1vh;">Yes</a>
             </form>
-
         </div>
     </div>
-}

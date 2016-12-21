@@ -31,15 +31,17 @@
             <div class="file-field input-field fileIn">
                 <div class="btn">
                     <span>Upload Image</span>
-                    <input asp-for="Image">
+                    <input asp-for="Image" class="picture-input" accept="image/*" altstyle="color: black;">
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+                    <input class="file-path validate" type="text" style="color: black;">
                 </div>
             </div>
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                <img src="@Model.ImageUrl" width="90" height="90" class="uploaded-image" />
+                <div class="upload-wrapper tooltipped">
+                    <img src="@Model.ImageUrl" class="uploaded-image tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to remove image" />
+                </div>
                 <input type="hidden" asp-for="ImageUrl">//Asene stilizirai go tui plz bate
             }
         </div>

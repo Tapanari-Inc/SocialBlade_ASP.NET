@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialBlade.Models.AccountViewModels
 {
@@ -24,6 +26,9 @@ namespace SocialBlade.Models.AccountViewModels
         public string FullName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        [DataType(DataType.Upload)]
+        [Utilities.FileExtensions("jpeg,png,jpg,gif", "This file type is not allowed!")]
+        public IFormFile Image { get; set; }
         public string ProfilePictureUrl { get; set; }
     }
 }

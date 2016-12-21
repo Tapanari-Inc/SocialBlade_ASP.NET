@@ -1,4 +1,9 @@
-body{
-	font-family: 'Titillium Web', sans-serif;
-	position: flex;
+.img {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/scuffedstatic_dark1400x900.jpg");
+    background-size: cover;
+    z-index: -1;
+    top: 0;
 }

@@ -96,7 +96,14 @@ namespace SocialBlade.Controllers
                     _context.Posts.Add(post);
                 }
                 await _context.SaveChangesAsync();
-                return RedirectToAction("List");
+                if (isNew)
+                {
+                    return RedirectToAction("List");
+                }
+                else
+                {
+                    return RedirectToAction("Details", new {id = post.ID});
+                }
             }
             return View("Edit", postViewModel);
         }
